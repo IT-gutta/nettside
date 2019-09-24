@@ -38,7 +38,7 @@ function control(event){
 
     this.draw = function(){
       c.beginPath();
-      c.fillStyle= "orange";
+      c.fillStyle= "red";
       c.fillRect(this.x, this.y, this.width, this.height);
       c.fill();
     },
@@ -69,10 +69,58 @@ function control(event){
   var kloss = new Rect(200, canvas.height-100, 100, 100)
 
 
+
+
+// Her begynner Henrik sin drittkode for plattformer
+function Plattform(x, y, width, heigth) {
+this.x=x,
+this.y=y,
+this.width=width,
+this.heigth=heigth,
+
+this.draw = function(){
+  c.fillStyle= "black";
+  c.fillRect(this.x, this.y, this.width, 50);
+}
+
+
+
+}
+
+
+
+var pF=[]
+
+for(var k=0; k<10; k++){
+  let x=Math.random()* canvas.width;
+  let y=Math.random()* canvas.height;
+  let width = (Math.random()*50)+150
+
+  for (var i = 0; i < pF.length; i++) {
+    x=nyX
+    y=nyY
+    if (nyY-y < 20) {
+      y=Math.random()* canvas.height;
+    }
+    if (nyY-x < 20) {
+      x=Math.random()* canvas.height;
+    }
+  }
+
+
+  pF.push(new Plattform(x, y, width))
+  console.log(pF)
+}
+
+
+
 function animate(){
   requestAnimationFrame(animate);
   c.clearRect(0, 0, canvas.width, canvas.height)
   kloss.update();
+  for(var i=0; i<pF.length; i++){
+    pF[i].draw();
+  }
 
 }
 animate();
