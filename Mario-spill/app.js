@@ -14,7 +14,14 @@ var controller={
 function control(event){
   var keyS = (event.type=="keydown")?true:false;
   console.log(event.keyCode);
-
+  switch (event.keyCode) {
+    case 39: controller.right= keyS; break;
+    case 68: controller.right= keyS; break;
+    case 37: controller.left= keyS; break;
+    case 65: controller.left= keyS; break;
+    case 38: controller.up= keyS; break;
+    case 87: controller.up= keyS; break;
+  }
   }
 
 
