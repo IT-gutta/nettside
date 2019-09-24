@@ -75,6 +75,8 @@ function control(event){
       this.x+=this.dx;
       this.y+=this.dy;
       this.dy+=this.gravity;
+
+      if(doesHit(this, hinder)){console.log("DE TRAFF")}
       //kjører draw()-funksjonen inni update, slik at klossen blir tegnet på nytt med oppdatert plassering
       // inni animate()-funksjonen.
       this.draw();
@@ -138,6 +140,9 @@ function doesHit(rect1, rect2){
     let hitY= rect1.x-rect2.height;
     if(hitY<rect2.y){
       doesHitY= true;}}
+      if(doesHitX&&doesHitY){return true;}
+
+    return false;
 }
 
 
