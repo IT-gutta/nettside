@@ -16,13 +16,13 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 1em;
   justify-content: center;
-  border: 1px white solid;
   text-align: center;
   font-size: 2em;
 }
 
 .box {
   background-color: rgba(144, 206, 236, 0.42);
+  border-radius: 10%;
 }
 
 
