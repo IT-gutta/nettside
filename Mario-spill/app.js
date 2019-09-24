@@ -76,17 +76,12 @@ function control(event){
       this.y+=this.dy;
       this.dy+=this.gravity;
       //kjører draw()-funksjonen inni update, slik at klossen blir tegnet på nytt med oppdatert plassering
-      // inni animate()-funksjonen. 
+      // inni animate()-funksjonen.
       this.draw();
     }
   }
 
   var kloss = new Rect(200, canvas.height-100, 100, 100)
-
-
-<<<<<<< HEAD
-//kjøres kontunierlig
-=======
 
 
 // Her begynner Henrik sin drittkode for plattformer
