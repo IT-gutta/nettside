@@ -90,7 +90,6 @@ function control(event){
     this.height=height,
     this.f=farge,
 
-<<<<<<< HEAD
     this.draw= function(){
       c.beginPath();
       c.fillStyle= this.f;
@@ -98,7 +97,6 @@ function control(event){
       c.fill();
     }
   }
-=======
 // Her begynner Henrik sin drittkode for plattformer
 function Plattform(x, y, width, heigth) {
 this.x=x,
@@ -114,17 +112,13 @@ this.draw = function(){
 
 
 }
->>>>>>> 475505ec9763bc220b4ec506169dd93d9404ade7
 
 var hinder= new Staticrect(700, canvas.height-200, 200, 200, "green")
 
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 475505ec9763bc220b4ec506169dd93d9404ade7
 
 // Her begynner Henrik sin drittkode for plattformer
 // function Plattform(x, y, width) {
