@@ -12,7 +12,7 @@ function Circle(x, y, r, r2, radians, f){
   this.x1=0,
   this.y1=0,
   this.f=f,
-  this.fart=0.1,
+  this.fart=0.05,
   this.posX=innerWidth/2,
   this.posY=innerHeight/2,
   this.dx=0,
@@ -71,7 +71,7 @@ for(var i=0; i<50; i++){
 function animate(){
   requestAnimationFrame(animate);
   c.beginPath();
-  c.fillStyle = 'rgba(255, 255, 255, 0.03)';
+  c.fillStyle = 'rgba(255, 255, 255, 0.05)';
   c.fillRect(0, 0, innerWidth, innerHeight)
   c.closePath();
   for(var i=0; i<sirkelArr.length; i++){
