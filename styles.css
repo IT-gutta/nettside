@@ -14,7 +14,7 @@ body {
 .forelderMeny {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 1em;
+  grid-gap: 1em;
   justify-content: center;
   border: 1px white solid;
   text-align: center;
