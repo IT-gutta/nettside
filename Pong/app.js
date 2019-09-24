@@ -35,8 +35,8 @@ var ball = {
 var rect1 = {
   x: 30,
   dy: 15,
-  h: 150,
-  y: (canvas.height/2)-(150/2),
+  h: 300,
+  y: (canvas.height/2)-(300/2),
 
   draw: function(){
     c.beginPath();
@@ -51,8 +51,8 @@ var rect1 = {
 var rect2 = {
   x: innerWidth-100,
   dy: 15,
-  h: 150,
-  y: (canvas.height/2)-(150/2),
+  h: 300,
+  y: (canvas.height/2)-(300/2),
 
   draw: function(){
     c.beginPath();
@@ -106,7 +106,7 @@ let sum2=0;
     if(ball.x> rect2.x){
       sum1++; c.beginPath();
       ball.dx=0; ball.dy=0; ball.x=canvas.width/2; ball.y=canvas.height/2; ball.draw();
-      rect1.h=150;rect2.h=150; rectUp=0;
+      rect1.h=300;rect2.h=300; rectUp=0;
     };
     if(rect1.h>40){rect1.h-=rectUp} ;
     if(rect2.h>40){rect2.h-=rectUp} ;
@@ -115,7 +115,7 @@ let sum2=0;
     if(ball.x< rect1.x+20){
          sum2++; c.beginPath();
          ball.dx=0; ball.dy=0; ball.x=canvas.width/2; ball.y=canvas.height/2; ball.draw();
-       rect1.h=150;rect2.h=150; rectUp=0;}
+       rect1.h=300;rect2.h=300; rectUp=0;}
   rectUpdate();
   rect1.draw();
   rect2.draw();
