@@ -76,7 +76,7 @@ function control(event){
       this.y+=this.dy;
       this.dy+=this.gravity;
       for(var i=0; i<hinderArray.length; i++){
-          if(doesHit(this, hinderArray[i])){console.log("DE TRAFF")}
+          if(doesHit(this, hinderArray[i])){resolveCollision(this, hinderArray[i]); console.log("DE TRAFF")}
       }
 
 
@@ -129,6 +129,7 @@ function doesHit(rect1, rect2){
   let doesHitX= false;
   let doesHitY= false;
 
+
   if(distX<0){
     let hitX= rect1.x+rect1.width;
     if(hitX>rect2.x){
@@ -150,7 +151,13 @@ function doesHit(rect1, rect2){
     return false;
 }
 
-function resolveCollision(){}
+function resolveCollision(rect1, rect2){
+  if(rect1.y-(rect2.x+rect2.height-5)>0){
+    rect1.dy=0; rect1.y= rect2.y+rect2.height}
+}
+
+
+
 
 
 
