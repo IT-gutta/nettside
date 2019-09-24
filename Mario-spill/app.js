@@ -109,17 +109,6 @@ for(var k=0; k<10; k++){
   let y=Math.random()* canvas.height;
   let width = (Math.random()*50)+150
 
-  for (var i = 0; i < pF.length; i++) {
-    x=nyX
-    y=nyY
-    if (nyY-y < 20) {
-      y=Math.random()* canvas.height;
-    }
-    if (nyY-x < 20) {
-      x=Math.random()* canvas.height;
-    }
-  }
-
 
   pF.push(new Plattform(x, y, width))
   console.log(pF)
@@ -127,7 +116,6 @@ for(var k=0; k<10; k++){
 
 
 
->>>>>>> f7244b5944878d63e41c871bdeb4eb69cdd1e28e
 function animate(){
   requestAnimationFrame(animate);
   //sørger for at når klossen beveger seg, fjernes der den stod fra før, og bare den nye posisjonen vises på canvas
