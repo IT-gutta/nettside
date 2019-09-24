@@ -51,6 +51,10 @@
 var oppskriftArr = [];
 
 
+function compare(){
+  
+}
+
 var input = document.getElementById("oppskrift");
 input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
