@@ -114,6 +114,10 @@ this.draw = function(){
 }
 
 var hinder= new Staticrect(700, canvas.height-200, 200, 200, "green")
+var hinder2= new Staticrect(900, 300, 100, 100, "blue")
+var hinder3= new Staticrect(300, 200, 200, 200, "grey")
+var hinder4= new Staticrect(1200, 650, 450, 50, "orange")
+var hinder5= new Staticrect(1500, 200, 50, 50, "red")
 
 
 
@@ -165,6 +169,10 @@ function animate(){
   c.clearRect(0, 0, canvas.width, canvas.height)
   kloss.update();
   hinder.draw();
+  hinder2.draw();
+  hinder3.draw();
+  hinder4.draw();
+  hinder5.draw();
   // for(var i=0; i<pF.length; i++){
   //   pF[i].draw();
   // }
