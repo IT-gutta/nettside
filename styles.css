@@ -1,0 +1,38 @@
+body {
+  background-color: grey;
+  justify-content: center;
+  align-items: center;
+  display:flex;
+  min-height: 100vh;
+}
+
+.header {
+  color: white;
+  font-size: 2em;
+}
+
+.forelderMeny {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 1em;
+  justify-content: center;
+  border: 1px white solid;
+  text-align: center;
+}
+
+.box {
+  border: 1px green solid;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  border: 1px solid black;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
