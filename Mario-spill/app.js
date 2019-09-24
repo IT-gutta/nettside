@@ -76,7 +76,7 @@ function control(event){
       this.y+=this.dy;
       this.dy+=this.gravity;
       //kjører draw()-funksjonen inni update, slik at klossen blir tegnet på nytt med oppdatert plassering
-      // inni animate()-funksjonen. 
+      // inni animate()-funksjonen.
       this.draw();
     }
   }
@@ -84,9 +84,6 @@ function control(event){
   var kloss = new Rect(200, canvas.height-100, 100, 100)
 
 
-<<<<<<< HEAD
-//kjøres kontunierlig
-=======
 
 
 // Her begynner Henrik sin drittkode for plattformer
@@ -107,40 +104,39 @@ this.draw = function(){
 
 
 
-var pF=[]
+// var pF=[]
+//
+// for(var k=0; k<10; k++){
+//   let x=Math.random()* canvas.width;
+//   let y=Math.random()* canvas.height;
+//   let width = (Math.random()*50)+150
+//
+//   for (var i = 0; i < pF.length; i++) {
+//     x=nyX
+//     y=nyY
+//     if (nyY-y < 20) {
+//       y=Math.random()* canvas.height;
+//     }
+//     if (nyY-x < 20) {
+//       x=Math.random()* canvas.height;
+//     }
+//   }
+//
+//
+//   pF.push(new Plattform(x, y, width))
+//   console.log(pF)
+// }
 
-for(var k=0; k<10; k++){
-  let x=Math.random()* canvas.width;
-  let y=Math.random()* canvas.height;
-  let width = (Math.random()*50)+150
-
-  for (var i = 0; i < pF.length; i++) {
-    x=nyX
-    y=nyY
-    if (nyY-y < 20) {
-      y=Math.random()* canvas.height;
-    }
-    if (nyY-x < 20) {
-      x=Math.random()* canvas.height;
-    }
-  }
 
 
-  pF.push(new Plattform(x, y, width))
-  console.log(pF)
-}
-
-
-
->>>>>>> f7244b5944878d63e41c871bdeb4eb69cdd1e28e
 function animate(){
   requestAnimationFrame(animate);
   //sørger for at når klossen beveger seg, fjernes der den stod fra før, og bare den nye posisjonen vises på canvas
   c.clearRect(0, 0, canvas.width, canvas.height)
   kloss.update();
-  for(var i=0; i<pF.length; i++){
-    pF[i].draw();
-  }
+  // for(var i=0; i<pF.length; i++){
+  //   pF[i].draw();
+  // }
 
 }
 animate();
