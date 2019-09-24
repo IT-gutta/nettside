@@ -7,7 +7,7 @@ body {
 
 .header {
   color: black;
-  font-size: 2em;
+  font-size: 4em;
   font-style: monospace;
 }
 
@@ -18,22 +18,17 @@ body {
   justify-content: center;
   border: 1px white solid;
   text-align: center;
+  font-size: 2em;
 }
 
 .box {
-  border: 1px green solid;
+  background-color: rgba(144, 206, 236, 0.42);
 }
+
 
 .box span:hover {
   font-weight: bold;
-}
 
-ul {
-  list-style: none;
-}
-
-li {
-  border: 1px solid black;
 }
 
 a {
