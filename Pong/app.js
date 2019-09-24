@@ -5,7 +5,7 @@ canvas.height= window.innerHeight-50;
 let random;
 let rectUp=0;
 function ra(){
-  random = Math.random()*10-5;
+  random = Math.random()*20-10;
   if(random>-7 && random <7){ra();}
   return random;}
 var ball = {
