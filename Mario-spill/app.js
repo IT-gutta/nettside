@@ -75,6 +75,8 @@ function control(event){
       this.x+=this.dx;
       this.y+=this.dy;
       this.dy+=this.gravity;
+
+      if(doesHit(this, hinder)){console.log("DE TRAFF")}
       //kjører draw()-funksjonen inni update, slik at klossen blir tegnet på nytt med oppdatert plassering
       // inni animate()-funksjonen.
       this.draw();
@@ -108,9 +110,6 @@ this.draw = function(){
   c.fillStyle= "black";
   c.fillRect(this.x, this.y, this.width, 50);
 }
-
-
-
 }
 
 var hinder= new Staticrect(700, canvas.height-200, 200, 200, "green")
@@ -118,6 +117,33 @@ var hinder2= new Staticrect(900, 150, 100, 100, "blue")
 var hinder3= new Staticrect(300, 200, 200, 200, "grey")
 var hinder4= new Staticrect(1200, 650, 450, 50, "orange")
 var hinder5= new Staticrect(1500, 200, 50, 50, "red")
+
+function doesHit(rect1, rect2){
+  const distX= rect1.x-rect2.x;
+  const distY= rect1.y-rect2.y;
+  let doesHitX= false;
+  let doesHity= false;
+
+  if(distX<0){
+    let hitX= rect1.x+rect1.width;
+    if(hitX>rect2.x){
+      doesHitX=true;}}
+  else{
+    let hitX= rect1.x-rect2.width;
+    if(hitX<rect2.x){
+      doesHitX= true;}}
+  if(distY<0){
+    let hitY= rect1.x+rect1.height;
+    if(hitY>rect2.y){
+      doesHitY=true;}}
+  else{
+    let hitY= rect1.x-rect2.height;
+    if(hitY<rect2.y){
+      doesHitY= true;}}
+      if(doesHitX&&doesHitY){return true;}
+
+    return false;
+}
 
 
 
