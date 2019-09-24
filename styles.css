@@ -6,8 +6,9 @@ body {
 }
 
 .header {
-  color: white;
+  color: black;
   font-size: 2em;
+  font-style: monospace;
 }
 
 .forelderMeny {
