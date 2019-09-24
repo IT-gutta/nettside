@@ -2,7 +2,7 @@ var canvas= document.getElementById('canvas');
 var c= canvas.getContext("2d");
 function size(){
 canvas.width= window.innerWidth-40;
-canvas.height= window.innerHeight-40;
+canvas.height=window.innerHeight-40;
 }
 size();
 
