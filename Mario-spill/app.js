@@ -108,12 +108,33 @@ this.draw = function(){
   c.fillStyle= "black";
   c.fillRect(this.x, this.y, this.width, 50);
 }
-
-
-
 }
 
 var hinder= new Staticrect(700, canvas.height-200, 200, 200, "green")
+
+function doesHit(rect1, rect2){
+  const distX= rect1.x-rect2.x;
+  const distY= rect1.y-rect2.y;
+  let doesHitX= false;
+  let doesHity= false;
+
+  if(distX<0){
+    let hitX= rect1.x+rect1.width;
+    if(hitX>rect2.x){
+      doesHitX=true;}}
+  else{
+    let hitX= rect1.x-rect2.width;
+    if(hitX<rect2.x){
+      doesHitX= true;}}
+  if(distY<0){
+    let hitY= rect1.x+rect1.height;
+    if(hitY>rect2.y){
+      doesHitY=true;}}
+  else{
+    let hitY= rect1.x-rect2.height;
+    if(hitY<rect2.y){
+      doesHitY= true;}}
+}
 
 
 
