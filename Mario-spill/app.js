@@ -83,25 +83,40 @@ function control(event){
 
   var kloss = new Rect(200, canvas.height-100, 100, 100)
 
+  function Staticrect(x, y, width, height, farge){
+    this.x=x,
+    this.y=y,
+    this.width=width,
+    this.height=height,
+    this.f=farge,
+
+    this.draw= function(){
+      c.beginPath();
+      c.fillStyle= this.f;
+      c.fillRect(this.x, this.y, this.width, this.height);
+      c.fill();
+    }
+  }
+
+var hinder= new Staticrect(700, canvas.height-200, 200, 200, "green")
+
+
+
 
 
 
 // Her begynner Henrik sin drittkode for plattformer
-function Plattform(x, y, width, heigth) {
-this.x=x,
-this.y=y,
-this.width=width,
-this.heigth=heigth,
-
-this.draw = function(){
-  c.fillStyle= "black";
-  c.fillRect(this.x, this.y, this.width, 50);
-}
-
-
-
-}
-
+// function Plattform(x, y, width) {
+// this.x=x,
+// this.y=y,
+// this.width=width,
+// this.heigth=heigth,
+//
+// this.draw = function(){
+//   c.fillStyle= "black";
+//   c.fillRect(this.x, this.y, this.width, 50);
+// }
+// }
 
 
 // var pF=[]
@@ -112,7 +127,7 @@ this.draw = function(){
 //   let width = (Math.random()*50)+150
 //
 //   for (var i = 0; i < pF.length; i++) {
-//     x=nyX
+//     let nyX= x
 //     y=nyY
 //     if (nyY-y < 20) {
 //       y=Math.random()* canvas.height;
@@ -134,6 +149,7 @@ function animate(){
   //sørger for at når klossen beveger seg, fjernes der den stod fra før, og bare den nye posisjonen vises på canvas
   c.clearRect(0, 0, canvas.width, canvas.height)
   kloss.update();
+  hinder.draw();
   // for(var i=0; i<pF.length; i++){
   //   pF[i].draw();
   // }
