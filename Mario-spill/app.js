@@ -23,7 +23,19 @@ function control(event){
     case 87: controller.up= keyS; break;
   }
   }
-
-
   window.addEventListener("keydown", control)
   window.addEventListener("keyup", control)
+
+  function createRect(x, y, width, height){
+    this.x = x;
+    this.y = y;
+    this.width = width;
+    this.height = height;
+
+    this.draw = function(){
+      c.beginPath();
+      c.fillStyle= "orange";
+      c.fill(this.x, this.y, this.width, this.height);
+      c.fill();
+    }
+  }
