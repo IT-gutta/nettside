@@ -59,7 +59,7 @@ function control(event){
         this.dx=6}
       if(controller.left){
         this.dx=-6}
-        else if(!controller.left&&!controller.right){
+        else if(!controller.left&&!controller.right || controller.left&&controller.right){
           this.dx=0}
 
       // kan bare hoppe hvis controlle.jumping er false, altså at man står på bakken
