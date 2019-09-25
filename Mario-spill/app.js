@@ -55,12 +55,14 @@ function control(event){
 
     this.update= function(){
       //alt som skal skje i animate()-funksjonen
-      if(controller.right){
+      if(!controller.left&&!controller.right || controller.left&&controller.right){
+        this.dx=0}
+
+      else if(controller.right){
         this.dx=6}
-      if(controller.left){
+      else if(controller.left){
         this.dx=-6}
-        else if(!controller.left&&!controller.right || controller.left&&controller.right){
-          this.dx=0}
+
 
       // kan bare hoppe hvis controlle.jumping er false, altså at man står på bakken
       if(controller.up && !controller.jumping){
@@ -79,20 +81,11 @@ function control(event){
       for(var i=0; i<hinderArray.length; i++){
 
           if(doesHit(this, hinderArray[i])){
+            resolveCollision(this, hinderArray[i]);
+          }
 
-            if(position(this, hinderArray[i])=="over"){
-              this.dy=0; this.gravity=0; controller.jumping= false;
-              this.y= hinderArray[i].y-this.height;
-            }
-            else if(position(this, hinderArray[i])=="under"){
-              this.dy=0; this.y= hinderArray[i].y+hinderArray[i].height
-            }
-            else if(position(this, hinderArray[i])=="høyre"){
-            console.log("høyre side"); this.dx=0; this.x=hinderArray[i].x+hinderArray[i].width
-            }
-            else if(position(this, hinderArray[i])=="venstre"){
-            console.log("venstre"); this.dx=0; this.x=hinderArray[i].x-this.width
-            }
+          if(this.x+this.width<hinderArray[i].x-6 || this.x+6>hinderArray[i].x+hinderArray[i].width){
+            this.gravity=0.5;
           }
           // if(this.x+this.width<hinderArray[i].x || this.x>hinderArray[i].x+hinderArray[i].width){
           //   this.gravity=0.5;
@@ -163,24 +156,10 @@ function doesHit(rect1, rect2){
     return false;
 }
 
-
-function resolveCollision(rect1, rect2){
-
- if(position(rect1, rect2)=="venstre"){
-   rect1.x= rect2.x-rect1.width;
-   rect1.dx=0;
- }
- if(position(rect1, rect2)=="høyre"){
-   rect1.x= rect2.x+rect2.width;
-   rect1.dx=0;
- }
-}
-
-
 function position(rect, hinder){
-  const margin = 5;
+  const margin = 6;
   if(rect.dy<0 && rect.x+rect.width>hinder.x+margin && rect.x+margin<hinder.x+hinder.width){return "under"};
-  if(rect.dy>0){return "over"};
+  if(rect.dy>0 && rect.x+rect.width>hinder.x+margin && rect.x+margin<hinder.x+hinder.width){return "over"};
   if(rect.dx>0){return "venstre"};
   if(rect.dx<0){return "høyre"};
 
@@ -193,12 +172,29 @@ function position(rect, hinder){
   // if(rect.x>hinder.x+hinder.width-margin){return "høyre"};
   // if(rect.y+rect.height<hinder.y+margin){return "over"};
   // if(rect.y>hinder.y+hinder.height-2*margin){return "under"};
-
 }
 
 
 
+function resolveCollision(rect1, rect2){
 
+  if(position(rect1, rect2)=="over"){
+  rect1.dy=0; rect1.gravity=0; controller.jumping= false;
+  rect1.y= rect2.y-rect1.height;
+  }
+  else if(position(rect1, rect2)=="under"){
+  rect1.dy=0;
+   rect1.y= rect2.y+rect2.height
+  }
+  else if(position(rect1, rect2)=="høyre"){
+  rect1.dx=0; rect1.x=rect2.x+rect2.width;
+  controller.left=false;
+  }
+  else if(position(rect1, rect2)=="venstre"){
+  rect1.dx=0; rect1.x=rect2.x-rect1.width;
+  controller.right=false;
+  }
+}
 
 
 
