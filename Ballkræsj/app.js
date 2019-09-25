@@ -87,6 +87,7 @@ function kollisjon(particle, otherParticle) {
 // }
 // }
 
+
 function Circle(x, y, r, f){
   this.x = x,
   this.y= y,
@@ -98,7 +99,7 @@ function Circle(x, y, r, f){
     y: Math.random()*2-1,
   },
 
-  this.mass=1,
+  this.mass=r/10
 
   this.draw= function(){
     c.beginPath();
@@ -123,8 +124,8 @@ function Circle(x, y, r, f){
       this.fart.y=-this.fart.y;
     }
 
-    if(distance(mouse.x, mouse.y, this.x, this.y)<100){if(this.r<r*7){this.r+=5}; if(this.alpha<1){this.alpha+=0.01}}
-    else{if(this.r>r){this.r-=5}; if(this.alpha>0.1){this.alpha-=0.005}}
+    if(distance(mouse.x, mouse.y, this.x, this.y)<100){if(this.r<r*7){this.r+=5;}; if(this.alpha<1){this.alpha+=0.01}}
+    else{if(this.r>r){this.r-=5;}; if(this.alpha>0.1){this.alpha-=0.005}}
 
     for(var i=0; i<sirkelArr.length; i++){
       if(this===sirkelArr[i]){continue;}

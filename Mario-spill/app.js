@@ -179,7 +179,7 @@ function resolveCollision(rect1, rect2){
 
 function position(rect, hinder){
   const margin = 5;
-  if(rect.dy<0){return "under"};
+  if(rect.dy<0 && rect.x+rect.width>hinder.x+margin && rect.x+margin<hinder.x+hinder.width){return "under"};
   if(rect.dy>0){return "over"};
   if(rect.dx>0){return "venstre"};
   if(rect.dx<0){return "høyre"};
