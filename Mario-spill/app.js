@@ -249,9 +249,6 @@ function animate(){
   hinder3.draw();
   hinder4.draw();
   hinder5.draw();
-  // for(var i=0; i<pF.length; i++){
-  //   pF[i].draw();
-  // }
 
 }
 animate();
