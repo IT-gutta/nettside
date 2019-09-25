@@ -11,12 +11,12 @@ var controller={
   jumping: false,
 }
 
-// sjekker nÃ¥r man trykker pÃ¥ en knapp og nÃ¥r man slipper den. aka nÃ¥r man holder den inne.
+// sjekker når man trykker på en knapp og når man slipper den. aka når man holder den inne.
 function control(event){
 
-  //hvis premisset==true, sÃ¥ er keyS true, ellers false
+  //hvis premisset==true, så er keyS true, ellers false
   var keyS = (event.type=="keydown")?true:false;
-  //sÃ¥ lenge man holder en knapp inne, er ogsÃ¥ booleanen til (controller.prototype.button) true.
+  //så lenge man holder en knapp inne, er også booleanen til (controller.prototype.button) true.
 
   switch (event.keyCode) {
     case 39: controller.right= keyS; break;
@@ -32,8 +32,8 @@ function control(event){
   window.addEventListener("keyup", control)
 
 
-//funksjon for Ã¥ create et rektangel
-// hvis man skriver new Rect(parametere), fÃ¥r man et objekt med keys og methods som er lagt inn i funksjonen
+//funksjon for å create et rektangel
+// hvis man skriver new Rect(parametere), får man et objekt med keys og methods som er lagt inn i funksjonen
 
   function Rect(x, y, width, height){
     this.x = x,
@@ -62,13 +62,13 @@ function control(event){
         else if(!controller.left&&!controller.right){
           this.dx=0}
 
-      // kan bare hoppe hvis controlle.jumping er false, altsÃ¥ at man stÃ¥r pÃ¥ bakken
+      // kan bare hoppe hvis controlle.jumping er false, altså at man står på bakken
       if(controller.up && !controller.jumping){
         this.dy=-20; this.gravity= 0.5; controller.jumping= true;
 
       }
-      //med en gang klossen beveger seg under starthÃ¸yden, flyttes den til den opprinnelige y-posisjonen
-      // og controller.jumping gjÃ¸res til false slik at man kan hoppe pÃ¥ nytt etter dette
+      //med en gang klossen beveger seg under starthøyden, flyttes den til den opprinnelige y-posisjonen
+      // og controller.jumping gjøres til false slik at man kan hoppe på nytt etter dette
       if(this.y>canvas.height-100){
         this.y=canvas.height-100; this.dy=0; this.gravity= 0; controller.jumping= false;
       }
@@ -78,31 +78,14 @@ function control(event){
       this.dy+=this.gravity;
       for(var i=0; i<hinderArray.length; i++){
           if(doesHit(this, hinderArray[i])){
-
-            if(position(this, hinderArray[i])=="over"){
-              this.dy=0; this.gravity=0; controller.jumping= false;
-              this.y= hinderArray[i].y-this.height;
-            }
-            else if(position(this, hinderArray[i])=="under"){
-              this.dy=0; this.y= hinderArray[i].y+hinderArray[i].height
-            }
-            else if(position(this, hinderArray[i])=="hÃ¸yre"){
-            console.log("hÃ¸yre side"); this.dx=0; this.x=hinderArray[i].x+hinderArray[i].width
-            }
-            else if(position(this, hinderArray[i])=="venstre"){
-            console.log("venstre"); this.dx=0; this.x=hinderArray[i].x-this.width
-            }
-          }
-          // if(this.x+this.width<hinderArray[i].x || this.x>hinderArray[i].x+hinderArray[i].width){
-          //   this.gravity=0.5;
-          // }
+            resolveCollision(this, hinderArray[i])
       }
+}
 
-
-      //kjÃ¸rer draw()-funksjonen inni update, slik at klossen blir tegnet pÃ¥ nytt med oppdatert plassering
+      //kjører draw()-funksjonen inni update, slik at klossen blir tegnet på nytt med oppdatert plassering
       // inni animate()-funksjonen.
-      this.draw();
-    }
+
+    this.draw();
   }
 
   var kloss = new Rect(200, canvas.height-100, 100, 100)
@@ -162,17 +145,36 @@ function doesHit(rect1, rect2){
 
 function resolveCollision(rect1, rect2){
 
+  if(position(rect1, rect2)=="høyre"  && position(rect1, rect2)!="under"
+&& position(rect1, rect2)!="over"){
+  console.log("høyre side"); rect1.dx=0; rect1.x=rect2.x+rect2.width}
+
+  else if(position(rect1, rect2)=="venstre" && position(rect1, rect2)!="under"
+&& position(rect1, rect2)!="over"){
+  console.log("venstre"); rect1.dx=0; rect1.x=rect2.x-rect1.width}
+
+  else if(position(rect1, rect2)=="over"){
+    rect1.dy=0; rect1.gravity=0; controller.jumping= false;
+    rect1.y= rect2.y-rect1.height;
+  }
+  else if(position(rect1, rect2)=="under"){
+    rect1.dy=0; rect1.y= rect2.y+rect2.height
+  }
 }
+// if(this.x+this.width<hinderArray[i].x || this.x>hinderArray[i].x+hinderArray[i].width){
+//   this.gravity=0.5;
+// }
+
 
 
 function position(rect, hinder){
   const margin = 5;
   if(rect.dx>0){return "venstre"};
-  if(rect.dx<0){return "hÃ¸yre"};
+  if(rect.dx<0){return "høyre"};
   if(rect.dy<0){return "under"};
   if(rect.dy>1){return "over"};
   // if(rect.x+rect.width<hinder.x+ margin){return "venstre"};
-  // if(rect.x>hinder.x+hinder.width-margin){return "hÃ¸yre"};
+  // if(rect.x>hinder.x+hinder.width-margin){return "høyre"};
   // if(rect.y+rect.height<hinder.y+margin){return "over"};
   // if(rect.y>hinder.y+hinder.height-margin){return "under"};
 }
@@ -226,8 +228,8 @@ function position(rect, hinder){
 
 function animate(){
   requestAnimationFrame(animate);
-  //sÃ¸rger for at nÃ¥r klossen beveger seg, fjernes der den stod fra fÃ¸r, og bare den nye posisjonen vises pÃ¥ canvas
-  c.clearRect(0, 0, canvas.width, canvas.height)
+  //sørger for at når klossen beveger seg, fjernes der den stod fra før, og bare den nye posisjonen vises på canvas
+  c.clearRect(0, 0, canvas.width, canvas.height);
   kloss.update();
   hinder.draw();
   hinder2.draw();
