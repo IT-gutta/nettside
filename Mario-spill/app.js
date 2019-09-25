@@ -76,7 +76,7 @@ function control(event){
       this.y+=this.dy;
       this.dy+=this.gravity;
       for(var i=0; i<hinderArray.length; i++){
-          if(doesHit(this, hinderArray[i])){resolveCollision(this, hinderArray[i]); console.log("DE TRAFF")}
+          if(doesHit(this, hinderArray[i])){console.log(position(this, hinderArray[i])); console.log("DE TRAFF")}
       }
 
 
@@ -154,6 +154,14 @@ function doesHit(rect1, rect2){
 function resolveCollision(rect1, rect2){
   if(rect1.y-(rect2.x+rect2.height-5)>0){
     rect1.dy=0; rect1.y= rect2.y+rect2.height}
+}
+
+function position(rect, hinder){
+  const margin = 5;
+  if(rect.x+rect.width<hinder.x+ margin){return "venstre"};
+  if(rect.x>hinder.x+hinder.width-margin){return "høyre"};
+  if(rect.y+rect.height<hinder.y+margin){return "over"};
+  if(rect.y>hinder.y+hinder.height-margin){return "under"};
 }
 
 
