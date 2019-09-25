@@ -179,11 +179,11 @@ function resolveCollision(rect1, rect2){
 
 function position(rect, hinder){
   const margin = 5;
-
+  if(rect.dy<0){return "under"};
+  if(rect.dy>0){return "over"};
   if(rect.dx>0){return "venstre"};
   if(rect.dx<0){return "høyre"};
-  if(rect.dy<0){return "under"};
-  if(rect.dy>1){return "over"};
+
   // if(rect.x+rect.width<hinder.x+ margin){return "venstre"};
   // if(rect.x>hinder.x+hinder.width-margin){return "høyre"};
   // if(rect.y+rect.height<hinder.y+margin){return "over"};
