@@ -2,6 +2,11 @@ var canvas = document.getElementById("canvas");
 var c= canvas.getContext("2d");
 canvas.width= window.innerWidth-20;
 canvas.height= window.innerHeight-20;
+var img = new Image();
+olav = function () {
+    c.drawImage(img, 2250, 0, 170, 100);
+}
+img.src = "krone1.png";
 
 // controller-objekt som brukes hele tiden
 var controller={
@@ -102,7 +107,7 @@ function control(event){
     }
   }
 
-  var kloss = new Rect(200, canvas.height-100, 100, 100)
+  var kloss = new Rect(200, 1100, 100, 100)
 
   function Staticrect(x, y, width, height, farge){
     this.x=x,
@@ -120,13 +125,19 @@ function control(event){
   }
 
 
-var hinder= new Staticrect(700, canvas.height-200, 200, 200, "green")
-var hinder2= new Staticrect(900, 450, 100, 100, "blue")
-var hinder3= new Staticrect(300, 200, 200, 200, "grey")
-var hinder4= new Staticrect(1200, 650, 450, 50, "orange")
-var hinder5= new Staticrect(1500, 200, 50, 50, "red")
+var hinder= new Staticrect(2300, 500, 50, 50, "green")
+var hinder3= new Staticrect(2480, 270, 50, 50, "grey")
+var hinder2= new Staticrect(1700, 450, 50, 50, "blue")
+var hinder4= new Staticrect(1200, 650, 50, 50, "orange")
+var hinder5= new Staticrect(1900, 300, 50, 50, "black")
+var hinder7= new Staticrect(700, 900, 500, 50, "pink")
+var hinder8= new Staticrect(2100, 600, 50, 50, "brown")
+var hinder9= new Staticrect(1500, 700, 50, 50, "lightgrey")
+var hinder6= new Staticrect(2450, 50, 50, 50, "yellow")
+var hinder10= new Staticrect(0, 1120, canvas.width, 50, "rgb(235, 232, 231)")
 
-var hinderArray=[hinder, hinder2, hinder3, hinder4, hinder5];
+
+var hinderArray=[hinder, hinder2, hinder3, hinder4, hinder5, hinder6, hinder7, hinder8, hinder9, hinder10];
 
 function doesHit(rect1, rect2){
 
@@ -249,6 +260,11 @@ function animate(){
   hinder3.draw();
   hinder4.draw();
   hinder5.draw();
-
+  hinder6.draw();
+  hinder7.draw();
+  hinder8.draw();
+  hinder9.draw();
+  hinder10.draw();
+  olav();
 }
 animate();
