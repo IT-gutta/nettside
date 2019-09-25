@@ -77,6 +77,7 @@ function control(event){
       this.y+=this.dy;
       this.dy+=this.gravity;
       for(var i=0; i<hinderArray.length; i++){
+
           if(doesHit(this, hinderArray[i])){
 
             if(position(this, hinderArray[i])=="over"){
@@ -96,6 +97,9 @@ function control(event){
           // if(this.x+this.width<hinderArray[i].x || this.x>hinderArray[i].x+hinderArray[i].width){
           //   this.gravity=0.5;
           // }
+
+
+
       }
 
 
@@ -162,11 +166,20 @@ function doesHit(rect1, rect2){
 
 function resolveCollision(rect1, rect2){
 
+ if(position(rect1, rect2)=="venstre"){
+   rect1.x= rect2.x-rect1.width;
+   rect1.dx=0;
+ }
+ if(position(rect1, rect2)=="høyre"){
+   rect1.x= rect2.x+rect2.width;
+   rect1.dx=0;
+ }
 }
 
 
 function position(rect, hinder){
   const margin = 5;
+
   if(rect.dx>0){return "venstre"};
   if(rect.dx<0){return "høyre"};
   if(rect.dy<0){return "under"};
@@ -175,6 +188,12 @@ function position(rect, hinder){
   // if(rect.x>hinder.x+hinder.width-margin){return "høyre"};
   // if(rect.y+rect.height<hinder.y+margin){return "over"};
   // if(rect.y>hinder.y+hinder.height-margin){return "under"};
+
+  // if(rect.x+rect.width<hinder.x+ margin){return "venstre"};
+  // if(rect.x>hinder.x+hinder.width-margin){return "høyre"};
+  // if(rect.y+rect.height<hinder.y+margin){return "over"};
+  // if(rect.y>hinder.y+hinder.height-2*margin){return "under"};
+
 }
 
 
