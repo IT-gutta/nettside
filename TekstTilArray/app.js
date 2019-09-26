@@ -4,10 +4,19 @@ var input = document.getElementById("input")
 var arr = []
 var verdi = ""
 
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("knapp").click();
+  }
+});
+
+
+
 
 knapp.addEventListener("click", function() {
 var verdi = input.value;
-var verdiArr = verdi.split(" ");
+var verdiArr = verdi.split(", ");
 output.innerHTML= "["
 for (var i = 0; i < verdiArr.length; i++) {
 if(verdiArr.indexOf(verdiArr[i]) == verdiArr.length-1) {

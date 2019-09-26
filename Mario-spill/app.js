@@ -125,19 +125,19 @@ function control(event){
   }
 
 
-var hinder= new Staticrect(2300, 500, 50, 50, "green")
-var hinder3= new Staticrect(2480, 270, 50, 50, "grey")
+var hinder0= new Staticrect(2300, 500, 50, 50, "green")
+var hinder1= new Staticrect(2480, 270, 50, 50, "grey")
 var hinder2= new Staticrect(1700, 450, 50, 50, "blue")
-var hinder4= new Staticrect(1200, 650, 50, 50, "orange")
-var hinder5= new Staticrect(1900, 300, 50, 50, "black")
-var hinder7= new Staticrect(700, 900, 500, 50, "pink")
-var hinder8= new Staticrect(2100, 600, 50, 50, "brown")
-var hinder9= new Staticrect(1500, 700, 50, 50, "lightgrey")
-var hinder6= new Staticrect(2450, 50, 50, 50, "yellow")
-var hinder10= new Staticrect(0, 1120, canvas.width, 50, "rgb(235, 232, 231)")
+var hinder3= new Staticrect(1200, 650, 50, 50, "orange")
+var hinder4= new Staticrect(1900, 300, 50, 50, "black")
+var hinder5= new Staticrect(700, 900, 500, 50, "pink")
+var hinder6= new Staticrect(2100, 600, 50, 50, "brown")
+var hinder7= new Staticrect(1500, 700, 50, 50, "lightgrey")
+var hinder8= new Staticrect(2450, 50, 50, 50, "yellow")
+var hinder9= new Staticrect(0, 1120, canvas.width, 50, "rgb(235, 232, 231)")
 
 
-var hinderArray=[hinder, hinder2, hinder3, hinder4, hinder5, hinder6, hinder7, hinder8, hinder9, hinder10];
+var hinderArray=[hinder0, hinder1, hinder2, hinder3, hinder4, hinder5, hinder6, hinder7, hinder8, hinder9];
 
 function doesHit(rect1, rect2){
 
@@ -255,7 +255,11 @@ function animate(){
   //sørger for at når klossen beveger seg, fjernes der den stod fra før, og bare den nye posisjonen vises på canvas
   c.clearRect(0, 0, canvas.width, canvas.height)
   kloss.update();
-  hinder.draw();
+  // for (var i = 0; i < hinderArray.length; i++) {
+  //  hinder+i.draw()
+  // }
+  hinder0.draw();
+  hinder1.draw()
   hinder2.draw();
   hinder3.draw();
   hinder4.draw();
@@ -264,7 +268,6 @@ function animate(){
   hinder7.draw();
   hinder8.draw();
   hinder9.draw();
-  hinder10.draw();
   olav();
 }
 animate();
