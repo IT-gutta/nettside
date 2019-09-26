@@ -1,22 +1,21 @@
-var output = document.getElementById("output")
-var knapp = document.getElementById("submit")
-var input = document.getElementById("input")
+const output = document.getElementById("output")
+const knapp = document.getElementById("submit")
+const input = document.getElementById("input")
+const dividerIn = document.getElementById("dividerIn")
+const dividerBt = document.getElementById("dividerBt")
 var arr = []
 var verdi = ""
-
-input.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    document.getElementById("knapp").click();
-  }
-});
+var dividerx = ""
 
 
-
+dividerBt.addEventListener("click", function() {
+  return dividerx = dividerIn.value
+}
+)
 
 knapp.addEventListener("click", function() {
-var verdi = input.value;
-var verdiArr = verdi.split(", ");
+verdi = input.value;
+var verdiArr = verdi.split(dividerx);
 output.innerHTML= "["
 for (var i = 0; i < verdiArr.length; i++) {
 if(verdiArr.indexOf(verdiArr[i]) == verdiArr.length-1) {
@@ -24,9 +23,6 @@ if(verdiArr.indexOf(verdiArr[i]) == verdiArr.length-1) {
 else {
   output.innerHTML+= '"' + verdiArr[i] + '"' + ', ' }
 }
-
-
-
 output.innerHTML+="]"
 }
 )
