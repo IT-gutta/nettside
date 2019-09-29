@@ -163,7 +163,7 @@ function distance(x1, y1, x2, y2){
 
 
 
-for(var i=0; i<200; i++){
+for(var i=0; i<300; i++){
   const r=Math.random()*10+10
   let x=Math.random()* (canvas.width-2*r)+ r;
   let y=Math.random()* (canvas.height-2*r)+ r;
