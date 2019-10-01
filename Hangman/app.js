@@ -73,7 +73,7 @@ function spillSlutt() {
   setTimeout(function(){
     document.getElementById("innpakning").style.display = "none";
     document.getElementById("spillSlutt").style.display = "block";
-    document.getElementById("spillSlutt").innerHTML += "Du tapte LOL!"}, 500)
+    document.getElementById("spillSlutt").innerHTML += "Du tapte LOL! Ordet var " + utvalgtOrd}, 500)
 
 }
 
