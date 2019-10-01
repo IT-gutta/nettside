@@ -8,22 +8,19 @@ var farge;
 var img;
 function setup() {
   createCanvas(innerWidth-20, innerHeight-40);
-  player = new Rect(60, canvas.height-100, 20, 50);
+  player = new Rect(20,  28*tileSize-50, 20, 50);
   frameRate(60)
 
 
-// img = loadImage("grassTop.png")
-//
+img = loadImage("grassTop.png")
+
 // console.log(image)
 
 
 
 
 
-  rows = 7;
-  cols = 8;
-
-  kart = [
+  newMap([
               [0, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
               [0, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
               [0, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -54,21 +51,8 @@ function setup() {
               [0, 0, 1, 2, 2, 2, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
     ]
+)
 
-
-
-  for(var i = 0; i<kart.length; i++){
-    for(var j = 0; j<kart[0].length; j++){
-
-     if(kart[i][j] === 0){farge = "grey"}
-      else if(kart[i][j] === 1){farge = "blue"}
-      else if(kart[i][j] === 2){farge = "yellow"}
-
-    tileArr.push(new Block(j*tileSize, i*tileSize, tileSize, tileSize, farge))
-
-
-    }
-  }
 
 }
 
@@ -103,10 +87,10 @@ function draw() {
   fill("red")
   push()
   stroke("green")
-   line(0, canvas.height, 2000, canvas.height);
+   line(0, 28*tileSize, 2000, 28*tileSize);
   pop()
   player.update()
-  // image(img, 0, 0, 16, 16, 0, 0, 16, 16)
+  image(img, 0, 0, 32, 32, 0, 0, 32, 32)
 
 }
 
@@ -177,8 +161,6 @@ function Rect(x, y, w, h){
       this.vel.x=-5}
    else{this.vel.x*=0.9}
 
-    if(this.pos.y+this.h>canvas.height){this.vel.y=0;
-      this.pos.y=canvas.height-this.h; this.jumping=false }
 
     if(keyIsDown(32) && this.jumping==false){jump(this, 18)}
 
@@ -187,6 +169,8 @@ function Rect(x, y, w, h){
 
 
 
+    if(this.pos.y+this.h> 28*tileSize){this.vel.y=0;
+      this.pos.y= 28*tileSize-this.h; this.jumping=false }
 
 
 
@@ -243,9 +227,24 @@ this.image = new Image(),
 this.image.src = "grassTop.png",
 
 this.draw = function(){
-   drawImage(this.image, 0, 0, 16, 16, 0, 0, 16, 16)
+   image(this.image, 0, 0, 32, 32, 0, 0, 32, 32)
 
+ }
 }
 
+function newMap(kart){
+  tileArr=[];
+  for(var i = 0; i<kart.length; i++){
+    console.log(i)
+    for(var j = 0; j<kart[0].length; j++){
 
-}
+     if(kart[i][j] === 0){farge = "grey"}
+      else if(kart[i][j] === 1){farge = "blue"}
+      else if(kart[i][j] === 2){farge = "yellow"}
+
+    tileArr.push(new Block(j*tileSize, i*tileSize, tileSize, tileSize, farge))
+
+
+      }
+    }
+  return tileArr}
