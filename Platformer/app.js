@@ -10,8 +10,13 @@ var skyer;
 var currentMap;
 var tekst;
 var playerSprite, playerGul;
-var currentPlayer = "pFRight"
+var currentPlayer = "pFRight";
+var currentStatus = "right"
 
+var projectileArr = [];
+var testPro;
+
+var musX, musY;
 
 var map1 = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -31,11 +36,11 @@ var map1 = [
             [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
@@ -110,16 +115,21 @@ function setup() {
 
   newMap(map1)
 
-  console.log(mapArr[1].length)
 
   setInterval(function(){
-
+if(currentStatus == "right"){
+    if(currentPlayer == "pFLeft" || currentPlayer == "pLeft"){currentPlayer = "pFRight"}
   if(currentPlayer == "pFRight"){ player.sx = 200; currentPlayer = "pRight"}
   else if(currentPlayer == "pRight"){ player.sx = 0; currentPlayer = "pFRight"}
-  else if(currentPlayer == "pFLeft"){ player.sx = 200; currentPlayer = "pLeft"}
-  else if(currentPlayer == "pLeft"){ player.sx = 0; currentPlayer = "pFLeft"}
+}
 
-    }  , 100)
+else if(currentStatus == "left"){
+  if(currentPlayer == "pFRight" || currentPlayer == "pRight"){currentPlayer = "pFLeft"}
+if(currentPlayer == "pFLeft"){ player.sx = 200; currentPlayer = "pLeft"}
+else if(currentPlayer == "pLeft"){ player.sx = 0; currentPlayer = "pFLeft"}
+}
+
+}  , 100)
 
 
 }
@@ -129,9 +139,15 @@ function setup() {
 
 
 function draw() {
-  background(skyer)
-
+  background(skyer);
   translate(-player.pos.x+700, -player.pos.y+500);
+
+  musX = mouseX+player.pos.x-700
+  musY = mouseY+player.pos.y-500
+
+
+
+
 
 
 
@@ -168,6 +184,10 @@ function draw() {
   pop()
   player.update()
 
+
+for(var i=0; i<projectileArr.length; i++){
+    projectileArr[i].update();
+}
 
 }
 
@@ -239,16 +259,14 @@ function Rect(x, y, w, h){
 
 
     if(keyIsDown(RIGHT_ARROW)){
-      this.vel.x=5; this.sy = 0}
+      this.vel.x=5; this.sy = 0; currentStatus = "right"}
     else if(keyIsDown(LEFT_ARROW)){
-      this.vel.x=-5; this.sy = 200}
+      this.vel.x=-5; this.sy = 200; currentStatus = "left"}
    else{this.vel.x*=0.9}
 
 
-    if(keyIsDown(32) && this.jumping==false){jump(this, 18)}
+    if(keyIsDown(32) && this.jumping==false){jump(this, 15)}
 
-    if(keyIsDown(DOWN_ARROW) && this.jumping==false){this.h*=0.5}
-    else{this.h=h}
 
 
 
@@ -375,7 +393,51 @@ else{
   player.pos = createVector(20,  28*tileSize-player.h);
   player.sprite = playerSprite;
 }
+}
 
 
 
+function Projectile(){
+  if(currentPlayer=="pFRight" || currentPlayer=="pRight"){
+    this.x = player.pos.x+player.w-25;
+    this.y = player.pos.y+40;
+    this.dirr = 1
+  }
+  else if(currentPlayer=="pFLeft" || currentPlayer=="pLeft"){
+    this.x = player.pos.x+25;
+    this.y = player.pos.y+40;
+    this.dirr = -1
+  }
+
+  this.difX = musX-this.x
+  this.difY = musY-this.y
+  // this.hypotenus = Math.sqrt(Math.pow(this.difX, 2) + Math.pow(this.difY, 2))
+  this.angle = atan(this.difY/this.difX)
+  if(this.difX<0){this.dirr = -1}
+  else{this.dirr = 1}
+
+
+  this.vel = createVector(cos(this.angle)*10*this.dirr, sin(this.angle)*10*this.dirr),
+
+
+
+    this.draw = function(){
+      fill(0);
+      ellipse(this.x, this.y, 10)
+    }
+
+    this.update = function(){
+      this.x += this.vel.x;
+      this.y += this.vel.y;
+
+      this.draw();
+
+    }
+
+
+}
+
+
+function mouseClicked(){
+projectileArr.push(new Projectile)
 }
