@@ -9,6 +9,8 @@ var grassTop, water, dirt;
 var skyer;
 var currentMap;
 var tekst;
+var playerSprite, playerGul;
+var currentPlayer = "pFRight"
 
 
 var map1 = [
@@ -93,20 +95,31 @@ var mapArr = [map1, map2]
    grassTop = loadImage("Images/grassTop.png");
    water = loadImage("Images/water.png");
    dirt = loadImage("Images/dirt.png");
-   skyer = loadImage("Images/skyer.jpg")}
+   skyer = loadImage("Images/skyer.jpg")
+   playerSprite = loadImage("Images/player.png")
+   playerGul = loadImage("Images/playerGul.png")
 
 
+}
 function setup() {
   createCanvas(innerWidth-20, innerHeight-40);
-  player = new Rect(20,  28*tileSize-178, 20, 20);
+  player = new Rect(20,  28*tileSize-178, 80, 80);
   frameRate(60)
-
 
 
 
   newMap(map1)
 
   console.log(mapArr[1].length)
+
+  setInterval(function(){
+
+  if(currentPlayer == "pFRight"){ player.sx = 200; currentPlayer = "pRight"}
+  else if(currentPlayer == "pRight"){ player.sx = 0; currentPlayer = "pFRight"}
+  else if(currentPlayer == "pFLeft"){ player.sx = 200; currentPlayer = "pLeft"}
+  else if(currentPlayer == "pLeft"){ player.sx = 0; currentPlayer = "pFLeft"}
+
+    }  , 100)
 
 
 }
@@ -138,8 +151,8 @@ function draw() {
   }
 
   if(isColliding(player, tileArr[i])){
-    if(tileArr[i].f == "yellow"){ player.color = "yellow"}
-    else if(tileArr[i].f == "green" && player.color == "yellow"){
+    if(tileArr[i].f == "yellow"){ player.sprite = playerGul}
+    else if(tileArr[i].f == "green" && player.sprite == playerGul){
       nextMap();
     }
 
@@ -170,21 +183,25 @@ function Rect(x, y, w, h){
   this.w = w,
   this.h = h,
   this.jumping = false,
-  this.color = "grey"
+  this.color = "grey",
+  this.sx = 200,
+  this.sy = 0,
+  this.sprite = playerSprite,
 
 
   this.sides =  {
     top : this.pos.y,
     bottom : this.pos.y+this.h,
-    left : this.pos.x,
-    right : this.pos.x+this.w
+    left : this.pos.x+25,
+    right : this.pos.x+this.w-25
  }
 
 
 
   this.draw = function(){
-    fill(this.color)
-   rect(this.pos.x, this.pos.y, this.w, this.h)
+    image(this.sprite, this.pos.x, this.pos.y, 80, 80, this.sx, this.sy, 180, 180)
+    // fill(this.color)
+   // rect(this.pos.x, this.pos.y, this.w, this.h)
   }
 
 
@@ -208,8 +225,8 @@ function Rect(x, y, w, h){
     this.sides =  {
     top : this.pos.y,
     bottom : this.pos.y+this.h,
-    left : this.pos.x,
-    right : this.pos.x+this.w
+    left : this.pos.x+25,
+    right : this.pos.x+this.w-25
  };
 
 
@@ -222,9 +239,9 @@ function Rect(x, y, w, h){
 
 
     if(keyIsDown(RIGHT_ARROW)){
-      this.vel.x=5}
+      this.vel.x=5; this.sy = 0}
     else if(keyIsDown(LEFT_ARROW)){
-      this.vel.x=-5}
+      this.vel.x=-5; this.sy = 200}
    else{this.vel.x*=0.9}
 
 
@@ -237,6 +254,10 @@ function Rect(x, y, w, h){
 
     if(this.pos.y+this.h> 28*tileSize-128){this.vel.y=0;
       this.pos.y= 28*tileSize-this.h-128; this.jumping=false }
+
+
+
+
 
 
 
@@ -352,7 +373,7 @@ if(mapArr[mapArr.indexOf(currentMap)+1] == undefined){return}
 else{
   newMap(mapArr[mapArr.indexOf(currentMap)+1]);
   player.pos = createVector(20,  28*tileSize-player.h);
-  player.color = "grey";
+  player.sprite = playerSprite;
 }
 
 
