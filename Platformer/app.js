@@ -211,7 +211,8 @@ function draw() {
     else if(tileArr[i].f == "green" && player.sprite == playerGul){
       nextMap();
     }
-    else if(tileArr[i].num == 6 || tileArr[i].num == 4){player.sprite = playerSprite  }
+    else if(tileArr[i].num == 6){restart()}
+    else if(tileArr[i].num == 4){player.sprite = playerSprite}
 
 
   }
