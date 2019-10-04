@@ -452,7 +452,7 @@ function Projectile(){
   }
 
   this.r = 10
-  this.acc = 0.1
+  this.acc = 0.4
   this.difX = musX-this.x
   this.difY = musY-this.y
   // this.hypotenus = Math.sqrt(Math.pow(this.difX, 2) + Math.pow(this.difY, 2))
