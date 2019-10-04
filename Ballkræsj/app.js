@@ -99,7 +99,7 @@ function Circle(x, y, r, f){
     y: Math.random()*2-1,
   },
 
-  this.mass=r/10
+  this.mass=1
 
   this.draw= function(){
     c.beginPath();
