@@ -299,9 +299,9 @@ function Rect(x, y, w, h){
 
 
     if(keyIsDown(RIGHT_ARROW) || keyIsDown(68)){
-      this.vel.x=3; this.sy = 0; currentStatus = "right"}
+      this.vel.x=4; this.sy = 0; currentStatus = "right"}
     else if(keyIsDown(LEFT_ARROW) || keyIsDown(65)){
-      this.vel.x=-3; this.sy = 200; currentStatus = "left"}
+      this.vel.x=-4; this.sy = 200; currentStatus = "left"}
    else{this.vel.x*=0.9}
 
 
