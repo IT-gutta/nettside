@@ -7,26 +7,30 @@ var middels = document.getElementById("middels")
 var vanskelig = document.getElementById("vanskelig")
 var arrsett = []
 var utvalgtOrd = ""
-var musikkArr = [
+
+var løsningsord = {
+  løsningsord.musikkArr: [
   ["Tuba", "Gitar", "Piano"],
   ["Fløyte", "Blokkfløyte", "Klarinett"],
   ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton"]
 ]
-var sportArr = [
-  ["Fotball", "Håndball", "Tennis"],
-  ["Liverpool", "Cristiano Ronaldo", "Nora Mørk"],
-  ["Leeds", "George Best", "Robertson"]
+var løsningsord.sportArr: [
+  ["Fotball", "Håndball", "Tennis", "friidrett", "håndball", ],
+  ["hockey", "friidrett", "basketball"],
+  ["Leeds", "George Best", "Robertson", "bordtennis", "sjakk", "polo", "squash"]
 ]
-var spillArr = [
+
+var løsningsord.spillArr: [
   ["Mario", "Tetris", "Playstation"],
   ["Ratchet", "Snake"],
   ["Gamecube"]
 ]
-var blandetArr = [
+var løsningsord.blandetArr: [
   ["Fredrikstad"],
   ["Bjørk"],
   ["Digresjon", "Provisorisk ", "Persepsjon"]
 ]
+}
 
 document.getElementById("innpakning").style.display = "none"
 document.getElementById("vanskelighetsDiv").style.display = "none"
@@ -55,8 +59,8 @@ function sjekkHvisMR() {
       fellesBokstaver.push(" ")
     }
   }
-  
-  
+
+
   if(fellesBokstaver.join("") == utvalgtOrd) {return spillSeier()}
   else {fellesBokstaver = []}
 
@@ -117,6 +121,10 @@ function main() {
         feilBokstav.innerHTML = bruktFørF.join(" ")
       }
       sjanserIgjen--
+
+      // Ide, for hver feil blir et bein fra krakken under personen fjernet, hvis man vinner klippes snora
+
+
       switch (sjanserIgjen) {
         case 9:
           tegn.head();
@@ -298,16 +306,16 @@ function vanskF(grad, nummer) {
     document.getElementById("vanskelighetsDiv").style.display = "none"
     document.getElementById("innpakning").style.display = "block"
     utvalgtOrd = arrsett[nummer][Math.floor(Math.random() * arrsett[nummer].length)]
-    
+
     main()
     ordL();
   })
 }
 
-katF(musikk, musikkArr)
-katF(sport, sportArr)
-katF(blandet, blandetArr)
-katF(spill, spillArr)
+katF(musikk, løsningsord.musikkArr)
+katF(sport, løsningsord.sportArr)
+katF(blandet, løsningsord.blandetArr)
+katF(spill, løsningsord.spillArr)
 vanskF(lett, 0)
 vanskF(middels, 1)
 vanskF(vanskelig, 2)
