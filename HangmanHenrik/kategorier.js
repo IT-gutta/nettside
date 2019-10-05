@@ -55,8 +55,8 @@ function sjekkHvisMR() {
       fellesBokstaver.push(" ")
     }
   }
-  console.log(fellesBokstaver)
-  console.log(utvalgtOrd)
+  
+  
   if(fellesBokstaver.join("") == utvalgtOrd) {return spillSeier()}
   else {fellesBokstaver = []}
 
@@ -298,7 +298,7 @@ function vanskF(grad, nummer) {
     document.getElementById("vanskelighetsDiv").style.display = "none"
     document.getElementById("innpakning").style.display = "block"
     utvalgtOrd = arrsett[nummer][Math.floor(Math.random() * arrsett[nummer].length)]
-    console.log(utvalgtOrd)
+    
     main()
     ordL();
   })
