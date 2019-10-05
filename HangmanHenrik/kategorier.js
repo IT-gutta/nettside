@@ -156,6 +156,7 @@ function main() {
       if(verdi == 10){return;}
     }
     sjekkHvisMR();
+    if(verdi == 10){return;}
   })
 }
 
