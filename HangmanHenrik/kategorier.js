@@ -8,19 +8,19 @@ var vanskelig = document.getElementById("vanskelig")
 var arrsett = []
 var utvalgtOrd = ""
 var musikkArr = [
-  ["tuBa", "Gitar", "pIanO"],
-  ["fløyte", "bariton", "klarinett"],
-  ["valthorn", "tverrfløyte", "trekkbasun"]
+  ["Tuba", "Gitar", "Piano"],
+  ["Fløyte", "Blokkfløyte", "Klarinett"],
+  ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton"]
 ]
 var sportArr = [
-  ["fotball", "håndball", "tennis"],
+  ["Fotball", "Håndball", "Tennis"],
   ["Liverpool", "Cristiano Ronaldo", "Nora Mørk"],
   ["Leeds", "George Best", "Robertson"]
 ]
 var spillArr = [
   ["Mario", "Tetris", "Playstation"],
   ["Ratchet", "Snake"],
-  ["Gamecube Test1 test2 haha1 olala3"]
+  ["Gamecube"]
 ]
 var blandetArr = [
   ["Fredrikstad"],
