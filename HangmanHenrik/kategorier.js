@@ -7,6 +7,8 @@ var middels = document.getElementById("middels")
 var vanskelig = document.getElementById("vanskelig")
 var arrsett = []
 var utvalgtOrd = ""
+var kategoritest = ""
+var vanskelighetstest = ""
 
 var løsningsord = {
   musikkArr: [
@@ -48,6 +50,7 @@ var bruktFørR = []
 var bruktFørF = []
 var fellesBokstaver = []
 var verdi = 0;
+var kath2 = document.getElementById("kath2")
 
 function sjekkHvisMR() {
   for (var i = 0; i < utvalgtOrd.length; i++) {
@@ -297,6 +300,7 @@ function katF(kategori, array) {
     document.getElementById("kategoriDiv").style.display = "none"
     document.getElementById("vanskelighetsDiv").style.display = "grid"
     arrsett = array.slice(0)
+    kategoritest = kategori.textContent;
   })
 }
 
@@ -305,9 +309,10 @@ function vanskF(grad, nummer) {
     document.getElementById("vanskelighetsDiv").style.display = "none"
     document.getElementById("innpakning").style.display = "block"
     utvalgtOrd = arrsett[nummer][Math.floor(Math.random() * arrsett[nummer].length)]
-
+    vanskelighetstest = grad.textContent;
     main()
     ordL();
+    kath2.innerHTML += kategoritest + ", " + vanskelighetstest
   })
 }
 
