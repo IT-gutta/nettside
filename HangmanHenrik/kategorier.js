@@ -43,6 +43,23 @@ var gjettaBokstav = ""
 var sjanserIgjen = 10;
 var bruktFørR = []
 var bruktFørF = []
+var fellesBokstaver = []
+
+function sjekkHvisMR() {
+  for (var i = 0; i < utvalgtOrd.length; i++) {
+    if(utvalgtOrd[i] == ordLengdeArr[i]) {
+      fellesBokstaver.push(utvalgtOrd[i])
+    }
+    if(utvalgtOrd[i] == " " && ordLengdeArr[i] == "_"){
+      fellesBokstaver.push(" ")
+    }
+  }
+  console.log(fellesBokstaver)
+  console.log(utvalgtOrd)
+  if(fellesBokstaver.join("") == utvalgtOrd) {return spillSeier()}
+  else {fellesBokstaver = []}
+
+}
 
 function timedMelding(melding) {
   setTimeout(function() {
@@ -67,6 +84,8 @@ function main() {
   knapp.addEventListener("click", function() {
     gjettaBokstav = input.value
 
+    if(gjettaBokstav == " "){return;}
+
     if (gjettaBokstav.toUpperCase() == utvalgtOrd.toUpperCase()) {
       spillSeier()
     }
@@ -74,8 +93,6 @@ function main() {
     if (gjettaBokstav.length != 1 && gjettaBokstav.length != utvalgtOrd.length) {
       return timedMelding("Du kan kun gjette en bokstav eller hele ordet!")
     }
-
-
 
     if (utvalgtOrd.indexOf(gjettaBokstav.toUpperCase()) != -1 || utvalgtOrd.indexOf(gjettaBokstav.toLowerCase()) != -1) {
       if (bruktFørR.indexOf(gjettaBokstav.toUpperCase()) != -1 || bruktFørR.indexOf(gjettaBokstav.toLowerCase()) != -1) {
@@ -85,11 +102,9 @@ function main() {
       }
 
       for (var i = 0; i < utvalgtOrd.length; i++) {
-
         if (utvalgtOrd[i].toLowerCase() == gjettaBokstav || utvalgtOrd[i].toUpperCase() == gjettaBokstav) {
           ordLengdeArr[i] = utvalgtOrd[i];
           ordLengdeArrSpace[i] = utvalgtOrd[i];
-
           ordLengde.innerHTML = ordLengdeArrSpace.join("&nbsp")
         }
       }
@@ -138,6 +153,7 @@ function main() {
     if (ordLengdeArr.indexOf("_") == -1) {
       spillSeier()
     }
+    sjekkHvisMR();
   })
 }
 
@@ -153,7 +169,7 @@ function spillSlutt() {
 function spillSeier() {
   document.getElementById("innpakning").style.display = "none";
   document.getElementById("spillSlutt").style.display = "block";
-  document.getElementById("splillSluttMelding").innerHTML += "Du vant, gratulerer så mye!!"
+  document.getElementById("splillSluttMelding").innerHTML += "Du vant."
 }
 
 var tegn = {
@@ -284,7 +300,6 @@ function vanskF(grad, nummer) {
   })
 }
 
-
 katF(musikk, musikkArr)
 katF(sport, sportArr)
 katF(blandet, blandetArr)
@@ -292,49 +307,3 @@ katF(spill, spillArr)
 vanskF(lett, 0)
 vanskF(middels, 1)
 vanskF(vanskelig, 2)
-
-// musikk.addEventListener("click", function() {
-//   document.getElementById("kategoriDiv").style.display = "none"
-//   document.getElementById("vanskelighetsDiv").style.display = "block"
-//   arrsett = musikkArr.slice(0)
-// })
-// sport.addEventListener("click", function() {
-//   document.getElementById("kategoriDiv").style.display = "none"
-//   document.getElementById("vanskelighetsDiv").style.display = "block"
-//   arrsett = sportArr.slice(0)
-// })
-// spill.addEventListener("click", function() {
-//   document.getElementById("kategoriDiv").style.display = "none"
-//   document.getElementById("vanskelighetsDiv").style.display = "block"
-//   arrsett = spillArr.slice(0)
-// })
-// blandet.addEventListener("click", function() {
-//   document.getElementById("kategoriDiv").style.display = "none"
-//   document.getElementById("vanskelighetsDiv").style.display = "block"
-//   arrsett = blandetArr.slice(0)
-//   console.log(arrsett)
-// })
-// lett.addEventListener("click", function() {
-//   document.getElementById("vanskelighetsDiv").style.display = "none"
-//   document.getElementById("innpakning").style.display = "block"
-//   utvalgtOrd = arrsett[0][Math.floor(Math.random() * arrsett[0].length)]
-//   console.log(utvalgtOrd)
-//   main()
-//   ordL();
-// })
-// middels.addEventListener("click", function() {
-//   document.getElementById("vanskelighetsDiv").style.display = "none"
-//   document.getElementById("innpakning").style.display = "block"
-//   utvalgtOrd = arrsett[1][Math.floor(Math.random() * arrsett[1].length)]
-//   console.log(utvalgtOrd)
-//   main()
-//   ordL();
-// })
-// vanskelig.addEventListener("click", function() {
-//   document.getElementById("vanskelighetsDiv").style.display = "none"
-//   document.getElementById("innpakning").style.display = "block"
-//   utvalgtOrd = arrsett[2][Math.floor(Math.random() * arrsett[2].length)]
-//   console.log(utvalgtOrd)
-//   main();
-//   ordL();
-// })
