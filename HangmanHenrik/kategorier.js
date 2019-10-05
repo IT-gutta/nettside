@@ -9,23 +9,23 @@ var arrsett = []
 var utvalgtOrd = ""
 
 var løsningsord = {
-  løsningsord.musikkArr: [
+  musikkArr: [
   ["Tuba", "Gitar", "Piano"],
   ["Fløyte", "Blokkfløyte", "Klarinett"],
   ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton"]
 ]
-var løsningsord.sportArr: [
+sportArr: [
   ["Fotball", "Håndball", "Tennis", "friidrett", "håndball", ],
   ["hockey", "friidrett", "basketball"],
   ["Leeds", "George Best", "Robertson", "bordtennis", "sjakk", "polo", "squash"]
 ]
 
-var løsningsord.spillArr: [
+spillArr: [
   ["Mario", "Tetris", "Playstation"],
   ["Ratchet", "Snake"],
   ["Gamecube"]
 ]
-var løsningsord.blandetArr: [
+ blandetArr: [
   ["Fredrikstad"],
   ["Bjørk"],
   ["Digresjon", "Provisorisk ", "Persepsjon"]
