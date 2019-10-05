@@ -44,6 +44,7 @@ var sjanserIgjen = 10;
 var bruktFørR = []
 var bruktFørF = []
 var fellesBokstaver = []
+var verdi = 0;
 
 function sjekkHvisMR() {
   for (var i = 0; i < utvalgtOrd.length; i++) {
@@ -152,6 +153,7 @@ function main() {
     }
     if (ordLengdeArr.indexOf("_") == -1) {
       spillSeier()
+      if(verdi == 10){return;}
     }
     sjekkHvisMR();
   })
@@ -170,6 +172,7 @@ function spillSeier() {
   document.getElementById("innpakning").style.display = "none";
   document.getElementById("spillSlutt").style.display = "block";
   document.getElementById("splillSluttMelding").innerHTML += "Du vant."
+  return verdi = 10;
 }
 
 var tegn = {
