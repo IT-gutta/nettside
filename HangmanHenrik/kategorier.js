@@ -13,18 +13,17 @@ var løsningsord = {
   ["Tuba", "Gitar", "Piano"],
   ["Fløyte", "Blokkfløyte", "Klarinett"],
   ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton"]
-]
+],
 sportArr: [
   ["Fotball", "Håndball", "Tennis", "friidrett", "håndball", ],
   ["hockey", "friidrett", "basketball"],
   ["Leeds", "George Best", "Robertson", "bordtennis", "sjakk", "polo", "squash"]
-]
-
+],
 spillArr: [
   ["Mario", "Tetris", "Playstation"],
   ["Ratchet", "Snake"],
   ["Gamecube"]
-]
+],
  blandetArr: [
   ["Fredrikstad"],
   ["Bjørk"],
