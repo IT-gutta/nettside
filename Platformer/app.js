@@ -184,7 +184,7 @@ function setup() {
 
 
 
-setInterval(function(){if(mouseIsPressed){projectileArr.push(new Projectile)}}, 200)
+setInterval(function(){if(mouseIsPressed){projectileArr.push(new Projectile)}}, 100)
 
 
 
