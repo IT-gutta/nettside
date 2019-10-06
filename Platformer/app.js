@@ -316,7 +316,6 @@ if(lives <= 0 && !tekst){
 }
 
 
-
 }
 
 
@@ -391,7 +390,7 @@ function Rect(x, y, w, h){
    else{this.vel.x*=0.9; running = false}
 
 
-    if(keyIsDown(32) && this.jumping==false){jump(this, 15)}
+    if((keyIsDown(32) || keyIsDown(UP_ARROW)) && this.jumping==false){jump(this, 15)}
 
 
     // if(this.pos.y+this.h> 28*tileSize-128){this.vel.y=0;
