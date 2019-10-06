@@ -9,27 +9,29 @@ var arrsett = []
 var utvalgtOrd = ""
 var kategoritest = ""
 var vanskelighetstest = ""
+var score = 0;
+
 
 var løsningsord = {
   musikkArr: [
-  ["Tuba", "Gitar", "Piano"],
-  ["Fløyte", "Blokkfløyte", "Klarinett"],
-  ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton"]
+  ["Tuba", "Gitar", "Piano", "Note", "Tromme"],
+  ["Fløyte", "Blokkfløyte", "Klarinett", "Bassgitar", "Toneart"],
+  ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton", "Bongotromme"]
 ],
 sportArr: [
-  ["Fotball", "Håndball", "Tennis", "friidrett", "håndball", ],
-  ["hockey", "friidrett", "basketball"],
-  ["Leeds", "George Best", "Robertson", "bordtennis", "sjakk", "polo", "squash"]
+  ["Fotball", "Håndball", "Tennis", "Friidrett", "håndball"],
+  ["Hockey", "Høydehopp", "Basketball", "Sprint", "Hesteløp"],
+  ["Leeds", "George Best", "Robertson", "Bordtennis", "Sjakk", "Polo", "Squash"]
 ],
 spillArr: [
-  ["Mario", "Tetris", "Playstation"],
-  ["Ratchet", "Snake"],
-  ["Gamecube"]
+  ["Mario", "Tetris", "Playstation", "Snake", "Yatzy"],
+  ["Ratchet and Clank", "Monopol", "Biljard", "Poker", "Ludo"],
+  ["Gamecube", "Amerikaner", "Casino", "Timeglass", "Konsoll"]
 ],
  blandetArr: [
-  ["Fredrikstad"],
-  ["Bjørk"],
-  ["Digresjon", "Provisorisk ", "Persepsjon"]
+  ["Fredrikstad", "And", "Menneske", "Sol", "Løpe", "Frihet"],
+  ["Bjørk", "Bjørn", "Antilope", "Adverb", "Kart"],
+  ["Digresjon", "Provisorisk ", "Persepsjon", "Bygningskompleks", "Høyesterettsjustitiarius"]
 ]
 }
 
@@ -51,6 +53,23 @@ var bruktFørF = []
 var fellesBokstaver = []
 var verdi = 0;
 var kath2 = document.getElementById("kath2")
+var påNytt = document.getElementById("påNytt")
+
+// function resetVerdier() {
+//   ordLengdeArr = []
+//   ordLengdeArrSpace = []
+//   gjettaBokstav = ""
+//   sjanserIgjen = 10;
+//   bruktFørR = []
+//   bruktFørF = []
+//   fellesBokstaver = []
+//   verdi = 0;
+//   arrsett = []
+//   utvalgtOrd = ""
+//   kategoritest = ""
+//   vanskelighetstest = ""
+// }
+
 
 function sjekkHvisMR() {
   for (var i = 0; i < utvalgtOrd.length; i++) {
@@ -62,7 +81,6 @@ function sjekkHvisMR() {
     }
   }
 
-
   if(fellesBokstaver.join("") == utvalgtOrd) {return spillSeier()}
   else {fellesBokstaver = []}
 
@@ -71,7 +89,7 @@ function sjekkHvisMR() {
 function timedMelding(melding) {
   setTimeout(function() {
     feilBokstav.innerHTML = "Ordet inneholder ikke: "
-  }, 1500)
+  }, 3000)
   feilBokstav.innerHTML = "<b>" + melding + "</b>"
 }
 
@@ -163,18 +181,25 @@ function main() {
     }
     if (ordLengdeArr.indexOf("_") == -1) {
       spillSeier()
-      if(verdi == 10){return;}
+      if(verdi == 10){
+        return
+        // resetVerdier()
+        ;}
     }
     sjekkHvisMR();
-    if(verdi == 10){return;}
+    if(verdi == 10){return
+      // resetVerdier()
+      ;}
   })
 }
 
 function spillSlutt() {
   setTimeout(function() {
+    score = 0
     document.getElementById("innpakning").style.display = "none";
     document.getElementById("spillSlutt").style.display = "block";
     document.getElementById("splillSluttMelding").innerHTML += "<br>" + "Du tapte. Ordet var " + "<b>" + "'" + utvalgtOrd + "'" + "</b>"
+    dinScore.innerHTML += score
   }, 500)
 
 }
@@ -183,6 +208,8 @@ function spillSeier() {
   document.getElementById("innpakning").style.display = "none";
   document.getElementById("spillSlutt").style.display = "block";
   document.getElementById("splillSluttMelding").innerHTML = "Du vant."
+  score++
+  dinScore.innerHTML += score
   return verdi = 10;
 }
 
@@ -313,6 +340,7 @@ function vanskF(grad, nummer) {
     main()
     ordL();
     kath2.innerHTML += kategoritest + ", " + vanskelighetstest
+    input.focus()
   })
 }
 
@@ -323,3 +351,10 @@ katF(spill, løsningsord.spillArr)
 vanskF(lett, 0)
 vanskF(middels, 1)
 vanskF(vanskelig, 2)
+
+// påNytt.addEventListener("click", function(){
+//   document.getElementById("innpakning").style.display = "none"
+//   document.getElementById("vanskelighetsDiv").style.display = "none"
+//   document.getElementById("spillSlutt").style.display = "none"
+//   document.getElementById("kategoriDiv").style.display = "grid"
+// })

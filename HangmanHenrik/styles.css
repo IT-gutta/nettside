@@ -1,14 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap');
 * {
   margin: 0;
   padding: 0;
-  font-family: Montserrat;
+  font-family: Amatic SC;
+  font-size: 30px;
 }
 
+body {
+  background-color: rgb(248, 255, 121)
+}
 
 #innpakning {
   width: 600px;
   margin: 0 auto;
+  text-align: center;
+}
+
+ h1 {
+  font-size: 60px;
 }
 
 canvas {
@@ -17,7 +27,8 @@ canvas {
 }
 
 input [type="text"] {
-  width: 30%;
+  width: 60%;
+  color: red;
 }
 
 #spillSlutt {
