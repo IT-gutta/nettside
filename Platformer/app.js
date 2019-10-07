@@ -224,10 +224,10 @@ setInterval(function(){
 
 function draw() {
   background(skyer);
-  translate(-player.pos.x+700, -player.pos.y+500);
+  translate(-player.pos.x+700, -player.pos.y+400);
 
   musX = mouseX+player.pos.x-700
-  musY = mouseY+player.pos.y-500
+  musY = mouseY+player.pos.y-400
 
 
 
