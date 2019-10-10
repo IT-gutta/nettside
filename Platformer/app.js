@@ -544,6 +544,8 @@ function Projectile(){
     this.dirr = -1
   }
 
+
+
   this.r = 10
   this.acc = 0.4
   this.difX = musX-this.x
@@ -559,11 +561,17 @@ function Projectile(){
 
 
     this.draw = function(){
-      fill(0);
-      ellipse(this.x, this.y, this.r)
+      push()
+      strokeWeight(5)
+      stroke("black")
+      line(this.befX, this.befY, this.x, this.y)
+      pop()
     }
 
     this.update = function(){
+      this.befX = this.x
+      this.befY = this.y
+      
       this.x += this.vel.x;
       this.y += this.vel.y;
       this.vel.y += this.acc;
