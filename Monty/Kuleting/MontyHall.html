@@ -3,14 +3,14 @@
     <head>
         <meta charset="utf-8">
         <title>Monty Hall</title>
-        
+
         <style>
-            
+
             body {
                 background-color: black;
                 font-family: "Century Gothic", Arial, sans-serif;
                 font-size: 14px;
-                color: white;   
+                color: white;
             }
             img:hover{
                 cursor: pointer;
@@ -19,34 +19,34 @@
                 font-size: 30px
             }
         </style>
-        
+
     </head>
     <body>
-        
+
         <h1>Monty Hall</h1>
         <p>Hvilken dør skal du velge?</p>
         <img id="b" src="Birch_Door.png" width="300" height="300" alt="Dør">
         <img id="s" src="Spruce_Door.png" width="300" height="300" alt="Dør">
         <img id="a" src="Acacia_Door.png" width="300" height="300" alt="Dør">
-        
+
         <p id="gratulasjon"></p>
-        
+
         <script>
-            
+
             var birEl = document.querySelector("#b")
             var sprEl = document.querySelector("#s")
             var acaEl = document.querySelector("#a")
-            
+
             birEl.addEventListener("click", opneDor)
             sprEl.addEventListener("click", opneDor)
             acaEl.addEventListener("click", opneDor)
-            
+
             var tilfeldigTall = Math.floor(Math.random()*3)
             var dorArray = ["b", "s", "a"]
             var dorArray2 = ["b", "s", "a"]
             var tilfeldigDor = dorArray[tilfeldigTall]
-            console.log(tilfeldigDor)
-            
+            console.log("Du prøver å jukse")
+
             function opneDor(e){
                 trykketDor = e.target
                 if(trykketDor.id == tilfeldigDor){
@@ -55,7 +55,7 @@
                     dorArray.splice(dorArray.indexOf(trykketDor.id), 1)
                     dorID = dorArray[tilfeldigTall2]
                     var opneEl = document.getElementById(dorID)
-                    opneEl.src="goat.png" 
+                    opneEl.src="goat.png"
                 }
                 else{
                     valg = false
@@ -63,24 +63,24 @@
                     dorArray.splice(dorArray.indexOf(tilfeldigDor), 1)
                     var feilDor = dorArray[0]
                     var opneEl = document.getElementById(feilDor)
-                    opneEl.src="goat.png" 
+                    opneEl.src="goat.png"
                 }
                 birEl.removeEventListener("click", opneDor)
                 sprEl.removeEventListener("click", opneDor)
                 acaEl.removeEventListener("click", opneDor)
-                
+
                 var bodyEl = document.querySelector("#gratulasjon")
                 bodyEl.innerHTML += "Vil du bytte dør?<br>"
                 bodyEl.innerHTML += "<button id ='ja'>Ja</button>"
                 bodyEl.innerHTML += "<button id ='nei'>Nei</button>"
-                
+
                 var jaEl = document.getElementById("ja")
                 var neiEl = document.getElementById("nei")
                 neiEl.addEventListener("click", sjekkDor)
                 jaEl.addEventListener("click", sjekkDor)
             }
-            
-            
+
+
             function sjekkDor(e){
                 var jaEllerNei = e.target
                 var riktigDorEl = document.getElementById(tilfeldigDor)
@@ -110,19 +110,19 @@
                 }
                 rydde()
             }
-                
+
             function rydde(){
                 var melding = document.getElementById("gratulasjon")
                 if(resultat == 1){
-                    melding.innerHTML = '<p id=stor>Gratulerer du vant!</p>'   
+                    melding.innerHTML = '<p id=stor>Gratulerer du vant!</p>'
                 }
                 else{
                     melding.innerHTML = '<p id=stor>Du tapte!</p>'
                 }
             }
-                
-            
+
+
         </script>
-        
+
     </body>
 </html>
