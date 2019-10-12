@@ -10,8 +10,8 @@ let cols = canvas.width/scale;
 let tailArr, player, apple;
 let dir = "r"
 let score = 0;
-let speed = 100;
-let colorArr = ["#001f3f", "#0074D9", "#7FDBFF", "#39CCCC", "#3D9970", "#2ECC40", "#01FF70", "#FFDC00", "#FF851B", "#FF4136", "#85144b", "#F012BE", "#B10DC9"]
+let speed =20;
+let colorArr = ["#001f3f", "#2ECC40", "#01FF70", "#FFDC00", "#FF851B", "#FF4136", "#85144b", "#F012BE", "#B10DC9"]
 let newColor = () => colorArr[Math.floor(Math.random()*colorArr.length)]
 
 function newApple(){
@@ -113,7 +113,7 @@ setInterval(function(){
 
   speed += 5
 
-}, speed)
+}, 1000/speed)
 
 function restart(){
   player.x = 5*scale;
