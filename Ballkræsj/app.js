@@ -56,36 +56,6 @@ function kollisjon(particle, otherParticle) {
 
 
 
-// function kollisjon(particle, otherparticle){
-//   const diffX= otherparticle.x - particle.x;
-//   const diffY= otherparticle.y - particle.y;
-//
-//   const fartDiffX= particle.fart.x - otherparticle.fart.x;
-//   const fartDiffY= particle.fart.y - otherparticle.fart.y;
-//
-//   if(fartDiffX*diffX + fartDiffY*diffY >=0){
-//
-//   const angle= -Math.atan2(diffY/diffX);
-//
-//   const m1= particle.mass;
-//   const m2= otherparticle.mass;
-//
-//   const vFor1= rotate(particle.fart, angle);
-//   const vFor2= rotate(otherparticle.fart, angle);
-//
-//   const v1= { x: (m1-m2)*vFor1.x/(m1+m2) + 2*m2*vFor2.x/(m1+m2), y:vFor1.y}
-//   const v2= { x: (m1-m2)*vFor2.x/(m1+m2) + 2*m2*vFor1.x/(m1+m2), y:vFor2.y}
-//
-//   const vEtter1= rotate(v1, -angle);
-//   const vEtter2= rotate(v2, -angle);
-//
-//   particle.fart.x= vEtter1.x;
-//   particle.fart.y= vEtter1.y;
-//
-//   otherparticle.fart.x= vEtter2.x;
-//   otherparticle.fart.y= vEtter2.y;
-// }
-// }
 
 
 function Circle(x, y, r, f){
