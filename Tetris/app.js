@@ -115,6 +115,7 @@ function drawMatrix(matrix, offsetX, offsetY){
 }
 
 function updateScore(){
+  if(score > highscore){highscore = score}
     scoreEl.innerHTML = "Score: " +score + "         Highscore: " + highscore
 }
 updateScore()
