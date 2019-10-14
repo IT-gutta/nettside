@@ -252,9 +252,6 @@ function hardDrop(){
   }
 }
 
-window.addEventListener("touchstart", function(e){
-  scoreEl.innerHTML += e.clientX, e.clientY
-})
-window.addEventListener("touchstart", function(e){
-  scoreEl.innerHTML += e.clientX, e.clientY
+window.addEventListener("touchmove", function(e){
+  scoreEl.innerHTML += e.changedTouches
 })
