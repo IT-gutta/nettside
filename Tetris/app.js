@@ -205,7 +205,6 @@ function sweep(arena){
      sweepCount++
    }
   switch(sweepCount){
-    case 3: score+=600; break;
     case 1: score+=100; tid -= 200/10; break;
     case 2: score+=300; tid -= 600/10; break;
     case 3: score+=600; tid -= 1200/10; break;
