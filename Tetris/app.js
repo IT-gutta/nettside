@@ -11,6 +11,7 @@ const cols = 10;
 const rows = 24;
 
 let player;
+let tid = 990;
 let dropping = false;
 let score = 0;
 let highscore = 0;
@@ -162,7 +163,7 @@ function animate(time = 0){
   const deltaTime = time-lastTime;
   lastTime = time;
   dCount += deltaTime;
-  if(dCount > 990){
+  if(dCount > tid){
     drop();
   }
   draw()
@@ -204,10 +205,11 @@ function sweep(arena){
      sweepCount++
    }
   switch(sweepCount){
-    case 1: score+=100; break;
-    case 2: score+=300; break;
     case 3: score+=600; break;
-    case 4: score+=1000; break;
+    case 1: score+=100; tid -= 200/10; break;
+    case 2: score+=300; tid -= 600/10; break;
+    case 3: score+=600; tid -= 1200/10; break;
+    case 4: score+=1000; tid -= 2000/10; break;
     default: break;
   }
   updateScore();
@@ -243,6 +245,7 @@ function resetGame(){
   createArena();
   resetPlayer();
   score= 0;
+  tid = 990;
   updateScore();
 }
 
