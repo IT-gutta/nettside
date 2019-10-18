@@ -84,3 +84,7 @@ li:before {
   display: inline-block;
   font-size: 18px;
 }
+
+li:hover {
+  cursor: pointer;
+}
