@@ -10,7 +10,8 @@ body {
   /* background-image: url("bilde.png"); */
   width: 80%;
   margin: 0 auto;
-  background-image: linear-gradient(lightyellow, white);
+  /* background-image: linear-gradient(lightyellow, white); */
+  background-color: lightyellow;
 }
 .wrapper {
   display: grid;
