@@ -14,6 +14,17 @@ input.addEventListener("keyup", function(event) {
 
 window.onload = input.focus()
 
+p.addEventListener("click", function(){
+  if(unsorted.length != 0){
+    unsorted.pop()
+    sorted = [...unsorted]
+    sorted.sort()
+    p.innerHTML = "";
+    for (var i = 0; i < sorted.length; i++) {
+      p.innerHTML += `<li class='liste liste${i}'>${sorted[i]}</li>`
+  }}
+})
+
 function push(oppskrift) {
   oppskrift = input.value
   if (oppskrift != "" && oppskrift != " " && oppskrift != "  ") {
