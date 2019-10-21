@@ -1,5 +1,41 @@
 const canvas = document.createElement("CANVAS");
 const c = canvas.getContext("2d");
+const scoreP = document.getElementById('score');
+const div = document.querySelector('div');
+const button = document.querySelector('button')
+
+let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+localStorage.setItem('items', JSON.stringify(itemsArray))
+
+
+for (let i = 0; i < itemsArray.length; i++) {
+  if(i<10){
+  div.innerHTML += `<p>${itemsArray[i]}</p>
+  `}}
+
+
+let scoreboard = (score) =>{
+  if(score != 0 ){
+  itemsArray.push(score)
+  itemsArray.sort((a, b) => b-a)
+  localStorage.setItem('items', JSON.stringify(itemsArray))
+  div.innerHTML = ""
+  for (let i = 0; i < itemsArray.length; i++) {
+    if(i<10){
+    div.innerHTML += `<p>${itemsArray[i]}</p>
+    `}}
+  
+  console.log(itemsArray)
+}}
+
+button.addEventListener('click', function() {
+  window.localStorage.clear()
+  itemsArray = []
+  div.innerHTML = ""
+  }
+)
+
+
 document.querySelector("body").appendChild(canvas)
 canvas.width = 1000;
 canvas.height = 600;
@@ -119,11 +155,11 @@ function restart(){
   player.x = 5*scale;
   player.y = 5*scale;
   newApple();
+  scoreboard(score);
   score = 0;
   tailArr = [player]
   dir = "r"
 }
-
 
 window.addEventListener("keydown", function(e){
     switch(e.keyCode){
