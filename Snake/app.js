@@ -13,21 +13,15 @@ class ScoreObj {
 
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 localStorage.setItem('items', JSON.stringify(itemsArray))
-
 div.innerHTML = `<h2>TOP 10</h2>`
 for (let i = 0; i < itemsArray.length; i++) {
   if(i<10){
   div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b></p>
   `}}
-
-
 let scoreboard = (score) =>{
   if(score != 0 ){
   itemsArray.push(new ScoreObj(`${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`, score))
-  // itemsArray.push(score)
   itemsArray.sort((a, b) => b.score-a.score)
-  // itemsArray.sort((a, b) => b-a)
-
   localStorage.setItem('items', JSON.stringify(itemsArray))
   div.innerHTML = ""
   div.innerHTML = `<h2>TOP 10</h2>`
@@ -35,10 +29,7 @@ let scoreboard = (score) =>{
     if(i<10){
     div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b> </p>
     `}}
-  
-  console.log(itemsArray)
 }}
-
 button.addEventListener('click', function() {
   window.localStorage.clear()
   itemsArray = []
