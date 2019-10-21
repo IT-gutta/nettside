@@ -16,7 +16,7 @@ localStorage.setItem('items', JSON.stringify(itemsArray))
 div.innerHTML = `<h2>HIGHSCORES</h2>`
 for (let i = 0; i < itemsArray.length; i++) {
   if(i<10){
-  div.innerHTML += `<p>${itemsArray[i]}</p>
+    div.innerHTML += `<p>${itemsArray[i].date} - ${itemsArray[i].score} </p>
   `}}
 
 
@@ -29,8 +29,8 @@ let scoreboard = (score) =>{
   div.innerHTML = `<h2>HIGHSCORES</h2>`
   for (let i = 0; i < itemsArray.length; i++) {
     if(i<10){
-    div.innerHTML += `<p> ${getDay()} - ${itemsArray[i]}</p>
-    `}}
+      div.innerHTML += `<p>${itemsArray[i].date} - ${itemsArray[i].score} </p>
+      `}}
   
   console.log(itemsArray)
 }}
