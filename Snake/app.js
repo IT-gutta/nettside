@@ -1,6 +1,7 @@
 const canvas = document.createElement("CANVAS");
 const c = canvas.getContext("2d");
 document.querySelector("body").appendChild(canvas)
+const scoreP = document.getElementById('score');
 canvas.width = 1000;
 canvas.height = 600;
 
@@ -122,6 +123,8 @@ function restart(){
   score = 0;
   tailArr = [player]
   dir = "r"
+  localStorage.setItem("score", score);
+  scoreP.innerHTML = localStorage.getItem("score")
 }
 
 
