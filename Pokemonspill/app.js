@@ -52,6 +52,16 @@
                 }
             }
 
+            class Move {
+                constructor(name, damage, accuracy, pp, type){
+                    this.name = name
+                    this.damage = damage
+                    this.accuracy = accuracy
+                    this.pp = pp
+                    this.type = type
+                }
+            }
+
             var pikachu = new Pokemon("Pikachu", 100, 34, 50, "yellow")
             var charmander = new Pokemon("Charmander", 100, 33, 60, "orange")
             var squirtle = new Pokemon("Squirtle", 100, 36, 40, "lightblue")
@@ -59,8 +69,11 @@
             var pidgey = new Pokemon("Pidgey", 100, 25, 40, "beige")
             var ratata = new Pokemon("Ratata", 100, 15, 50, "purple")
             
-            var player = new Trainer ("Ash", pikachu, ratata, pidgey, "black")
+            var player = new Trainer("Ash", pikachu, ratata, pidgey, "black")
             var tyrone = new Trainer("Tyrone", charmander, squirtle, pikachu, "red")
+            
+            var tackle = new Move ()
+            
             var activeTrainer = tyrone
             var activePokemon = ratata
             var opponent = ratata
