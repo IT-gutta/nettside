@@ -14,7 +14,7 @@ class ScoreObj {
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 localStorage.setItem('items', JSON.stringify(itemsArray))
 
-div.innerHTML = `<h2>HIGHSCORES</h2>`
+div.innerHTML = `<h2>TOP 10</h2>`
 for (let i = 0; i < itemsArray.length; i++) {
   if(i<10){
   div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b></p>
@@ -30,7 +30,7 @@ let scoreboard = (score) =>{
 
   localStorage.setItem('items', JSON.stringify(itemsArray))
   div.innerHTML = ""
-  div.innerHTML = `<h2>HIGHSCORES</h2>`
+  div.innerHTML = `<h2>TOP 10</h2>`
   for (let i = 0; i < itemsArray.length; i++) {
     if(i<10){
     div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b> </p>
