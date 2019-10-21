@@ -3,12 +3,13 @@ const c = canvas.getContext("2d");
 const scoreP = document.getElementById('score');
 const div = document.querySelector('div');
 const button = document.querySelector('button')
-// class ScoreObj {
-//   constructor(date, score){
-//     this.date = date;
-//     this.score = score;
-//   }
-// }
+let d = new Date();
+class ScoreObj {
+  constructor(date, score){
+    this.date = date;
+    this.score = score;
+  }
+}
 
 let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
 localStorage.setItem('items', JSON.stringify(itemsArray))
@@ -16,23 +17,23 @@ localStorage.setItem('items', JSON.stringify(itemsArray))
 div.innerHTML = `<h2>HIGHSCORES</h2>`
 for (let i = 0; i < itemsArray.length; i++) {
   if(i<10){
-  div.innerHTML += `<p>${itemsArray[i]}</p>
+  div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b></p>
   `}}
 
 
 let scoreboard = (score) =>{
   if(score != 0 ){
-  // itemsArray.push(new ScoreObj(getDay(), score))
-  itemsArray.push(score)
-  // itemsArray.sort((a, b) => b.score-a.score)
-  itemsArray.sort((a, b) => b-a)
+  itemsArray.push(new ScoreObj(`${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`, score))
+  // itemsArray.push(score)
+  itemsArray.sort((a, b) => b.score-a.score)
+  // itemsArray.sort((a, b) => b-a)
 
   localStorage.setItem('items', JSON.stringify(itemsArray))
   div.innerHTML = ""
   div.innerHTML = `<h2>HIGHSCORES</h2>`
   for (let i = 0; i < itemsArray.length; i++) {
     if(i<10){
-    div.innerHTML += `<p> ${itemsArray[i]}</p>
+    div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b> </p>
     `}}
   
   console.log(itemsArray)
