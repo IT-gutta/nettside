@@ -1,5 +1,43 @@
 const canvas = document.createElement("CANVAS");
 const c = canvas.getContext("2d");
+const scoreP = document.getElementById('score');
+const div = document.querySelector('div');
+const button = document.querySelector('button')
+let d = new Date();
+class ScoreObj {
+  constructor(date, score){
+    this.date = date;
+    this.score = score;
+  }
+}
+
+let itemsArray = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : []
+localStorage.setItem('items', JSON.stringify(itemsArray))
+div.innerHTML = `<h2>HIGHSCORES</h2>`
+for (let i = 0; i < itemsArray.length; i++) {
+  if(i<10){
+  div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b></p>
+  `}}
+let scoreboard = (score) =>{
+  if(score != 0 ){
+  itemsArray.push(new ScoreObj(`${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear()}`, score))
+  itemsArray.sort((a, b) => b.score-a.score)
+  localStorage.setItem('items', JSON.stringify(itemsArray))
+  div.innerHTML = ""
+  div.innerHTML = `<h2>HIGHSCORES</h2>`
+  for (let i = 0; i < itemsArray.length; i++) {
+    if(i<10){
+    div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b> </p>
+    `}}
+}}
+button.addEventListener('click', function() {
+  window.localStorage.clear()
+  itemsArray = []
+  div.innerHTML = ""
+  }
+)
+
+
 document.querySelector("body").appendChild(canvas)
 canvas.width = 1000;
 canvas.height = 600;
@@ -119,11 +157,11 @@ function restart(){
   player.x = 5*scale;
   player.y = 5*scale;
   newApple();
+  scoreboard(score);
   score = 0;
   tailArr = [player]
   dir = "r"
 }
-
 
 window.addEventListener("keydown", function(e){
     switch(e.keyCode){
