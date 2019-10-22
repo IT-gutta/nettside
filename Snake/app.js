@@ -30,12 +30,20 @@ let scoreboard = (score) =>{
     div.innerHTML += `<p>${itemsArray[i].date} - <b>${itemsArray[i].score}</b> </p>
     `}}
 }}
-button.addEventListener('click', function() {
-  window.localStorage.clear()
-  itemsArray = []
-  div.innerHTML = ""
+// button.addEventListener('click', function() {
+//   window.localStorage.clear()
+//   itemsArray = []
+//   div.innerHTML = ""
+//   }
+// )
+
+
+window.addEventListener("keydown", e => {
+  if(e.ctrlKey && e.key == "b"){
+    score++
+    tailArr.push(new Tail())
   }
-)
+})
 
 
 document.querySelector("body").appendChild(canvas)
