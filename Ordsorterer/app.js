@@ -1,8 +1,17 @@
-let sorted = [];
-let unsorted = []
 const input = document.getElementById("oppskrift");
 const p = document.getElementById("paragraf")
 let nogreier = false;
+let sorted = []
+// Oppdaterer lista ift localstorage
+let unsorted = localStorage.getItem('unsorted') ? JSON.parse(localStorage.getItem('unsorted')) : []
+localStorage.setItem('unsorted', JSON.stringify(unsorted))
+sorted = [...unsorted]
+    sorted.sort()
+    p.innerHTML = "";
+    for (var i = 0; i < sorted.length; i++) {
+      p.innerHTML += `<li class='liste liste${i}'>${sorted[i]}</li>`
+  }
+// ---------------- //
 
 input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
@@ -17,6 +26,7 @@ window.onload = input.focus()
 p.addEventListener("click", function(){
   if(unsorted.length != 0){
     unsorted.pop()
+    localStorage.setItem('unsorted', JSON.stringify(unsorted))
     sorted = [...unsorted]
     sorted.sort()
     p.innerHTML = "";
@@ -30,10 +40,11 @@ function push(oppskrift) {
   if (oppskrift != "" && oppskrift != " " && oppskrift != "  ") {
     oppskrift = oppskrift.toUpperCase();
     unsorted.push(oppskrift);
+    localStorage.setItem('unsorted', JSON.stringify(unsorted))
     sorted = [...unsorted]
     sorted.sort()
-    console.log(sorted)
-    console.log(unsorted)
+    // console.log(sorted)
+    // console.log(unsorted)
     input.value = "";
     return sorted;
   }
