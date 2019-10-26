@@ -93,3 +93,13 @@ document.addEventListener('keydown', function (event) {
 //       p.innerHTML += `<li class='${liste[x][0]}'>${liste[x].innerText[0]} dette er en overskrift</li>`
 //   }
 // }}
+
+document.addEventListener('keydown', function (event) {
+  if (event.ctrlKey && event.key == "Delete") {
+    console.log("sletter")
+    p.innerHTML = ""
+    sorted = []
+    unsorted = []
+    localStorage.setItem('unsorted', JSON.stringify(unsorted))
+  }
+})
