@@ -24,7 +24,7 @@ input.addEventListener("keyup", function(event) {
 window.onload = input.focus()
 
 p.addEventListener("click", function(){
-  if(unsorted.length != 0){
+  if(unsorted.length){
     unsorted.pop()
     localStorage.setItem('unsorted', JSON.stringify(unsorted))
     sorted = [...unsorted]
