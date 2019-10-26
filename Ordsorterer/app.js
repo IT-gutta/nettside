@@ -9,7 +9,7 @@ sorted = [...unsorted]
 sorted.sort()
 p.innerHTML = "";
 for (var i = 0; i < sorted.length; i++) {
-  p.innerHTML += `<li class='liste liste${i}'>${sorted[i]}</li>`
+  p.innerHTML += `<li class='liste liste${i}' onclick="fjernElem(${i})">${sorted[i]}</li>`
 }
 // ---------------- //
 
@@ -17,24 +17,23 @@ input.addEventListener("keyup", function (event) {
   if (event.keyCode === 13) {
     push()
     presenterHTML()
-    // fjernElem()
   }
 });
 
 window.onload = input.focus()
 
-p.addEventListener("click", function () {
-  if (unsorted.length) {
-    unsorted.pop()
-    localStorage.setItem('unsorted', JSON.stringify(unsorted))
-    sorted = [...unsorted]
-    sorted.sort()
-    p.innerHTML = "";
-    for (var i = 0; i < sorted.length; i++) {
-      p.innerHTML += `<li class='liste liste${i}'>${sorted[i]}</li>`
-    }
-  }
-})
+// p.addEventListener("click", function () {
+//   if (unsorted.length) {
+//     unsorted.pop()
+//     localStorage.setItem('unsorted', JSON.stringify(unsorted))
+//     sorted = [...unsorted]
+//     sorted.sort()
+//     p.innerHTML = "";
+//     for (var i = 0; i < sorted.length; i++) {
+//       p.innerHTML += `<li class='liste liste${i}'>${sorted[i]}</li>`
+//     }
+//   }
+// })
 
 function push(oppskrift) {
   oppskrift = input.value
@@ -44,7 +43,7 @@ function push(oppskrift) {
     localStorage.setItem('unsorted', JSON.stringify(unsorted))
     sorted = [...unsorted]
     sorted.sort()
-    // console.log(sorted)
+    console.log(sorted)
     // console.log(unsorted)
     input.value = "";
     return sorted;
@@ -54,39 +53,36 @@ function push(oppskrift) {
 function presenterHTML() {
   p.innerHTML = "";
   for (var i = 0; i < sorted.length; i++) {
-    p.innerHTML += `<li class='liste liste${i}'>${sorted[i]}</li>`
+    p.innerHTML += `<li class='liste liste${i}' onclick="fjernElem(${i})">${sorted[i]}</li>`
   }
 }
 
+let fjernElem = (num) => {
+  console.log("funker")
+  sorted.splice(num, 1)
+  unsorted = [...sorted]
+  localStorage.setItem('unsorted', JSON.stringify(unsorted))
+  sorted = [...unsorted]
+  sorted.sort()
+  p.innerHTML = ""
+  for (var i = 0; i < sorted.length; i++) {
+    p.innerHTML += `<li class='liste liste${i}' onclick="fjernElem(${i})">${sorted[i]}</li>`
+}
+}
 
 document.addEventListener('keydown', function (event) {
   if (event.ctrlKey && event.key === 'z' && unsorted.length != 0) {
     unsorted.pop()
+    localStorage.setItem('unsorted', JSON.stringify(unsorted))
     sorted = [...unsorted]
     sorted.sort()
     p.innerHTML = "";
     for (var i = 0; i < sorted.length; i++) {
-      p.innerHTML += `<li class='liste liste${i}'>${sorted[i]}</li>`
+      p.innerHTML += `<li class='liste liste${i}' onclick="fjernElem(${i})">${sorted[i]}</li>`
 
     }
   }
 })
-//   function fjernElem(){
-//   liste = document.querySelectorAll(".liste")
-//   for (let j = 0; j < liste.length; j++) {
-//     liste[j].addEventListener("click", function(){
-//       liste[j].parentNode.removeChild(liste[j])
-//       sorted.splice(j, 1)
-//       liste = document.querySelectorAll(".liste")
-//       console.log(liste)
-//       console.log(sorted)
-//
-//     })
-//   }
-//   console.log(sorted)
-//
-// }
-
 
 
 // Hvis man fjerner nest siste så siste funker det ikke
