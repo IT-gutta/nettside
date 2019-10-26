@@ -58,7 +58,7 @@ function presenterHTML() {
 }
 
 let fjernElem = (num) => {
-  console.log("funker")
+  if(confirm(`Er du sikker på at du vil slette ordet ${sorted[num]}?`)){
   sorted.splice(num, 1)
   unsorted = [...sorted]
   localStorage.setItem('unsorted', JSON.stringify(unsorted))
@@ -68,7 +68,7 @@ let fjernElem = (num) => {
   for (var i = 0; i < sorted.length; i++) {
     p.innerHTML += `<li class='liste liste${i}' onclick="fjernElem(${i})">${sorted[i]}</li>`
 }
-}
+}}
 
 document.addEventListener('keydown', function (event) {
   if (event.ctrlKey && event.key === 'z' && unsorted.length != 0) {
