@@ -56,7 +56,7 @@ let fjernElem = (num) => {
 
 // Angre-event
 document.addEventListener('keydown', (event) => {
-  if (event.ctrlKey && event.key === 'z' && unsorted.length != 0) {
+  if (event.ctrlKey && event.key === 'z' && unsorted.length) {
     unsorted.pop()
     setitem()
     sorted = [...unsorted]
