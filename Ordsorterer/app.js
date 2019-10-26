@@ -21,6 +21,7 @@ sorted = [...unsorted]
 sorter()
 presenterHTML()
 
+// Ordpush-event
 input.addEventListener("keyup", (event) => {
   if (event.keyCode === 13) {
     push()
@@ -28,7 +29,7 @@ input.addEventListener("keyup", (event) => {
   }
 });
 
-
+// Dytter ord inn i sortert array
 let push = (ord) => {
   ord = input.value
   if (ord != "" && ord != " " && ord != "  ") {
@@ -41,6 +42,7 @@ let push = (ord) => {
   }
 }
 
+// Fjerner ord med posisjon "num"
 let fjernElem = (num) => {
   if (confirm(`Er du sikker på at du vil slette ordet ${sorted[num]}?`)) {
     sorted.splice(num, 1)
@@ -52,6 +54,7 @@ let fjernElem = (num) => {
   }
 }
 
+// Angre-event
 document.addEventListener('keydown', (event) => {
   if (event.ctrlKey && event.key === 'z' && unsorted.length != 0) {
     unsorted.pop()
@@ -62,6 +65,7 @@ document.addEventListener('keydown', (event) => {
   }
 })
 
+// Wipe-event
 document.addEventListener('keydown', (event) => {
   if (event.ctrlKey && event.key == "Delete" && sorted.length) {
     if (confirm(`Er du sikker på at du vil slette alle ordene fra listen?`)) {
