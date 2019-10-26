@@ -6,7 +6,7 @@
   font-family: Montserrat;
 }
 
-.oppskrifter {
+.input-felt-container {
   position: relative;
 }
 
@@ -36,7 +36,7 @@ h1 {
   font-family: Amatic SC;
 }
 
-.oppskriftDiv {
+.liste-container {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 1em;
