@@ -31,7 +31,6 @@ body {
 
 h1 {
   font-size: 90px;
-  /* color: rgb(197, 157, 240); */
   color: black;
   font-family: Amatic SC;
 }
@@ -40,7 +39,9 @@ h1 {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 1em;
-  grid-auto-rows: minmax(100vh, auto)
+  grid-auto-rows: minmax(100vh, auto);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 button {
@@ -60,6 +61,8 @@ input {
   height: 2em;
   width: 100%;
   font-size: 2em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 .box {
