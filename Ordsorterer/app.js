@@ -54,25 +54,35 @@ let fjernElem = (num) => {
   }
 }
 
+
+
 // Angre-event
 document.addEventListener('keydown', (event) => {
-  if (event.ctrlKey && event.key === 'z' && unsorted.length) {
+  if (event.ctrlKey && event.key == "v" && sorted.length) {
     unsorted.pop()
     setitem()
     sorted = [...unsorted]
     sorter()
     presenterHTML()
   }
-})
-
-// Wipe-event
-document.addEventListener('keydown', (event) => {
-  if (event.ctrlKey && event.key == "Delete" && sorted.length) {
+  else if(event.ctrlKey && event.key == "Delete" && sorted.length){
     if (confirm(`Er du sikker på at du vil slette alle ordene fra listen?`)) {
       p.innerHTML = ""
       sorted = []
       unsorted = []
       setitem()
     }
-  }
+}
 })
+
+// Wipe-event
+// document.addEventListener('keydown', (event) => {
+//   if (event.ctrlKey && event.key == "Delete" && sorted.length) {
+//     if (confirm(`Er du sikker på at du vil slette alle ordene fra listen?`)) {
+//       p.innerHTML = ""
+//       sorted = []
+//       unsorted = []
+//       setitem()
+//     }
+//   }
+// })
