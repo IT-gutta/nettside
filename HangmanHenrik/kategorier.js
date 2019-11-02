@@ -216,7 +216,7 @@ function spillSeier() {
   document.getElementById("spillSlutt").style.display = "block";
   document.getElementById("splillSluttMelding").innerHTML = "Du vant."
   score++
-  dinScore.innerHTML += score
+  // dinScore.innerHTML += score
   return verdi = 10;
 }
 
