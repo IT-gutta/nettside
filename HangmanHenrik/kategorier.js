@@ -353,7 +353,7 @@ function vanskF(grad, nummer) {
 
 katF(musikk, løsningsord.musikkArr)
 katF(sport, løsningsord.sportArr)
-katF(artister, løsningsord.artistArr)
+katF(artist, løsningsord.artistArr)
 katF(blandet, løsningsord.blandetArr)
 katF(spill, løsningsord.spillArr)
 vanskF(lett, 0)
