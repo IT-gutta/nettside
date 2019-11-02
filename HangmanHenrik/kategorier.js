@@ -1,4 +1,5 @@
 var musikk = document.getElementById("musikk")
+var artist = document.getElementById('artist');
 var sport = document.getElementById("sport")
 var spill = document.getElementById("spill")
 var blandet = document.getElementById("blandet")
@@ -18,12 +19,13 @@ var løsningsord = {
   ["Fløyte", "Blokkfløyte", "Klarinett", "Bassgitar", "Toneart"],
   ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton", "Bongotromme"]
 ],
-sportArr: [
+
+  sportArr: [
   ["Fotball", "Håndball", "Tennis", "Friidrett", "håndball"],
   ["Hockey", "Høydehopp", "Basketball", "Sprint", "Hesteløp"],
   ["Leeds", "George Best", "Robertson", "Bordtennis", "Sjakk", "Polo", "Squash"]
 ],
-spillArr: [
+  spillArr: [
   ["Mario", "Tetris", "Playstation", "Snake", "Yatzy"],
   ["Ratchet and Clank", "Monopol", "Biljard", "Poker", "Ludo"],
   ["Gamecube", "Amerikaner", "Casino", "Timeglass", "Konsoll"]
@@ -32,7 +34,12 @@ spillArr: [
   ["Fredrikstad", "And", "Menneske", "Sol", "Løpe", "Frihet"],
   ["Bjørk", "Bjørn", "Antilope", "Adverb", "Kart"],
   ["Digresjon", "Provisorisk ", "Persepsjon", "Bygningskompleks", "Høyesterettsjustitiarius"]
-]
+],
+  artistArr: [
+    ["Adele", "Justin Bieber", "Taylor Swift", "Astrid S", "Katy Perry"],
+    ["Lars Vaular", "Gabrielle", "Sondre Justad", "Frank Sinatra", "Metallica"],
+    ["M.I.A.", "Michael Bublé ", "Dagny", "KEiiNO", "Matisyahu"]
+  ]
 }
 
 document.getElementById("innpakning").style.display = "none"
@@ -346,6 +353,7 @@ function vanskF(grad, nummer) {
 
 katF(musikk, løsningsord.musikkArr)
 katF(sport, løsningsord.sportArr)
+katF(artister, løsningsord.artistArr)
 katF(blandet, løsningsord.blandetArr)
 katF(spill, løsningsord.spillArr)
 vanskF(lett, 0)
