@@ -17,7 +17,7 @@ var løsningsord = {
   musikkArr: [
   ["Tuba", "Gitar", "Piano", "Note", "Tromme"],
   ["Fløyte", "Blokkfløyte", "Klarinett", "Bassgitar", "Toneart"],
-  ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton", "Bongotromme"]
+  ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton", "Bongotromme", "Lutt"]
 ],
 
   sportArr: [
