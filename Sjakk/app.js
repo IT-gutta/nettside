@@ -23,6 +23,8 @@ var rokkadeType = 0
 var img = new Image()
 img.src = "brikker.png"
 
+const body = document.querySelector('body')
+
 
 
 var board = [
@@ -54,7 +56,7 @@ var hKonge = 26
 
 
 
-window.addEventListener("click", checkpos)
+body.addEventListener("click", checkpos)
 
 function checkpos(e){
     //console.log(selected)
