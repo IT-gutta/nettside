@@ -9,7 +9,7 @@ var activeTileVal = 0
 var newTileVal = 0
 var newTile = 0
 var selected = false
-var white = true 
+var white = true
 var pAttack = false
 var pAttack2 = true
 var sKCount = 0
@@ -20,6 +20,9 @@ var hRokkadeL = true
 var hRokkadeK = true
 var rokkade = false
 var rokkadeType = 0
+var svartTid = 60
+var hvitTid = 60
+var resultEl = document.getElementById("result")
 var img = new Image()
 img.src = "brikker.png"
 
@@ -63,17 +66,17 @@ function checkpos(e){
         activeTileVal = board[Math.floor(e.clientY/80)][Math.floor(e.clientX/80)]
         activeTile = [Math.floor(e.clientY/80),Math.floor(e.clientX/80)]
         //console.log(activeTile)
-        
+
         if(board[activeTile[0]][activeTile[1]]>0){
             selected = true
         }
-        return 
+        return
     }
-    
+
     newTileVal = board[Math.floor(e.clientY/80)][Math.floor(e.clientX/80)]
     newTile = [Math.floor(e.clientY/80),Math.floor(e.clientX/80)]
-    
-    
+
+
     if(white==false && activeTileVal>20){
         selected=false
     }
@@ -82,7 +85,7 @@ function checkpos(e){
     }
     //hvit
     if(activeTileVal>20 && white==true && selected==true){
-    
+
         if(newTileVal>20){
             selected=false
             pAttack2=false
@@ -98,10 +101,10 @@ function checkpos(e){
         if(hRokkadeL==true && activeTileVal==26 && newTileVal==22 && newTile[0]==7 && newTile[1]==0){
             if(board[7][1]==0 && board[7][2]==0 && board[7][3]==0){
                 rokkade = true
-                rokkadeType = 4 
+                rokkadeType = 4
             }
         }
-        //Hvit bonde 
+        //Hvit bonde
         if(activeTileVal==hBonde){
             if(newTileVal>0 && Math.abs(activeTile[0]-newTile[0])==1 && Math.abs(activeTile[1]-newTile[1])==1){
                 pAttack = true
@@ -168,10 +171,10 @@ function checkpos(e){
         //Hvit hest
         if(activeTileVal==hHest){
             if(newTile[0]!=activeTile[0]+2 && newTile[0]!=activeTile[0]-2 && newTile[0]!=activeTile[0]+1 && newTile[0]!=activeTile[0]-1){
-                selected=false  
+                selected=false
             }
             if(newTile[1]!=activeTile[1]+2 && newTile[1]!=activeTile[1]-2 && newTile[1]!=activeTile[1]+1 && newTile[1]!=activeTile[1]-1){
-                selected=false  
+                selected=false
             }
             if(Math.abs(newTile[0]-activeTile[0])==Math.abs(newTile[1]-activeTile[1])){
                 selected=false
@@ -190,7 +193,7 @@ function checkpos(e){
                 if(newTile[1]>activeTile[1]){
                     for(i=activeTile[0]+1; i<newTile[0]; i++){
                         if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -198,7 +201,7 @@ function checkpos(e){
                 if(newTile[1]<activeTile[1]){
                     for(i=activeTile[0]+1; i<newTile[0]; i++){
                         if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -208,7 +211,7 @@ function checkpos(e){
                 if(newTile[1]>activeTile[1]){
                     for(i=activeTile[0]-1; i>newTile[0]; i--){
                         if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -216,7 +219,7 @@ function checkpos(e){
                 if(newTile[1]<activeTile[1]){
                     for(i=activeTile[0]-1; i>newTile[0]; i--){
                         if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -277,7 +280,7 @@ function checkpos(e){
                     if(newTile[1]>activeTile[1]){
                         for(i=activeTile[0]+1; i<newTile[0]; i++){
                             if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -285,7 +288,7 @@ function checkpos(e){
                     if(newTile[1]<activeTile[1]){
                         for(i=activeTile[0]+1; i<newTile[0]; i++){
                             if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -295,7 +298,7 @@ function checkpos(e){
                     if(newTile[1]>activeTile[1]){
                         for(i=activeTile[0]-1; i>newTile[0]; i--){
                             if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -303,7 +306,7 @@ function checkpos(e){
                     if(newTile[1]<activeTile[1]){
                         for(i=activeTile[0]-1; i>newTile[0]; i--){
                             if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -311,10 +314,10 @@ function checkpos(e){
             }
         }
     }
-    
+
     //svart
     if(activeTileVal<20 && activeTileVal>10 && white==false && selected==true){
-    
+
         if(newTileVal<20 && newTileVal>10 && activeTileVal>10 && activeTileVal<20){
             selected=false
             pAttack2=false
@@ -333,7 +336,7 @@ function checkpos(e){
                 rokkadeType = 2
             }
         }
-        //Svart bonde 
+        //Svart bonde
         if(activeTileVal==sBonde){
             if(newTileVal>0 && Math.abs(activeTile[0]-newTile[0])==1 && Math.abs(activeTile[1]-newTile[1])==1){
                 pAttack = true
@@ -400,10 +403,10 @@ function checkpos(e){
         //Svart hest
         if(activeTileVal==sHest){
             if(newTile[0]!=activeTile[0]+2 && newTile[0]!=activeTile[0]-2 && newTile[0]!=activeTile[0]+1 && newTile[0]!=activeTile[0]-1){
-                selected=false  
+                selected=false
             }
             if(newTile[1]!=activeTile[1]+2 && newTile[1]!=activeTile[1]-2 && newTile[1]!=activeTile[1]+1 && newTile[1]!=activeTile[1]-1){
-                selected=false  
+                selected=false
             }
             if(Math.abs(newTile[0]-activeTile[0])==Math.abs(newTile[1]-activeTile[1])){
                 selected=false
@@ -422,7 +425,7 @@ function checkpos(e){
                 if(newTile[1]>activeTile[1]){
                     for(i=activeTile[0]+1; i<newTile[0]; i++){
                         if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -430,7 +433,7 @@ function checkpos(e){
                 if(newTile[1]<activeTile[1]){
                     for(i=activeTile[0]+1; i<newTile[0]; i++){
                         if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -440,7 +443,7 @@ function checkpos(e){
                 if(newTile[1]>activeTile[1]){
                     for(i=activeTile[0]-1; i>newTile[0]; i--){
                         if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -448,7 +451,7 @@ function checkpos(e){
                 if(newTile[1]<activeTile[1]){
                     for(i=activeTile[0]-1; i>newTile[0]; i--){
                         if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                            selected=false  
+                            selected=false
                         }
                     }
                 }
@@ -509,7 +512,7 @@ function checkpos(e){
                     if(newTile[1]>activeTile[1]){
                         for(i=activeTile[0]+1; i<newTile[0]; i++){
                             if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -517,7 +520,7 @@ function checkpos(e){
                     if(newTile[1]<activeTile[1]){
                         for(i=activeTile[0]+1; i<newTile[0]; i++){
                             if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -527,7 +530,7 @@ function checkpos(e){
                     if(newTile[1]>activeTile[1]){
                         for(i=activeTile[0]-1; i>newTile[0]; i--){
                             if(board[i][activeTile[1]-(i-activeTile[0])]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -535,7 +538,7 @@ function checkpos(e){
                     if(newTile[1]<activeTile[1]){
                         for(i=activeTile[0]-1; i>newTile[0]; i--){
                             if(board[i][i+activeTile[1]-activeTile[0]]!=0){
-                                selected=false  
+                                selected=false
                             }
                         }
                     }
@@ -543,11 +546,11 @@ function checkpos(e){
             }
         }
     }
-    
+
     if(rokkade==true){
         selected = true
     }
-    
+
     if(selected==true){
         if(rokkade==false){
             board[Math.floor(e.clientY/80)][Math.floor(e.clientX/80)] = board[activeTile[0]][activeTile[1]]
@@ -618,22 +621,13 @@ function checkpos(e){
         console.log(sRokkadeK)
         console.log(hRokkadeL)
         console.log(hRokkadeK)
-        
-        
+
+
 //        if(board[7].indexOf(26)!=4){
 //            sRokkade = false
 //            console.log(sRokkade)
 //        }
-        if(sKCount==8){
-            console.log("Hvit vant")
-            window.removeEventListener("click", checkpos)
-        }
-        if(hKCount==8){
-            console.log("Svart vant")
-            window.removeEventListener("click", checkpos)
-        }
-        sKCount=0
-        hKCount=0
+
         if(board[7].indexOf(11)!=-1){
             board[7][board[7].indexOf(11)]=15
         }
@@ -662,10 +656,10 @@ function drawBoard(){
 }
 
 function animateBoard(){
-    
+
     for(i=0; i<h/tile; i++){
         for(j=0; j<h/tile; j++){
-            if(i%2!=j%2){   
+            if(i%2!=j%2){
                 c.beginPath()
                 c.moveTo(i*tile,j*tile)
                 c.fillStyle = "brown"
@@ -674,13 +668,13 @@ function animateBoard(){
             }
         }
     }
-    
+
     for(i=0; i<board.length; i++){
         for(j=0; j<board[i].length; j++){
-            if(board[j][i]!=0){                
+            if(board[j][i]!=0){
                 let width = 120
                 let height = 120
-                
+
                 if(board[j][i]==hKonge){
                     var x0 = 10
                     var y0 = 175
@@ -728,19 +722,49 @@ function animateBoard(){
                 if(board[j][i]==sBonde){
                     var x0 = 835
                     var y0 = 10
-                }   
-                
+                }
+
                 c.drawImage(img, x0, y0, width, height, i*80, j*80, 80, 80)
             }
         }
     }
 }
 
+function updateClock(){
+    if(white==true && hvitTid>0){
+        hvitTid--
+    }
+    if(white==false && svartTid>0){
+        svartTid--
+    }
+        svart.innerHTML = "Svart: " + svartTid
+        hvit.innerHTML = "Hvit: " + hvitTid
+}
+function checkGameOver(){
+    if(sKCount==8 || svartTid<=0){
+            resultEl.innerHTML = "Seier til hvit"
+            window.removeEventListener("click", checkpos)
+            //svartTid=0
+            resultEl.style.backgroundColor = "white"
+            resultEl.style.color = "black"
+        }
+        if(hKCount==8 || hvitTid<=0){
+            resultEl.innerHTML = "Seier til svart"
+            window.removeEventListener("click", checkpos)
+            //hvitTid=0
+            resultEl.style.backgroundColor = "black"
+            resultEl.style.color = "white"
+        }
+        sKCount=0
+        hKCount=0
+}
+
 function animate(){
     c.clearRect(0,0,h,h)
     animateBoard()
     drawBoard()
-    turn.innerHTML = white
+    checkGameOver()
     requestAnimationFrame(animate)
 }
+setInterval(updateClock,1000)
 img.onload = animate
