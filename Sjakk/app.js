@@ -26,6 +26,9 @@ var resultEl = document.getElementById("result")
 var img = new Image()
 img.src = "brikker.png"
 
+// henter canvas_div-elementet
+const canvas_div = document.querySelector('.canvas_div')
+
 
 
 var board = [
@@ -62,6 +65,7 @@ window.addEventListener("click", checkpos)
 function checkpos(e){
     //console.log(selected)
     //console.log(white)
+    console.log(1)
     if(e.clientX>0 && e.clientY<h && e.clientX>0 && e.clientY<h && selected==false){
         activeTileVal = board[Math.floor(e.clientY/80)][Math.floor(e.clientX/80)]
         activeTile = [Math.floor(e.clientY/80),Math.floor(e.clientX/80)]
