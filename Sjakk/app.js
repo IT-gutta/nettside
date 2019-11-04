@@ -23,7 +23,8 @@ var rokkadeType = 0
 var img = new Image()
 img.src = "brikker.png"
 
-const body = document.querySelector('body')
+// henter canvas_div-elementet
+const canvas_div = document.querySelector('.canvas_div')
 
 
 
@@ -56,7 +57,7 @@ var hKonge = 26
 
 
 
-body.addEventListener("click", checkpos)
+canvas_div.addEventListener("click", checkpos)
 
 function checkpos(e){
     //console.log(selected)
