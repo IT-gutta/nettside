@@ -57,15 +57,17 @@ var hKonge = 26
 
 
 
-canvas_div.addEventListener("click", checkpos)
+window.addEventListener("click", checkpos)
 
 function checkpos(e){
     //console.log(selected)
     //console.log(white)
+    console.log(1)
     if(e.clientX>0 && e.clientY<h && e.clientX>0 && e.clientY<h && selected==false){
         activeTileVal = board[Math.floor(e.clientY/80)][Math.floor(e.clientX/80)]
         activeTile = [Math.floor(e.clientY/80),Math.floor(e.clientX/80)]
-        //console.log(activeTile)
+        console.log(activeTile)
+        console.log(e.clientX)
         
         if(board[activeTile[0]][activeTile[1]]>0){
             selected = true
