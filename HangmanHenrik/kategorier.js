@@ -214,7 +214,7 @@ function spillSlutt() {
 function spillSeier() {
   document.getElementById("innpakning").style.display = "none";
   document.getElementById("spillSlutt").style.display = "block";
-  document.getElementById("splillSluttMelding").innerHTML = "Du vant."
+  document.getElementById("splillSluttMelding").innerHTML = `Du vant, ordet var ${utvalgtOrd}`
   score++
   // dinScore.innerHTML += score
   return verdi = 10;
