@@ -23,7 +23,7 @@ var løsningsord = {
   sportArr: [
   ["Fotball", "Håndball", "Tennis", "Friidrett", "håndball"],
   ["Hockey", "Høydehopp", "Basketball", "Sprint", "Hesteløp"],
-  ["Leeds", "George Best", "Robertson", "Bordtennis", "Sjakk", "Polo", "Squash"]
+  ["Leeds", "George Best", "Robertson", "Bordtennis", "Sjakk", "Polo", "Squash"],
 ],
   spillArr: [
   ["Mario", "Tetris", "Playstation", "Snake", "Yatzy"],
