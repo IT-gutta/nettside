@@ -239,6 +239,17 @@
                    spiller.innerHTML = "Seier til sirkel"
                    seier++
                }
+
+               //sjekker den nederste vannrette kolonnen
+               else if(arr1[2][0]==1 && arr1[2][1]==1 && arr1[2][2]==1){
+                   spiller.innerHTML = "Seier til kryss"
+                   seier++
+               }
+               
+               else if(arr1[2][0]==2 && arr1[2][1]==2 && arr1[2][2]==2){
+                   spiller.innerHTML = "Seier til sirkel"
+                   seier++
+               }
                
                //sjekker den første loddrette kolonnen
                else if(arr1[0][0]==1 && arr1[1][0]==1 && arr1[2][0]==1){
