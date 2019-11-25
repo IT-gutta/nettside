@@ -13,6 +13,8 @@ const rows = 24;
 let player;
 let tid = 990;
 let dropping = false;
+let testbool = true;
+
 let score = 0;
 let highscore = 0;
 
@@ -86,6 +88,7 @@ switch(matrix){
 
 
 
+
 function rotate(o){
   if(o.length == 3){
     [o[0][0], o[0][1], o[0][2], o[1][0], o[1][1], o[1][2], o[2][0], o[2][1], o[2][2]]
@@ -95,7 +98,7 @@ function rotate(o){
     [o[0][0], o[0][1], o[0][2], o[0][3], o[1][0], o[1][1], o[1][2], o[1][3], o[2][0], o[2][1], o[2][2], o[2][3], o[3][0], o[3][1], o[3][2], o[3][3]]
     = [o[0][3], o[1][3], o[2][3], o[3][3], o[0][2], o[1][2], o[2][2], o[3][2], o[0][1], o[1][1], o[2][1], o[3][1], o[0][0], o[1][0], o[2][0], o[3][0]]
   }
-  if(doesCollide(o, arena)){
+  if(doesCollide(o, arena, player.y)){
     rotate(o)
 
   }
@@ -138,21 +141,33 @@ function background(){
 }
 
 createMatrix(randomMatrix());
+let testmatrix = player.matrix;
+let testy = player.y
 
 
 function draw(){
   background();
   drawMatrix(arena, 0, 0)
   drawMatrix(player.matrix, player.x, player.y)
+  console.log(testmatrix, player.x, testy)
+  drawMatrix(testmatrix, player.x, testy)
 }
 
 function drop(){
   player.y++;
   dCount = 0
-  if(doesCollide(player.matrix, arena)){
+  if(doesCollide(player.matrix, arena, player.y)){
     player.y--;
     merge(player, arena)
     resetPlayer()
+  }
+}
+
+function testDrop(){
+  testy++
+  if(doesCollide(player.matrix, arena, testy)){
+    testy--
+    testbool = false
   }
 }
 
@@ -167,6 +182,7 @@ function animate(time = 0){
     drop();
   }
   draw()
+  preview()
 
   requestAnimationFrame(animate)
 }
@@ -175,7 +191,7 @@ animate()
 
 function move(dir){
     player.x += dir;
-    if(doesCollide(player.matrix, arena)){
+    if(doesCollide(player.matrix, arena, player.y)){
       player.x += -dir;
     }
 }
@@ -216,8 +232,8 @@ function sweep(arena){
 
 
 
-function doesCollide(matrix, arena){
-  const [m, oX, oY] = [matrix, player.x, player.y]
+function doesCollide(matrix, arena, y){
+  const [m, oX, oY] = [matrix, player.x, y]
 
   for(let y = 0; y<m.length; y++){
     for(let x=0; x<m[y].length; x++){
@@ -235,9 +251,11 @@ function resetPlayer(){
   sweep(arena);
   createMatrix(randomMatrix());
   dropping = false;
-  if(doesCollide(player.matrix, arena)){
+  testbool = false;
+  if(doesCollide(player.matrix, arena, player.y)){
     resetGame();
   }
+  testy = player.y
 }
 
 function resetGame(){
@@ -248,13 +266,17 @@ function resetGame(){
   updateScore();
 }
 
+function preview(){
+  let temp = JSON.parse(JSON.stringify(arena))
+  testmatrix = player.matrix
+  while(testbool){
+    testDrop()
+  }
+}
+
 function hardDrop(){
   dropping = true;
   while (dropping){
     drop();
   }
 }
-
-window.addEventListener("touchmove", function(e){
-  scoreEl.innerHTML += e.changedTouches
-})
