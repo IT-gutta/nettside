@@ -258,3 +258,5 @@ function hardDrop(){
 window.addEventListener("touchmove", function(e){
   scoreEl.innerHTML += e.changedTouches
 })
+
+
