@@ -43,13 +43,13 @@ let scoreboard = score => {
   }
 };
 
-window.addEventListener("keydown", () => {
-  if (e.ctrlKey && e.key == "e") {
-    window.localStorage.clear();
-    itemsArray = [];
-    div.innerHTML = "";
-  }
-});
+// window.addEventListener("keydown", () => {
+//   if (e.ctrlKey && e.key == "e") {
+//     window.localStorage.clear();
+//     itemsArray = [];
+//     div.innerHTML = "";
+//   }
+// });
 // button.addEventListener('click', function() {
 //   window.localStorage.clear()
 //   itemsArray = []
@@ -68,13 +68,13 @@ document.querySelector("body").appendChild(canvas);
 canvas.width = 1000;
 canvas.height = 600;
 
-let scale = 20;
+let scale = 30;
 let rows = canvas.height / scale;
 let cols = canvas.width / scale;
 let tailArr, player, apple;
 let dir = "r";
 let score = 0;
-let speed = 20;
+let speed = 15;
 let colorArr = [
   "#001f3f",
   "#2ECC40",
@@ -108,7 +108,7 @@ newApple();
 player = {
   x: 5 * scale,
   y: 5 * scale,
-  color: newColor(),
+  color: "green",
 
   draw: function() {
     c.beginPath();
@@ -119,15 +119,31 @@ player = {
     switch (dir) {
       case "r":
         this.x += scale;
+        tailArr.forEach((item, i) => {
+
+          if(i!=0 && this.x == item.x && this.y == item.y) this.x-=scale
+        })
         break;
       case "l":
         this.x -= scale;
+        tailArr.forEach((item, i) => {
+
+          if(i!=0 && this.x == item.x && this.y == item.y) this.x+=scale
+        })
         break;
       case "d":
         this.y += scale;
+        tailArr.forEach((item, i) => {
+
+          if(i!=0 && this.x == item.x && this.y == item.y) this.y-=scale
+        })
         break;
       case "u":
         this.y -= scale;
+        tailArr.forEach((item, i) => {
+
+          if(i!=0 && this.x == item.x && this.y == item.y) this.y+=scale
+        })
         break;
     }
     this.draw();
