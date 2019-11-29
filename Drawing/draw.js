@@ -1,5 +1,5 @@
-canvas.height = 400
-canvas.width = 400
+canvas.width= window.innerWidth
+canvas.height= window.innerHeight
 posX = 0
 posY = 0
 size = 2
@@ -7,10 +7,10 @@ colorIndex = 1
 let shapeIndex = 0
 let shape
 let lineMode = false
+let grad, pointOne, pointTwo
 color = "white"
 map = []
 drawing = false
-console.log(canvas)
 var colorEl = document.querySelector("#color")
 var shapeEl = document.querySelector("#shape")
 var sizeEl = document.querySelector("input")
@@ -26,9 +26,8 @@ heiEl.addEventListener("change", scale)
 widEl.addEventListener("change", scale)
 clearEl.addEventListener("click", erase)
 shapeEl.addEventListener("change", newShape)
-canvas.width= 1200
-canvas.height= 800
-let grad, pointOne, pointTwo
+
+
 function erase(){
     c.clearRect(0,0,canvas.width,canvas.height)
 }
@@ -69,7 +68,6 @@ function newColor(){
             color = "gray"
             break;
         case 11:
-            console.log("gradient")
             grad = c.createLinearGradient(0, 0, canvas.width, canvas.height)
             grad.addColorStop(0.1, "magenta")
             grad.addColorStop(0.4, "blue")
@@ -79,6 +77,7 @@ function newColor(){
     }
     console.log(color);
 }
+
 function newShape(){
     shapeIndex = shapeEl.selectedIndex
     if(shapeIndex==0){
@@ -105,7 +104,6 @@ function scale(){
 function pos(e){
     posX = (e.clientX-(window.innerWidth-canvas.width)/2)
     posY = (e.clientY-(window.innerHeight-canvas.height)/2)
-    // console.log(posX, posY)
 }
 function draw(){
     if(lineMode){
@@ -137,20 +135,76 @@ for(i=0; i<canvas.height; i++){
         map[i].push(0)
     }
 }
-console.log(map)
-// function loop(){
-//     requestAnimationFrame(loop)
-    
-// }
-// loop()
+
 
 function anim(){
-    // console.log(drawing)
-    // console.log(color)
-    // console.log(posX, posY)
-    // console.log(size)
     if(drawing){
         cCirc(posX, posY, size, color)
         setTimeout(anim, 0.1)
     }
+}   
+
+
+
+let slider = {
+    x: 200, 
+    y: 50,
+    r: 10,
+    draw: function(){
+        c.beginPath()
+        c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
+        c.fillStyle=`hsla(${560-this.x}, 100%, 50%, 1)`
+        c.fill()
+        c.font = "20px sans-serif"
+        c.fillStyle = "black"
+        c.clearRect(200, 90, 100, 50)
+        c.fillText("Colorpicker", 200, 90)
+    },
+    update: function(){
+        this.draw()
+        color = `hsla(${560-this.x}, 100%, 50%, 1)`
+    } 
 }
+let mouse = {x: undefined, y: undefined}
+function inRange(){
+    console.log(mouse, Math.sqrt(Math.pow(mouse.x-slider.x, 2) + Math.pow(mouse.y-slider.y, 2)))
+    if(Math.sqrt(Math.pow(mouse.x-slider.x, 2) + Math.pow(mouse.y-slider.y, 2)) < slider.r){
+        return true
+    }
+    return false
+}
+let sliderState = false
+function mDown(e){
+    mouse.x = e.clientX-(window.innerWidth-canvas.width)/2
+    mouse.y = e.clientY-(window.innerHeight-canvas.height)/2
+    if (inRange()){
+        sliderState = true
+    }    
+}
+function mUp(){
+    sliderState = false
+}
+
+function moveSlider(e){
+    mouse.x = e.clientX-(window.innerWidth-canvas.width)/2
+    mouse.y = e.clientY-(window.innerHeight-canvas.height)/2
+    if(sliderState){
+        c.beginPath()
+        c.fillStyle = "white"
+        c.arc(slider.x, slider.y, slider.r, 0, 2*Math.PI)
+        c.fill()
+        c.closePath()
+        slider.x = mouse.x
+        if(slider.x > 560){
+            slider.x = 560
+        }
+        if(slider.x < 200){
+            slider.x = 200
+        }
+        slider.update()
+    }
+}
+slider.draw()
+window.addEventListener("mousedown", mDown)
+window.addEventListener("mouseup", mUp)
+window.addEventListener("mousemove", moveSlider)
