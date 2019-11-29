@@ -30,6 +30,7 @@ shapeEl.addEventListener("change", newShape)
 
 function erase(){
     c.clearRect(0,0,canvas.width,canvas.height)
+    slider.update()
 }
 function newColor(){
     colorIndex = colorEl.selectedIndex
@@ -140,6 +141,7 @@ for(i=0; i<canvas.height; i++){
 function anim(){
     if(drawing){
         cCirc(posX, posY, size, color)
+        slider.update()
         setTimeout(anim, 0.1)
     }
 }   
@@ -149,7 +151,7 @@ function anim(){
 let slider = {
     x: 200, 
     y: 50,
-    r: 10,
+    r: 20,
     draw: function(){
         c.beginPath()
         c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
