@@ -69,11 +69,13 @@ function newColor(){
             color = "gray"
             break;
         case 11:
-            grad = c.createLinearGradient()
-            gradient.addColorStop(0, 'magenta')
-            gradient.addColorStop(.5, 'blue')
-            gradient.addColorStop(1, 'red')
-            color = gradient
+            console.log("gradient")
+            grad = c.createLinearGradient(0, 0, canvas.width, canvas.height)
+            grad.addColorStop(0.1, "magenta")
+            grad.addColorStop(0.4, "blue")
+            grad.addColorStop(0.9, "red")
+            color = grad
+            break;
     }
     console.log(color);
 }
