@@ -4,11 +4,15 @@ posX = 0
 posY = 0
 size = 2
 colorIndex = 1
+let shapeIndex = 0
+let shape
+let lineMode = false
 color = "white"
 map = []
 drawing = false
 console.log(canvas)
-var colorEl = document.querySelector("select")
+var colorEl = document.querySelector("#color")
+var shapeEl = document.querySelector("#shape")
 var sizeEl = document.querySelector("input")
 var widEl = document.getElementById("wid")
 var heiEl = document.getElementById("hei")
@@ -21,6 +25,10 @@ canvas.addEventListener("mousemove", pos)
 heiEl.addEventListener("change", scale)
 widEl.addEventListener("change", scale)
 clearEl.addEventListener("click", erase)
+shapeEl.addEventListener("change", newShape)
+canvas.width= 1200
+canvas.height= 800
+let grad, pointOne, pointTwo
 function erase(){
     c.clearRect(0,0,canvas.width,canvas.height)
 }
@@ -60,9 +68,25 @@ function newColor(){
         case 10:
             color = "gray"
             break;
+        case 11:
+            grad = c.createLinearGradient()
+            gradient.addColorStop(0, 'magenta')
+            gradient.addColorStop(.5, 'blue')
+            gradient.addColorStop(1, 'red')
+            color = gradient
     }
     console.log(color);
 }
+function newShape(){
+    shapeIndex = shapeEl.selectedIndex
+    if(shapeIndex==0){
+        lineMode =false
+    }
+    else if(shapeIndex==1){
+        lineMode = true
+    }
+}
+
 function newSize(){
     size = Number(sizeEl.value)
     console.log(size)
@@ -82,10 +106,27 @@ function pos(e){
     // console.log(posX, posY)
 }
 function draw(){
-    drawing = true
-    anim()
+    if(lineMode){
+        pointOne = {x: posX, y:posY}
+    }
+    else{
+        drawing = true
+        anim()}
+}
+function drawLine(){
+    c.beginPath()
+    c.moveTo(pointOne.x, pointOne.y)
+    c.lineTo(pointTwo.x, pointTwo.y)
+    c.lineWidth = size
+    c.strokeStyle = color
+    c.stroke()
+    c.closePath()
 }
 function notDraw(){
+    if(lineMode){
+        pointTwo = {x: posX, y:posY}
+        drawLine()
+    }
     drawing = false
 }
 for(i=0; i<canvas.height; i++){
@@ -102,10 +143,10 @@ console.log(map)
 // loop()
 
 function anim(){
-    console.log(drawing)
-    console.log(color)
-    console.log(posX, posY)
-    console.log(size)
+    // console.log(drawing)
+    // console.log(color)
+    // console.log(posX, posY)
+    // console.log(size)
     if(drawing){
         cCirc(posX, posY, size, color)
         setTimeout(anim, 0.1)

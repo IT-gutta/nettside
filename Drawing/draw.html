@@ -22,7 +22,7 @@
         input{
             width: 70px;
         }
-        select{
+        #color{
             width: 74px;
         }
         canvas{
@@ -38,7 +38,7 @@
         <input type="number" placeholder="Draw-radius"><br>
         <input type="number" placeholder="Width" id="wid"><br>
         <input type="number" placeholder="Heigth" id="hei"><br>
-        <select>
+        <select id="color">
             <option>White</option>
             <option>Black</option>
             <option>Blue</option>
@@ -50,7 +50,14 @@
             <option>Pink</option>
             <option>Brown</option>
             <option>Gray</option>
+            <option>Gradient</option>
         </select><br>
+        <select id="shape">
+            <option>Freehand</option>
+            <option>Line (point to point)</option>
+
+
+        </select>
         <button>Clear</button>
     </div>
     <canvas></canvas>
