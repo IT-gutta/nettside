@@ -7,7 +7,7 @@ colorIndex = 1
 let shapeIndex = 0
 let shape
 let lineMode = false
-let grad, pointOne, pointTwo
+let grad, pointOne, pointTwo, sliderMode
 color = "white"
 map = []
 drawing = false
@@ -30,10 +30,16 @@ shapeEl.addEventListener("change", newShape)
 
 function erase(){
     c.clearRect(0,0,canvas.width,canvas.height)
-    slider.update()
+    slider1.update()
 }
 function newColor(){
     colorIndex = colorEl.selectedIndex
+    if(colorIndex==12){
+        sliderMode=true
+        color = `hsl(${hue}, ${saturation}%, ${lightness}%)`
+        
+    }
+    else{ sliderMode=false }
     switch (colorIndex) {
         case 0:
             color = "white"
@@ -75,8 +81,9 @@ function newColor(){
             grad.addColorStop(0.9, "red")
             color = grad
             break;
+            
     }
-    console.log(color);
+    colorPreview()
 }
 
 function newShape(){
@@ -141,72 +148,124 @@ for(i=0; i<canvas.height; i++){
 function anim(){
     if(drawing){
         cCirc(posX, posY, size, color)
-        slider.update()
+        slider1.update()
         setTimeout(anim, 0.1)
     }
 }   
 
 
-
-let slider = {
-    x: 200, 
-    y: 50,
-    r: 20,
-    draw: function(){
+let hue = 0
+let saturation = 50
+let lightness = 50
+let alpha = 1
+class Slider{
+    constructor(x, y, r, type, range){
+    this.startX = x
+    this.x = x 
+    this.y = y
+    this.r = r
+    this.state = false
+    this.type = type
+    this.range = range
+    }
+    
+    draw(variable){
         c.beginPath()
-        c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
-        c.fillStyle=`hsla(${560-this.x}, 100%, 50%, 1)`
-        c.fill()
         c.font = "20px sans-serif"
         c.fillStyle = "black"
-        c.clearRect(200, 90, 100, 50)
-        c.fillText("Colorpicker", 200, 90)
-    },
-    update: function(){
-        this.draw()
-        color = `hsla(${560-this.x}, 100%, 50%, 1)`
-    } 
+        c.clearRect(this.startX, this.y+12, 200, 40)
+        c.fillText(`${this.type}: ${variable}`, this.startX, this.y+40)
+        c.arc(this.x, this.y, this.r, 0, 2*Math.PI)
+        c.fillStyle= "black"
+        c.fill()
+        
+        // c.clearRect(this.startX, this.y+40, 100, 50)
+        
+    }
+    update(){
+        if(this.type == "hue"){
+            hue = this.x-this.startX
+            this.draw(hue)
+        }
+        else if(this.type == "saturation"){
+            saturation = this.x-this.startX
+            this.draw(saturation)
+        }
+        else if(this.type == "lightness"){
+            lightness = this.x-this.startX
+            this.draw(lightness)
+        }
+        
+    }
+    inRange(){
+        if(Math.sqrt(Math.pow(mouse.x-this.x, 2) + Math.pow(mouse.y-this.y, 2)) < this.r){
+            return true
+        }
+        return false
+    }
 }
 let mouse = {x: undefined, y: undefined}
-function inRange(){
-    console.log(mouse, Math.sqrt(Math.pow(mouse.x-slider.x, 2) + Math.pow(mouse.y-slider.y, 2)))
-    if(Math.sqrt(Math.pow(mouse.x-slider.x, 2) + Math.pow(mouse.y-slider.y, 2)) < slider.r){
-        return true
-    }
-    return false
-}
-let sliderState = false
+
 function mDown(e){
     mouse.x = e.clientX-(window.innerWidth-canvas.width)/2
     mouse.y = e.clientY-(window.innerHeight-canvas.height)/2
-    if (inRange()){
-        sliderState = true
-    }    
+    if (slider1.inRange()){
+        slider1.state = true
+    }
+    else if(slider2.inRange()){
+        slider2.state = true
+    }
+    else if(slider3.inRange()){
+        slider3.state = true
+    }
 }
 function mUp(){
-    sliderState = false
+    slider1.state = false
+    slider2.state = false
+    slider3.state = false
 }
-
-function moveSlider(e){
-    mouse.x = e.clientX-(window.innerWidth-canvas.width)/2
-    mouse.y = e.clientY-(window.innerHeight-canvas.height)/2
-    if(sliderState){
-        c.beginPath()
+function updateSlider(slider){
+    c.beginPath()
         c.fillStyle = "white"
         c.arc(slider.x, slider.y, slider.r, 0, 2*Math.PI)
         c.fill()
         c.closePath()
         slider.x = mouse.x
-        if(slider.x > 560){
-            slider.x = 560
+        if(slider.x > slider.startX+slider.range){
+            slider.x = slider.startX+slider.range
         }
-        if(slider.x < 200){
-            slider.x = 200
+        if(slider.x < slider.startX){
+            slider.x = slider.startX
         }
         slider.update()
+}
+function moveSlider(e){
+    mouse.x = e.clientX-(window.innerWidth-canvas.width)/2
+    mouse.y = e.clientY-(window.innerHeight-canvas.height)/2
+    if(slider1.state){
+        updateSlider(slider1)}
+    else if(slider2.state){
+        updateSlider(slider2)
+    }
+    else if(slider3.state){
+        updateSlider(slider3)
+    }
+    if(sliderMode){
+        color = `hsl(${hue}, ${saturation}%, ${lightness}%)`
+        colorPreview()
     }
 }
-slider.draw()
+function colorPreview(){
+    c.fillStyle=color
+    c.fillRect(100, 20, 40, 40)
+}
+    
+let slider1 = new Slider(200, 50, 10, "hue", 360)
+let slider2 = new Slider(600, 50, 10, "saturation", 100)
+let slider3 = new Slider(860, 50, 10, "lightness", 100)
+slider1.draw()
+slider2.draw()
+slider3.draw()
 window.addEventListener("mousedown", mDown)
 window.addEventListener("mouseup", mUp)
 window.addEventListener("mousemove", moveSlider)
