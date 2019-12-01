@@ -8,7 +8,6 @@ let shapeIndex = 0
 let shape
 let lineMode = false
 let grad, pointOne, pointTwo, sliderMode
-color = "white"
 map = []
 drawing = false
 var colorEl = document.querySelector("#color")
@@ -17,20 +16,14 @@ var sizeEl = document.querySelector("input")
 var widEl = document.getElementById("wid")
 var heiEl = document.getElementById("hei")
 var clearEl = document.querySelector("button")
-colorEl.addEventListener("change", newColor)
-sizeEl.addEventListener("change", newSize)
-canvas.addEventListener("mousedown", draw)
-canvas.addEventListener("mouseup", notDraw)
-canvas.addEventListener("mousemove", pos)
-heiEl.addEventListener("change", scale)
-widEl.addEventListener("change", scale)
-clearEl.addEventListener("click", erase)
-shapeEl.addEventListener("change", newShape)
+
 
 
 function erase(){
     c.clearRect(0,0,canvas.width,canvas.height)
-    slider1.update()
+    sliderArr.forEach(item =>{
+        item.draw()
+    })
 }
 function newColor(){
     colorIndex = colorEl.selectedIndex
@@ -113,14 +106,7 @@ function pos(e){
     posX = (e.clientX-(window.innerWidth-canvas.width)/2)
     posY = (e.clientY-(window.innerHeight-canvas.height)/2)
 }
-function draw(){
-    if(lineMode){
-        pointOne = {x: posX, y:posY}
-    }
-    else{
-        drawing = true
-        anim()}
-}
+
 function drawLine(){
     c.beginPath()
     c.moveTo(pointOne.x, pointOne.y)
@@ -146,9 +132,8 @@ for(i=0; i<canvas.height; i++){
 
 
 function anim(){
-    if(drawing){
+    if(drawing && !slider1.state && !slider2.state && !slider3.state){
         cCirc(posX, posY, size, color)
-        slider1.update()
         setTimeout(anim, 0.1)
     }
 }   
@@ -158,6 +143,7 @@ let hue = 0
 let saturation = 50
 let lightness = 50
 let alpha = 1
+color = `hsl(${hue}, ${saturation}%, ${lightness}%)`
 class Slider{
     constructor(x, y, r, type, range){
     this.startX = x
@@ -197,6 +183,7 @@ class Slider{
         }
         
     }
+    cCirc
     inRange(){
         if(Math.sqrt(Math.pow(mouse.x-this.x, 2) + Math.pow(mouse.y-this.y, 2)) < this.r){
             return true
@@ -218,6 +205,12 @@ function mDown(e){
     else if(slider3.inRange()){
         slider3.state = true
     }
+    if(lineMode){
+        pointOne = {x: posX, y:posY}
+    }
+    else{
+        drawing = true
+        anim()}
 }
 function mUp(){
     slider1.state = false
@@ -263,9 +256,18 @@ function colorPreview(){
 let slider1 = new Slider(200, 50, 10, "hue", 360)
 let slider2 = new Slider(600, 50, 10, "saturation", 100)
 let slider3 = new Slider(860, 50, 10, "lightness", 100)
-slider1.draw()
-slider2.draw()
-slider3.draw()
+let sliderArr = [slider1, slider2, slider3]
+sliderArr.forEach(item => {
+    item.draw()
+})
 window.addEventListener("mousedown", mDown)
 window.addEventListener("mouseup", mUp)
 window.addEventListener("mousemove", moveSlider)
+colorEl.addEventListener("change", newColor)
+sizeEl.addEventListener("change", newSize)
+canvas.addEventListener("mouseup", notDraw)
+canvas.addEventListener("mousemove", pos)
+heiEl.addEventListener("change", scale)
+widEl.addEventListener("change", scale)
+clearEl.addEventListener("click", erase)
+shapeEl.addEventListener("change", newShape)
