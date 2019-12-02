@@ -116,13 +116,6 @@ function drawLine(){
     c.stroke()
     c.closePath()
 }
-function notDraw(){
-    if(lineMode){
-        pointTwo = {x: posX, y:posY}
-        drawLine()
-    }
-    drawing = false
-}
 for(i=0; i<canvas.height; i++){
     map.push([])
     for (j = 0; j<canvas.width; j++){
@@ -213,9 +206,14 @@ function mDown(e){
         anim()}
 }
 function mUp(){
-    slider1.state = false
-    slider2.state = false
-    slider3.state = false
+    sliderArr.forEach(slider =>{
+        slider.state = false
+    })
+    if(lineMode){
+        pointTwo = {x: posX, y:posY}
+        drawLine()
+    }
+    drawing = false
 }
 function updateSlider(slider){
     c.beginPath()
@@ -265,7 +263,6 @@ window.addEventListener("mouseup", mUp)
 window.addEventListener("mousemove", moveSlider)
 colorEl.addEventListener("change", newColor)
 sizeEl.addEventListener("change", newSize)
-canvas.addEventListener("mouseup", notDraw)
 canvas.addEventListener("mousemove", pos)
 heiEl.addEventListener("change", scale)
 widEl.addEventListener("change", scale)
