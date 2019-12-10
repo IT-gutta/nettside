@@ -8,6 +8,9 @@ let shapeIndex = 0
 let shape
 let lineMode = false
 let grad, pointOne, pointTwo, sliderMode
+let nisseMode = 
+let nisse = new Image()
+nisse.src = "julenissen.png"
 map = []
 drawing = false
 var colorEl = document.querySelector("#color")
@@ -16,7 +19,6 @@ var sizeEl = document.querySelector("input")
 var widEl = document.getElementById("wid")
 var heiEl = document.getElementById("hei")
 var clearEl = document.querySelector("button")
-
 
 
 function erase(){
@@ -74,7 +76,8 @@ function newColor(){
             grad.addColorStop(0.9, "red")
             color = grad
             break;
-            
+        case 13:
+            nisseMode = true
     }
     colorPreview()
 }
@@ -125,9 +128,14 @@ for(i=0; i<canvas.height; i++){
 
 
 function anim(){
-    if(drawing && !slider1.state && !slider2.state && !slider3.state){
-        cCirc(posX, posY, size, color)
-        setTimeout(anim, 0.1)
+    if(nisseMode){
+        c.drawImage(nisse, 0, 0, 32, 32, posX, posY, size, size)
+    }
+    else{
+        if(drawing && !slider1.state && !slider2.state && !slider3.state){
+            cCirc(posX, posY, size, color)
+            setTimeout(anim, 0.1)
+        }
     }
 }   
 
