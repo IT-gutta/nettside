@@ -176,7 +176,6 @@ class Slider{
         }
         
     }
-    cCirc
     inRange(){
         if(Math.sqrt(Math.pow(mouse.x-this.x, 2) + Math.pow(mouse.y-this.y, 2)) < this.r){
             return true
@@ -263,7 +262,7 @@ window.addEventListener("mouseup", mUp)
 window.addEventListener("mousemove", moveSlider)
 colorEl.addEventListener("change", newColor)
 sizeEl.addEventListener("change", newSize)
-canvas.addEventListener("mousemove", pos)
+canvas.addEventListener("mousemove", pos)w
 heiEl.addEventListener("change", scale)
 widEl.addEventListener("change", scale)
 clearEl.addEventListener("click", erase)
