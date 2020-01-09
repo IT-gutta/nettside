@@ -344,7 +344,7 @@ function shoot(){
         else readyToShoot = false
     }
     else readyToShoot = true
-    if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-20), player.pos.y + Math.sin(phi)*(gunLength-20), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
+    if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
     readyToShoot = false
 }
 
@@ -354,7 +354,7 @@ function spray(){
     let phi = Math.atan2(deltaY, deltaX)
     phi = randomInt(phi-bloom, phi+bloom)
     if((tid-oldTime)*fireRate >= 1/fireRate){
-        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-20), player.pos.y + Math.sin(phi)*(gunLength-20), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
+        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
         oldTime = tid
     }
 }
