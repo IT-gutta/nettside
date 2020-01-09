@@ -3,6 +3,28 @@
   <head>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="Ballkræsj/style.css">
+    <style>
+    .AA {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      font-size: 10px;
+      
+    }
+
+    .hidden {
+      font-size: 100px;
+      display: none;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      
+    }
+
+    .AA:hover ~ .hidden {
+      display: block;
+    }
+    </style>
     <meta charset="utf-8">
     <title></title>
   </head>
@@ -23,7 +45,8 @@
         <!-- <div class="box"><a href="Mario-spill/index.html"><span>Mariospill</span></a></div> -->
         <div class="box"><a href="TekstTilArray/index.html"><span>Tekst til Array</span></a></div>
         <div class="box"><a href="disco/index.html"><span>Disco</span></a></div>
-        <!-- <div class="box"><a href="allah/index.html"><span>Allahu Akbar</span></a></div> -->
+        <div class="AA"><a href="a/index.html"><span>.</span></a></div>
+        <div class="hidden">ALLAHU AKBAR</div>
         <div class="box"><a href="Platformer/index.html"><span>TileSpill</span></a></div>
         <div class="box"><a href="HangmanHenrik/stabil/indeks.html"><span>Hangman</span></a></div>
         <div class="box"><a href="Monty/Kuleting/MontyHall.html"><span>Monty Hall</span></a></div>
