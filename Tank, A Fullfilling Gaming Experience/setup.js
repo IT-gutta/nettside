@@ -335,7 +335,7 @@ function randomInt(min, max){
 }
 
 function shoot(){
-    mouseIsPressed = true
+    setTimeout(function(){mouseIsPressed=true}, 100)
     let deltaX = mouse.x-player.pos.x
     let deltaY = mouse.y-player.pos.y
     let phi = Math.atan2(deltaY, deltaX)
@@ -343,7 +343,7 @@ function shoot(){
         if(tid - oldTime >= 1) {readyToShoot = true; oldTime = tid}
         else readyToShoot = false
     }
-    else if(mode == "pistol") readyToShoot = true
+    else readyToShoot = true
     if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*gunLength, player.pos.y + Math.sin(phi)*gunLength, Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
     readyToShoot = false
 }
