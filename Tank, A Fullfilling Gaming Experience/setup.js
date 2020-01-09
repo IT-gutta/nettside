@@ -303,7 +303,7 @@ function restart(){
     player.health = 400
     healthBar.startHealth = 400
     player.pos = {x:canvas.width/2, y:canvas.height/2}
-    player.money = 100000
+    player.money = 10000000
     bulletArr = []
     hunterArr = []
     for(let i = 0; i < shopBtns.length; i++){

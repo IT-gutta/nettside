@@ -4,7 +4,7 @@ let player = {
     vel: {x:0, y:0},
     r: 14,
     health: 400,
-    money: 100000,
+    money: 10000000,
     carry: undefined,
     baseDmg: baseDmg,
     addedDmg: 0,
