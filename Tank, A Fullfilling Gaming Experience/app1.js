@@ -3,8 +3,7 @@ setInterval(function(){
     prevPos = player.pos
 }, 1000)
 
-let pickup1 = new Pickup(100, 100, "pink1", "pink")
-let pickup2 = new Pickup(200, 100, "yellow1", "yellow")
+
 
 
 
