@@ -411,6 +411,7 @@ let shopFunctions = [
 
 document.querySelector("#smallTank").addEventListener("click", pickSmallTank)
 document.querySelector("#bigTank").addEventListener("click", pickBigTank)
+document.querySelector(".pause").addEventListener("click", function(){if(stop){stop = false} else{stop = true}})
 window.addEventListener("mousemove", moveMouse)
 window.addEventListener("mousedown", shoot)
 window.addEventListener("mouseup", function(){ mouseIsPressed = false })

@@ -47,3 +47,8 @@ body{
 canvas{
     margin-right: 30px;
 }
+.pause{
+    position: absolute;
+    top:50px;
+    left:50px;
+}
