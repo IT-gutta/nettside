@@ -86,8 +86,6 @@ function loop(){
             hunterArr[i].update()
         }
         player.update()
-        pickup1.update()
-        pickup2.update()
         healthBar.draw()
         moneyBar.draw()
         healthPots.draw()
