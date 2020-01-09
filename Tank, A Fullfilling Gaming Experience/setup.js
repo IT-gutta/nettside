@@ -303,7 +303,7 @@ function restart(){
     player.health = 400
     healthBar.startHealth = 400
     player.pos = {x:canvas.width/2, y:canvas.height/2}
-    player.money = 0
+    player.money = 100000
     bulletArr = []
     hunterArr = []
     for(let i = 0; i < shopBtns.length; i++){
@@ -312,9 +312,6 @@ function restart(){
     weapons[shopBtns[5].name]()
     shopBtns[5].value = "SELECTED"
 
-    
-    // pickup1 = new Pickup(100, 100, "pink1", "pink")
-    // pickup2 = new Pickup(200, 100, "yellow1", "yellow")
 }
 
 function youLose(){
