@@ -288,7 +288,7 @@ const rotate = (vector, angle) =>[vector[0]*Math.cos(angle) - vector[1]*Math.sin
 
 
 function pressDown(e){
-    if(e.key == "h" || e.key == "H") {healthPots.antall -= 1; player.health += healthPotHeal; if(player.health > healthBar.startHealth) player.health = healthBar.startHealth}
+    if((e.key == "h" || e.key == "H") && healthPots.antall > 0) {healthPots.antall -= 1; player.health += healthPotHeal; if(player.health > healthBar.startHealth) player.health = healthBar.startHealth}
     else controller[e.key] = true
 }
 function releaseKey(e){
