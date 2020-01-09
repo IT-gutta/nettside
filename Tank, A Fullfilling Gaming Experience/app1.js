@@ -51,7 +51,7 @@ function loop(){
                         k-=1
                         player.money += moneyPerKill
                     }
-                    if(bulletArr[i].pierces > pierces){
+                    if(bulletArr[i].pierces > pierces + basePierces){
                     bulletArr.splice(i, 1)
                     i-=1
                     }

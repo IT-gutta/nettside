@@ -17,12 +17,13 @@ let shopBtns = document.querySelectorAll(".shopBtn")
 
 
 
-let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces
 function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedReduction = [false, 1.5]
     weapons.pistol()
+    pierces = 0
     fireRate = 3
     speed = 3
     tid = 0
@@ -200,29 +201,31 @@ let guns = {
 let weapons = {
     pistol: function(){
         mode = "pistol"
-        bulletSpeed = 5
+        bulletSpeed = 6
         baseDmg = 50
-        pierces = 0
+        basePierces = 0
     },
     smg: function(){
         mode = "smg"
-        bulletSpeed = 3.5
+        bulletSpeed = 5
         baseDmg = 25
+        basePierces = 0
         bloom = Math.PI/15
         fireRate = 4
     },
     lmg: function(){
         mode = "lmg"
-        bulletSpeed = 5
+        bulletSpeed = 7
         speedReduction = [true, 1.5]
         baseDmg = 65
+        basePierces = 1
         fireRate = 3
         bloom = Math.PI/12
     },
     sniper: function(){
         mode = "sniper"
-        bulletSpeed = 10
-        pierces = 2
+        bulletSpeed = 20
+        basePierces = 2
         baseDmg = 100
     }
 }
@@ -366,6 +369,10 @@ let shopFunctions = [
             changeTank()
             let nyPris = pris + 300
             shopBtns[0].value = `$${nyPris}`
+            if(tankLevel == 7){
+                shopBtns[0].value = `MAXED OUT`
+                player.money += pris
+            }
         }
         else{
             shopBtns[0].value = `MAXED OUT`
@@ -380,10 +387,14 @@ let shopFunctions = [
     function(pris){
         if(gunLevel < 7){
             gunLevel+=1
-            player.addedDmg+=50
+            player.addedDmg+=20
             changeGun()
             let nyPris = pris + 300
             shopBtns[2].value = `$${nyPris}`
+            if(gunLevel == 7){
+                shopBtns[2].value = `MAXED OUT`
+                player.money += pris
+            }
         }
         else{
             shopBtns[2].value = `MAXED OUT`
