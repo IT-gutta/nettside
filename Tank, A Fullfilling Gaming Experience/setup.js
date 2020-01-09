@@ -7,6 +7,8 @@ canvas.height = window.innerHeight-40
 
 let tankImg = new Image()
 tankImg.src = "sprites/smallTank1.png"
+let gunImg = new Image()
+gunImg.src = "sprites/smallGun1.png"
 let healthPotImg = new Image()
 healthPotImg.src = "sprites/healthPot.png"
 
@@ -15,7 +17,7 @@ let shopBtns = document.querySelectorAll(".shopBtn")
 
 
 
-let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel
 function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
@@ -24,11 +26,12 @@ function defaultSettings(){
     fireRate = 3
     speed = 3
     tid = 0
-    gunLength = 30
+    gunLength = 59
     playerIsCarrying = false
     hunterSpeed = 2
     moneyPerKill = 25
     tankLevel = 1
+    gunLevel = 1
 }
 
 
@@ -89,44 +92,107 @@ let tanks = {
             player.health = 500
             healthBar.startHealth = 500
             speed = 2.5
-            tankImg.src = "sprites/smallTank1.png"
+            tankImg.src = "sprites/bigTank1.png"
         },
         function(){
             if(player.health > 600) player.health = 600 
             healthBar.startHealth = 600
             speed = 2.5
-            tankImg.src = "sprites/smallTank2.png"
+            tankImg.src = "sprites/bigTank2.png"
         },
         function(){
             if(player.health > 700) player.health = 700 
             healthBar.startHealth = 700
             speed = 2.5
-            tankImg.src = "sprites/smallTank3.png"
+            tankImg.src = "sprites/bigTank3.png"
         },
         function(){
             if(player.health > 800) player.health = 800 
             healthBar.startHealth = 800
             speed = 2.5
-            tankImg.src = "sprites/smallTank4.png"
+            tankImg.src = "sprites/bigTank4.png"
         },
         function(){
             if(player.health > 900) player.health = 900 
             healthBar.startHealth = 900
             speed = 2.5
-            tankImg.src = "sprites/smallTank5.png"
+            tankImg.src = "sprites/bigTank5.png"
         },
         function(){
             if(player.health > 1000) player.health = 1000 
             healthBar.startHealth = 1000
             speed = 2.5
-            tankImg.src = "sprites/smallTank6.png"
+            tankImg.src = "sprites/bigTank6.png"
         },
         function(){
             if(player.health > 1500) player.health = 1500 
             healthBar.startHealth = 1500
             speed = 2
-            tankImg.src = "sprites/smallTank7.png"
+            tankImg.src = "sprites/bigTank7.png"
         }
+    ]
+}
+
+let guns = {
+    small: [
+        function(){
+            gunLength = 63
+            gunImg.src = "sprites/bigGun1.png"
+        },
+        function(){
+            gunLength = 63
+            gunImg.src = "sprites/bigGun2.png"
+        },
+        function(){
+            gunLength = 56
+            gunImg.src = "sprites/bigGun3.png"
+        },
+        function(){
+            gunLength = 56
+            gunImg.src = "sprites/bigGun4.png"
+        },
+        function(){
+            gunLength = 65
+            gunImg.src = "sprites/bigGun5.png"
+        },
+        function(){
+            gunLength = 50
+            gunImg.src = "sprites/bigGun6.png"
+        },
+        function(){
+            gunLength = 59
+            gunImg.src = "sprites/bigGun7.png"
+        },
+    ],
+    big: [
+        function(){
+            gunLength = 63
+            gunImg.src = "sprites/smallGun1.png"
+        },
+        function(){
+            gunLength = 63
+            gunImg.src = "sprites/smallGun2.png"
+        },
+        function(){
+            gunLength = 56
+            gunImg.src = "sprites/smallGun3.png"
+        },
+        function(){
+            gunLength = 56
+            gunImg.src = "sprites/smallGun4.png"
+        },
+        function(){
+            gunLength = 65
+            gunImg.src = "sprites/smallGun5.png"
+        },
+        function(){
+            gunLength = 50
+            gunImg.src = "sprites/smallGun6.png"
+        },
+        function(){
+            gunLength = 59
+            gunImg.src = "sprites/smallGun7.png"
+        },
     ]
 }
 
@@ -190,12 +256,16 @@ function startShop(){
 function changeTank(){
     tanks[type][tankLevel-1]()
 }
+function changeGun(){
+    guns[type][gunLevel-1]()
+}
 
 function pickSmallTank(){
     stop = false
     overlay.innerHTML = ""
     type = "small"
     changeTank()
+    changeGun()
     startShop()
 }
 function pickBigTank(){
@@ -203,6 +273,7 @@ function pickBigTank(){
     overlay.innerHTML = ""
     type = "big"
     changeTank()
+    changeGun()
     startShop()
 }
 
@@ -310,9 +381,18 @@ let shopFunctions = [
         shopBtns[1].value = `$${nyPris}`
     },
     function(pris){
-        player.addedDmg+=50
-        let nyPris = pris + 400
-        shopBtns[2].value = `$${nyPris}`
+        if(gunLevel < 7){
+            gunLevel+=1
+            player.addedDmg+=50
+            changeGun()
+            let nyPris = pris + 300
+            shopBtns[2].value = `$${nyPris}`
+        }
+        else{
+            shopBtns[2].value = `MAXED OUT`
+            player.money += pris
+        }
+        
     },
     function(pris){
         moneyPerKill += 50

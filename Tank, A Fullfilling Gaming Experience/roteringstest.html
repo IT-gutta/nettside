@@ -9,19 +9,34 @@
     <script>
         const canvas = document.querySelector("canvas")
         const c = canvas.getContext("2d")
-        canvas.width = 400
-        canvas.height = 400
+        canvas.width = 1000
+        canvas.height = 1000
         c.fillStyle="red"
-        let plassering = [200, 100]
+
+
+        // const rotate = (vector, angle) => [vector[0]*Math.cos(angle) - vector[1]*Math.sin(angle), vector[0]*Math.sin(angle) + vector[1]*Math.cos(angle)]
+
+
+        let img = new Image()
+        img.src = "sprites/smallTank7.png"
+        img.addEventListener("load", () => {setInterval(loop, 50)})
+        let angle = 0
+        function loop(){
+        c.clearRect(0, 0, canvas.width, canvas.height)
+        angle += 0.01
         
-        const rotate = (vector, angle) => [vector[0]*Math.cos(angle) - vector[1]*Math.sin(angle), vector[0]*Math.sin(angle) + vector[1]*Math.cos(angle)]
+        // c.save()
+        // c.translate(100, 100)
+        // c.rotate(angle)
+        // c.translate(-100, -100)
+        // c.drawImage(img, 0, 0, 64, 64, 100-32, 100-32, 64, 64)
+        // c.restore()
+        // }
         
-        plassering = rotate(plassering, -Math.PI/6)
-        c.fillRect(100, 100, 100, 100)
-        c.save()
-        c.rotate(Math.PI/6)
-        c.fillRect(plassering[0], plassering[1], 100, 100)
-        c.restore()
+        
+        
+        
+        
         
         
         </script>
