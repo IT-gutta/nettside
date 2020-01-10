@@ -368,7 +368,7 @@ function shoot(){
                 if(tempNumberOfShots == shotGunShots){
                     clearInterval(shotgunInterval)
                 }
-            }, 5);
+            }, 2.5);
         }
     }
     else{
