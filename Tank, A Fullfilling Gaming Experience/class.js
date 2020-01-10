@@ -38,7 +38,7 @@ class Bullet{
 
 class Hunter{
     constructor(){
-        this.pos = {x: canvas.width, y: canvas.width/2}
+        this.pos = {x: Math.random() < 0.5 ? 0 : canvas.width, y: randomInt(0, canvas.height)}
         this.vel = {x: -5, y: 0}
         this.r = 10
         this.slowDown = false
@@ -62,6 +62,7 @@ class Hunter{
     update(){
         let deltaX = prevPos.x-this.pos.x
         let deltaY = prevPos.y-this.pos.y
+        let phi = Math.atan2(deltaY, deltaX)
         this.angle = Math.atan2(deltaY, deltaX)
         this.vel.x = Math.cos(phi)*hunterSpeed
         this.vel.y = Math.sin(phi)*hunterSpeed

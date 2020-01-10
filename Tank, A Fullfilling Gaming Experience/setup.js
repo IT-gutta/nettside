@@ -217,7 +217,7 @@ let weapons = {
         bulletRadius = 4
         basePierces = 0
         bloom = Math.PI/15
-        fireRate = 4
+        fireRate = 5
     },
     lmg: function(){
         mode = "lmg"
@@ -226,7 +226,7 @@ let weapons = {
         baseDmg = 65
         bulletRadius = 6.5
         basePierces = 1
-        fireRate = 3
+        fireRate = 3.5
         bloom = Math.PI/12
     },
     sniper: function(){
@@ -272,12 +272,13 @@ function startShop(){
                 if(i<5) shopFunctions[i](price)
     
                 else{
+                    if(!stop){
                     weapons[shopBtns[i].name]()
                     for(let k = 5; k < shopBtns.length; k++){
                         shopBtns[k].value = shopBtns[k].id
                     }
                     shopBtns[i].value = "SELECTED"
-                }
+                }                }
             }
         })
     }
@@ -314,7 +315,7 @@ const rotate = (vector, angle) =>[vector[0]*Math.cos(angle) - vector[1]*Math.sin
 
 
 function pressDown(e){
-    if((e.key == "h" || e.key == "H") && healthPots.antall > 0) {healthPots.antall -= 1; player.health += healthPotHeal; if(player.health > healthBar.startHealth) player.health = healthBar.startHealth}
+    if((e.key == "h" || e.key == "H") && healthPots.antall > 0 && player.health < healthBar.startHealth) {healthPots.antall -= 1; player.health += healthPotHeal; if(player.health > healthBar.startHealth) player.health = healthBar.startHealth}
     else controller[e.key] = true
 }
 function releaseKey(e){
@@ -327,6 +328,7 @@ function moveMouse(e){
 function restart(){
     defaultSettings()
     changeTank()
+    changeGun()
     stop = false
     overlay.style.display = "none"
     player.health = 400
@@ -338,9 +340,7 @@ function restart(){
     for(let i = 0; i < shopBtns.length; i++){
         shopBtns[i].value = shopBtns[i].id
     }
-    weapons[shopBtns[5].name]()
     shopBtns[5].value = "SELECTED"
-
 }
 
 function youLose(){
