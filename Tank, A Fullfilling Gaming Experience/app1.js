@@ -10,11 +10,11 @@ setInterval(function(){
 
 
 
-setInterval(function(){
-    if(!stop){
-        hunterArr.push(new Hunter())
-    }
-}, 1000)
+// setInterval(function(){
+//     if(!stop){
+//         hunterArr.push(new Hunter())
+//     }
+// }, 1000)
 
 setInterval(function(){
     tid+=0.01

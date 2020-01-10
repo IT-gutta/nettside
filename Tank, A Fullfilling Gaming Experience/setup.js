@@ -9,6 +9,8 @@ let tankImg = new Image()
 tankImg.src = "sprites/smallTank1.png"
 let gunImg = new Image()
 gunImg.src = "sprites/smallGun1.png"
+let bulletImg = new Image()
+bulletImg.src = "sprites/sniperBullet.png"
 let healthPotImg = new Image()
 healthPotImg.src = "sprites/healthPot.png"
 
@@ -17,12 +19,12 @@ let shopBtns = document.querySelectorAll(".shopBtn")
 
 
 
-let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots, fallOffRange
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots, fallOffRange, bulletSX, bulletSY, bulletSW, bulletSH, bulletWidth, bulletHeight, bulletOffsetX, bulletOffsetY, bulletRadius
 function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedReduction = [false, 1.5]
-    weapons.shotgun()
+    weapons.pistol()
     shotGunShots = 10
     fallOffRange = 200
     pierces = 0
@@ -204,6 +206,7 @@ let weapons = {
     pistol: function(){
         mode = "pistol"
         bulletSpeed = 6
+        bulletRadius = 5
         baseDmg = 50
         basePierces = 0
     },
@@ -211,6 +214,7 @@ let weapons = {
         mode = "smg"
         bulletSpeed = 5
         baseDmg = 25
+        bulletRadius = 4
         basePierces = 0
         bloom = Math.PI/15
         fireRate = 4
@@ -220,6 +224,7 @@ let weapons = {
         bulletSpeed = 7
         speedReduction = [true, 1.5]
         baseDmg = 65
+        bulletRadius = 6.5
         basePierces = 1
         fireRate = 3
         bloom = Math.PI/12
@@ -230,10 +235,20 @@ let weapons = {
         basePierces = 2
         baseDmg = 150
         fireRate = 1
+        bulletRadius = 10
+        bulletSX = 0
+        bulletSY = 0
+        bulletSW = 1002
+        bulletSH = 3587
+        bulletWidth = 1002/25
+        bulletHeight = 3597/25
+        bulletOffsetX = -20
+        bulletOffsetY = -40
     },
     shotgun: function(){
         mode = "shotgun"
         bulletSpeed = 12
+        bulletRadius = 2.5
         basePierces = 0
         baseDmg = 150
         fireRate = 1
@@ -354,14 +369,13 @@ function shoot(){
     let phi = Math.atan2(deltaY, deltaX)
     let radius = 5
     if(mode == "shotgun"){
-        radius = 3
-        if(tid - oldTime >= 4/fireRate){
+        if(tid - oldTime >= 0.75/fireRate){
             oldTime = tid
             let tempNumberOfShots = 0
             let shotgunInterval = setInterval(() => {
                 tempNumberOfShots += 1
                 let tempPhi = randomInt(phi-bloom, phi+bloom)
-                bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.5, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.5, radius, true))
+                bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.5, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.5, bulletRadius, true, tempPhi))
                 if(tempNumberOfShots == shotGunShots){
                     clearInterval(shotgunInterval)
                 }
@@ -370,19 +384,16 @@ function shoot(){
     }
     else{
         if(mode == "sniper"){
-            radius = 10
             if(tid - oldTime >= 0.75/fireRate) {readyToShoot = true; oldTime = tid}
             else readyToShoot = false
         }
         else if(mode == "pistol" || mode == "smg") {
             readyToShoot = true
-            radius = 5
         }
         else if(mode == "lmg"){
             readyToShoot = true
-            radius = 6.5
         }
-        if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5, radius, false))
+        if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5, bulletRadius, false, phi))
     }
     readyToShoot = false
 }
@@ -391,11 +402,9 @@ function spray(){
     let deltaX = mouse.x-player.pos.x
     let deltaY = mouse.y-player.pos.y
     let phi = Math.atan2(deltaY, deltaX)
-    let radius = 5
-    if(mode == "lmg") radius = 6.5
     phi = randomInt(phi-bloom, phi+bloom)
     if((tid-oldTime)*fireRate >= 1/fireRate){
-        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
+        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5, bulletRadius, false, phi))
         oldTime = tid
     }
 }

@@ -1,5 +1,5 @@
 class Bullet{
-    constructor(x, y, dx, dy, radius, fallOff){
+    constructor(x, y, dx, dy, radius, fallOff, angle){
         this.pos = {x:x, y:y}
         this.startPos = {x:x, y:y}
         this.vel = {x:dx, y:dy}
@@ -10,6 +10,7 @@ class Bullet{
         this.reducedDmg = 0
         this.switch1 = true
         this.switch2 = true
+        this.angle = angle
     }
     update(){
         this.pos.x+=this.vel.x
@@ -18,10 +19,20 @@ class Bullet{
     }
     draw(){
         c.beginPath()
-        c.fillStyle = "red"
-        c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
-        c.fill()
-        c.closePath()
+        if(mode == "sniper"){
+            c.save()
+            c.translate(this.pos.x, this.pos.y)
+            c.rotate(this.angle + Math.PI/2)
+            c.translate(-this.pos.x, -this.pos.y)
+            c.drawImage(bulletImg, bulletSX, bulletSY, bulletSW, bulletSH, this.pos.x + bulletOffsetX, this.pos.y + bulletOffsetY, bulletWidth, bulletHeight)
+            c.restore()
+        }
+        else{
+            c.fillStyle = "blue"
+            c.arc(this.pos.x, this.pos.y, this.r, 0, Math.PI*2)
+            c.fill()
+            c.closePath()
+        }
     }
 }
 
@@ -51,7 +62,7 @@ class Hunter{
     update(){
         let deltaX = prevPos.x-this.pos.x
         let deltaY = prevPos.y-this.pos.y
-        let phi = Math.atan2(deltaY, deltaX)
+        this.angle = Math.atan2(deltaY, deltaX)
         this.vel.x = Math.cos(phi)*hunterSpeed
         this.vel.y = Math.sin(phi)*hunterSpeed
         if(this.slowDown){
