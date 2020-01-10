@@ -228,7 +228,7 @@ let weapons = {
         mode = "sniper"
         bulletSpeed = 20
         basePierces = 2
-        baseDmg = 100
+        baseDmg = 150
         fireRate = 1
     },
     shotgun: function(){
@@ -355,7 +355,7 @@ function shoot(){
     let radius = 5
     if(mode == "shotgun"){
         radius = 3
-        if(tid-oldTime >= 2/fireRate){
+        if(tid - oldTime >= 4/fireRate){
             oldTime = tid
             let tempNumberOfShots = 0
             let shotgunInterval = setInterval(() => {
@@ -371,7 +371,7 @@ function shoot(){
     else{
         if(mode == "sniper"){
             radius = 10
-            if(tid - oldTime >= 1/fireRate) {readyToShoot = true; oldTime = tid}
+            if(tid - oldTime >= 0.75/fireRate) {readyToShoot = true; oldTime = tid}
             else readyToShoot = false
         }
         else if(mode == "pistol" || mode == "smg") {
