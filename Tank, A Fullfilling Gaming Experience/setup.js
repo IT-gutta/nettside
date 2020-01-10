@@ -371,7 +371,7 @@ function shoot(){
             }, 10);
         }
     }
-    else
+    else{
         if(mode == "sniper"){
             radius = 10
             if(tid - oldTime >= 2/fireRate) {readyToShoot = true; oldTime = tid}
