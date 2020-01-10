@@ -17,13 +17,14 @@ let shopBtns = document.querySelectorAll(".shopBtn")
 
 
 
-let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots, fallOffRange
 function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedReduction = [false, 1.5]
     weapons.shotgun()
     shotGunShots = 10
+    fallOffRange = 200
     pierces = 0
     fireRate = 3
     speed = 3

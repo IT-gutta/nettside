@@ -40,9 +40,9 @@ function loop(){
                 i-=1
             }
             if(bulletArr[i].fallOff == true){
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 50 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 20; bulletArr[i].switch1 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 100 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 200) {bulletArr.splice(i, 1); i-=1}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 20; bulletArr[i].switch1 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.5 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange) {bulletArr.splice(i, 1); i-=1}
             }
             bulletArr[i].update()
 
