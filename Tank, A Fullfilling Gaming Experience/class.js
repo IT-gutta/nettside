@@ -1,10 +1,15 @@
 class Bullet{
-    constructor(x, y, dx, dy){
+    constructor(x, y, dx, dy, fallOff){
         this.pos = {x:x, y:y}
+        this.startPos = {x:x, y:y}
         this.vel = {x:dx, y:dy}
         this.r = 5
         this.pierces = 0
         this.connectedHunter = undefined
+        this.fallOff = fallOff
+        this.reducedDmg = 0
+        this.switch1 = true
+        this.switch2 = true
     }
     update(){
         this.pos.x+=this.vel.x

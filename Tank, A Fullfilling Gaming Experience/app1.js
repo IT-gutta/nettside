@@ -33,33 +33,42 @@ function loop(){
 
 
         for(let i = 0; i<bulletArr.length; i++){
-
+            
             if(bulletArr[i].pos.x < 0 || bulletArr[i].pos.x > canvas.width || bulletArr[i].pos.y < 0 || bulletArr[i].pos.y > canvas.height){
-                bulletArr.splice(i, 1)
+                [bulletArr[i], bulletArr[bulletArr.length-1]] = [bulletArr[bulletArr.length-1], bulletArr[i]]
+                bulletArr.pop()
+                i-=1
+            }
+            if(bulletArr[i].fallOff == true){
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 50 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 20; bulletArr[i].switch1 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 100 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 200) {bulletArr.splice(i, 1); i-=1}
             }
             bulletArr[i].update()
 
 
             for(let k = 0; k<hunterArr.length; k++){
-                if(distance(hunterArr[k], bulletArr[i]) < bulletArr[i].r + hunterArr[k].r && bulletArr[i].connectedHunter != hunterArr[k]){
+                if(distance(hunterArr[k].pos, bulletArr[i].pos) < bulletArr[i].r + hunterArr[k].r && bulletArr[i].connectedHunter != hunterArr[k]){
                     bulletArr[i].connectedHunter = hunterArr[k]
                     bulletArr[i].pierces += 1
-                    hunterArr[k].health -= player.baseDmg + player.addedDmg
+                    hunterArr[k].health -= player.baseDmg + player.addedDmg - bulletArr[i].reducedDmg
                     if(hunterArr[k].health <=0){
-                        hunterArr.splice(k, 1)
+                        [hunterArr[k], hunterArr[hunterArr.length-1]] = [hunterArr[hunterArr.length-1], hunterArr[k]]
+                        hunterArr.pop()
                         k-=1
                         player.money += moneyPerKill
                     }
                     if(bulletArr[i].pierces > pierces + basePierces){
-                    bulletArr.splice(i, 1)
-                    i-=1
+                        [bulletArr[i], bulletArr[bulletArr.length-1]] = [bulletArr[bulletArr.length-1], bulletArr[i]]
+                        bulletArr.pop()
+                        i-=1
                     }
                 }
             }
         }
         for(let i = 0; i<hunterArr.length; i++){
             for(let k = 0; k<hunterArr.length; k++){
-                if(i!=k && distance(hunterArr[i], hunterArr[k]) < hunterArr[i].r + hunterArr[k].r){
+                if(i!=k && distance(hunterArr[i].pos, hunterArr[k].pos) < hunterArr[i].r + hunterArr[k].r){
                     let deltaX = hunterArr[k].pos.x - hunterArr[i].pos.x
                     let deltaY = hunterArr[k].pos.y - hunterArr[i].pos.y
                     let phi = Math.atan2(deltaY, deltaX)
@@ -69,7 +78,7 @@ function loop(){
                     hunterArr[k].pos.y+= Math.sin(phi)*pushAwayStrengt
                 }
             }
-            if(distance(hunterArr[i], player) < player.r + hunterArr[i].r){
+            if(distance(hunterArr[i].pos, player.pos) < player.r + hunterArr[i].r){
                 player.health -= 50
                 let deltaX = player.pos.x - hunterArr[i].pos.x
                 let deltaY = player.pos.y - hunterArr[i].pos.y

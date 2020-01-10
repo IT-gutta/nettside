@@ -17,12 +17,13 @@ let shopBtns = document.querySelectorAll(".shopBtn")
 
 
 
-let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots
 function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedReduction = [false, 1.5]
-    weapons.pistol()
+    weapons.shotgun()
+    shotGunShots = 10
     pierces = 0
     fireRate = 3
     speed = 3
@@ -227,12 +228,21 @@ let weapons = {
         bulletSpeed = 20
         basePierces = 2
         baseDmg = 100
+        fireRate = 1
+    },
+    shotgun: function(){
+        mode = "shotgun"
+        bulletSpeed = 12
+        basePierces = 0
+        baseDmg = 150
+        fireRate = 1
+        bloom = Math.PI/15
     }
 }
 
 
 
-const distance = (ob1, ob2) => Math.sqrt(Math.pow(ob2.pos.x-ob1.pos.x, 2) + Math.pow(ob2.pos.y-ob1.pos.y, 2))
+const distance = (pos1, pos2) => Math.sqrt(Math.pow(pos2.x-pos1.x, 2) + Math.pow(pos2.y-pos1.y, 2))
 
 
 function startShop(){
@@ -334,17 +344,39 @@ function randomInt(min, max){
     return Math.random()*(max-min)+min
 }
 
+
+function recursiveShotgun(){
+
+}
 function shoot(){
     setTimeout(function(){mouseIsPressed=true}, 100)
     let deltaX = mouse.x-player.pos.x
     let deltaY = mouse.y-player.pos.y
     let phi = Math.atan2(deltaY, deltaX)
-    if(mode == "sniper"){
-        if(tid - oldTime >= 1) {readyToShoot = true; oldTime = tid}
-        else readyToShoot = false
+    if(mode == "shotgun"){
+
+        if(tid-oldTime >= 2/fireRate){
+            oldTime = tid
+            let tempNumberOfShots = 0
+            let shotgunInterval = setInterval(() => {
+                tempNumberOfShots += 1
+                let tempPhi = randomInt(phi-bloom, phi+bloom)
+                bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.5, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.5, true))
+                // console.log(bulletArr[1].fallOff)
+                if(tempNumberOfShots == shotGunShots){
+                    clearInterval(shotgunInterval)
+                }
+            }, 10);
+        }
     }
-    else readyToShoot = true
-    if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
+    else{
+        if(mode == "sniper"){
+            if(tid - oldTime >= 2/fireRate) {readyToShoot = true; oldTime = tid}
+            else readyToShoot = false
+        }
+        else readyToShoot = true
+        if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.5, Math.sin(phi)*bulletSpeed + player.vel.y*0.5))
+    }
     readyToShoot = false
 }
 
