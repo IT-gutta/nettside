@@ -346,9 +346,7 @@ function randomInt(min, max){
 }
 
 
-function recursiveShotgun(){
 
-}
 function shoot(){
     setTimeout(function(){mouseIsPressed=true}, 100)
     let deltaX = mouse.x-player.pos.x
@@ -364,17 +362,16 @@ function shoot(){
                 tempNumberOfShots += 1
                 let tempPhi = randomInt(phi-bloom, phi+bloom)
                 bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.5, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.5, radius, true))
-                // console.log(bulletArr[1].fallOff)
                 if(tempNumberOfShots == shotGunShots){
                     clearInterval(shotgunInterval)
                 }
-            }, 2.5);
+            }, 2.5)
         }
     }
     else{
         if(mode == "sniper"){
             radius = 10
-            if(tid - oldTime >= 2/fireRate) {readyToShoot = true; oldTime = tid}
+            if(tid - oldTime >= 1/fireRate) {readyToShoot = true; oldTime = tid}
             else readyToShoot = false
         }
         else if(mode == "pistol" || mode == "smg") {
