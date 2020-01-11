@@ -1,6 +1,11 @@
 const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
 
+
+//disable right-click
+
+document.addEventListener('contextmenu', event => event.preventDefault())
+
 canvas.width = window.innerWidth-400
 canvas.height = window.innerHeight-40
 
