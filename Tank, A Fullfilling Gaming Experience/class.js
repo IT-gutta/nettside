@@ -37,13 +37,14 @@ class Bullet{
 }
 
 class Hunter{
-    constructor(){
+    constructor(speed, health){
         this.pos = {x: Math.random() < 0.5 ? 0 : canvas.width, y: randomInt(0, canvas.height)}
         this.vel = {x: -5, y: 0}
         this.r = 10
         this.slowDown = false
-        this.health = 150
-        this.startHealth = this.health
+        this.health = health
+        this.startHealth = health
+        this.speed = speed
     }
     draw(){
         c.beginPath()
@@ -64,8 +65,8 @@ class Hunter{
         let deltaY = prevPos.y-this.pos.y
         let phi = Math.atan2(deltaY, deltaX)
         this.angle = Math.atan2(deltaY, deltaX)
-        this.vel.x = Math.cos(phi)*hunterSpeed
-        this.vel.y = Math.sin(phi)*hunterSpeed
+        this.vel.x = Math.cos(phi)*this.speed
+        this.vel.y = Math.sin(phi)*this.speed
         if(this.slowDown){
             this.pos.x += this.vel.x*0.3
             this.pos.y += this.vel.y*0.3

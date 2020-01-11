@@ -1,5 +1,6 @@
 const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
+
 canvas.width = window.innerWidth-400
 canvas.height = window.innerHeight-40
 
@@ -20,11 +21,12 @@ healthPotImg.src = "sprites/healthPot.png"
 
 
 
-let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots, fallOffRange, bulletSX, bulletSY, bulletSW, bulletSH, bulletWidth, bulletHeight, bulletOffsetX, bulletOffsetY, bulletRadius
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots, fallOffRange, bulletSX, bulletSY, bulletSW, bulletSH, bulletWidth, bulletHeight, bulletOffsetX, bulletOffsetY, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, wave
 let pushAwayStrengt = 0.2
 let pushWhenHitStrength = 30
 let pickupDistance = 10
 let oldTime = 0
+let blur = "blur(0px)"
 let stop = true
 let bulletArr = []
 let hunterArr = []
@@ -32,8 +34,8 @@ let hunterArr = []
 
 
 
-document.querySelector("#smallTank").addEventListener("click", pickSmallTank)
-document.querySelector("#bigTank").addEventListener("click", pickBigTank)
+document.querySelector("#smallTank").addEventListener("click", startGame)
+document.querySelector("#bigTank").addEventListener("click", startGame)
 document.querySelector(".pause").addEventListener("click", function(){if(stop){stop = false} else{stop = true}})
 window.addEventListener("mousemove", moveMouse)
 window.addEventListener("mousedown", shoot)

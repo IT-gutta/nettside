@@ -6,7 +6,9 @@ const randomInt = (min, max) => Math.random()*(max-min)+min
 function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
-    speedReduction = [false, 1.5]
+    speedMultiple = 1
+    wave = 1
+    readyToStartNewWave = true
     weapons.pistol()
     shotGunShots = 10
     fallOffRange = 200
@@ -16,10 +18,10 @@ function defaultSettings(){
     tid = 0
     gunLength = 59
     playerIsCarrying = false
-    hunterSpeed = 2
     moneyPerKill = 25
     tankLevel = 1
     gunLevel = 1
+    killCount = 0
 }
 
 let tanks = {
@@ -184,6 +186,7 @@ let weapons = {
         bulletRadius = 5
         baseDmg = 50
         basePierces = 0
+        speedMultiple = 1.25
     },
     smg: function(){
         mode = "smg"
@@ -193,15 +196,16 @@ let weapons = {
         basePierces = 0
         bloom = Math.PI/15
         fireRate = 5
+        speedMultiple = 1.2
     },
     lmg: function(){
         mode = "lmg"
-        bulletSpeed = 7
-        speedReduction = [true, 1.5]
+        bulletSpeed = 8
+        speedMultiple = 0.75
         baseDmg = 65
         bulletRadius = 6.5
         basePierces = 1
-        fireRate = 3.5
+        fireRate = 4
         bloom = Math.PI/12
     },
     sniper: function(){
@@ -219,6 +223,7 @@ let weapons = {
         bulletHeight = 3597/25
         bulletOffsetX = -20
         bulletOffsetY = -40
+        speedMultiple = 1
     },
     shotgun: function(){
         mode = "shotgun"
@@ -228,6 +233,7 @@ let weapons = {
         baseDmg = 150
         fireRate = 1
         bloom = Math.PI/15
+        speedMultiple = 1
     }
 }
 
@@ -239,23 +245,167 @@ function changeGun(){
     guns[type][gunLevel-1]()
 }
 
-function pickSmallTank(){
-    stop = false
+
+function startGame(e){
+    type = e.target.name
+    defaultSettings()
     overlay.innerHTML = ""
-    type = "small"
     changeTank()
     changeGun()
     startShop()
+    stop = false
+    waves[wave-1]()
 }
 
-function pickBigTank(){
-    stop = false
-    overlay.innerHTML = ""
-    type = "big"
-    changeTank()
-    changeGun()
-    startShop()
+
+
+
+function startNewWave(text, countDownTime, text2){
+    let rgbAlpha = 0
+    let tempTime = 0
+    overlayInterval = setInterval(() => {
+    overlay.style.color = `rgba(0, 0, 0, ${rgbAlpha})`
+    overlay.innerHTML = `${text} ${countDownTime - Math.ceil(tempTime)} <br> <br> <p>${text2}</p>`
+    if(rgbAlpha < 1) rgbAlpha += 0.002
+    tempTime += 0.01
+
+    }, 10)
 }
+
+
+let waves = [
+    () => {
+        readyToStartNewWave = false
+        blur = "blur(3px)"
+        startNewWave("Wave 1 starting in", 5, "This should be easy")
+        setTimeout(() => {
+            clearInterval(overlayInterval)
+            overlay.innerHTML = ""
+            stop = false
+            blur = "blur(0px)"
+            let antallHunters = 6
+            let deployedHunters = 1
+            hunterInterval = setInterval(() => {
+                if(!stop){
+                    if(deployedHunters == antallHunters){
+                        clearInterval(hunterInterval)
+                        readyToStartNewWave = true
+                    }
+                    deployedHunters += 1
+                    hunterArr.push(new Hunter(1, 100))
+                }
+            }, 1000)
+
+        }, 5000)
+    },
+    () => {
+        readyToStartNewWave = false
+        blur = "blur(3px)"
+        startNewWave("Wave 2 starting in", 10, "Tankier enemies")
+        setTimeout(() => {
+            clearInterval(overlayInterval)
+            overlay.innerHTML = ""
+            stop = false
+            blur = "blur(0px)"
+            let antallHunters = 12
+            let deployedHunters = 1
+            hunterInterval = setInterval(() => {
+                if(!stop){
+                    if(deployedHunters == antallHunters){
+                        clearInterval(hunterInterval)
+                        readyToStartNewWave = true
+                    }
+                    deployedHunters += 1
+                    hunterArr.push(new Hunter(1, 150))
+                }
+            }, 1000)
+        }, 10000)
+    },
+    () => {
+        readyToStartNewWave = false
+        blur = "blur(3px)"
+        startNewWave("Wave 3 starting in", 10, "Enemy speed doubling")
+        setTimeout(() => {
+            clearInterval(overlayInterval)
+            overlay.innerHTML = ""
+            stop = false
+            blur = "blur(0px)"
+            let antallHunters = 20
+            let deployedHunters = 1
+            hunterInterval = setInterval(() => {
+                if(!stop){
+                    if(deployedHunters == antallHunters){
+                        clearInterval(hunterInterval)
+                        readyToStartNewWave = true
+                    }
+                    deployedHunters += 1
+                    hunterArr.push(new Hunter(2, 150))
+                }
+            }, 1000)
+
+        }, 10000)
+    },
+    () => {
+        readyToStartNewWave = false
+        blur = "blur(3px)"
+        startNewWave("Wave 4 starting in", 10, "Quicker spawns, watch out!")
+        setTimeout(() => {
+            clearInterval(overlayInterval)
+            overlay.innerHTML = ""
+            stop = false
+            blur = "blur(0px)"
+            let antallHunters = 35
+            let deployedHunters = 1
+            hunterInterval = setInterval(() => {
+                if(!stop){
+                    if(deployedHunters == antallHunters){
+                        clearInterval(hunterInterval)
+                        readyToStartNewWave = true
+                    }
+                    deployedHunters += 1
+                    hunterArr.push(new Hunter(2, 150))
+                }
+            }, 700)
+        }, 10000)
+    },
+    () => {
+        readyToStartNewWave = false
+        blur = "blur(3px)"
+        startNewWave("Wave 5 starting in", 10, "Even tankier")
+        setTimeout(() => {
+            clearInterval(overlayInterval)
+            overlay.innerHTML = ""
+            stop = false
+            blur = "blur(0px)"
+            let antallHunters = 35
+            let deployedHunters = 1
+            hunterInterval = setInterval(() => {
+                if(!stop){
+                    if(deployedHunters == antallHunters){
+                        clearInterval(hunterInterval)
+                        readyToStartNewWave = true
+                    }
+                    deployedHunters += 1
+                    hunterArr.push(new Hunter(2, 200))
+                }
+            }, 700)
+        }, 10000)
+    },
+    () => {
+        readyToStartNewWave = false
+        blur = "blur(3px)"
+        startNewWave("Freemode starting in", 10, "Have fun")
+        setTimeout(() => {
+            clearInterval(overlayInterval)
+            overlay.innerHTML = ""
+            stop = false
+            blur = "blur(0px)"
+            hunterInterval = setInterval(() => {
+                if(!stop) hunterArr.push(new Hunter(2, 200))
+            }, 700)
+        }, 10000)
+    }
+]
 
 
 
@@ -274,13 +424,6 @@ function moveMouse(e){
 }
 
 function restart(){
-    defaultSettings()
-    changeTank()
-    changeGun()
-    stop = false
-    overlay.style.display = "none"
-    player.health = 400
-    healthBar.startHealth = 400
     player.pos = {x:canvas.width/2, y:canvas.height/2}
     player.money = 10000000
     bulletArr = []
@@ -289,6 +432,7 @@ function restart(){
         shopBtns[i].value = shopBtns[i].id
     }
     shopBtns[5].value = "SELECTED"
+    startGame()
 }
 
 function youLose(){
@@ -425,4 +569,8 @@ function startShop(){
         })
     }
 }
+
+
+
+
 

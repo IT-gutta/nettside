@@ -10,11 +10,11 @@ setInterval(function(){
 
 
 
-setInterval(function(){
-    if(!stop){
-        hunterArr.push(new Hunter())
-    }
-}, 500)
+// setInterval(function(){
+//     if(!stop){
+//         hunterArr.push(new Hunter())
+//     }
+// }, 500)
 
 setInterval(function(){
     tid+=0.01
@@ -23,10 +23,15 @@ setInterval(function(){
 
 function loop(){
     requestAnimationFrame(loop)
+    if(hunterArr.length == 0 && readyToStartNewWave){
+        wave += 1
+        waves[wave-1]()
+    }
     if(!stop){
         c.fillStyle = "beige"
         c.fillRect(0, 0, canvas.width, canvas.height)
 
+        c.filter = blur
         if(mouseIsPressed && (mode == "lmg" || mode == "smg")){
             spray()
         }
@@ -56,6 +61,7 @@ function loop(){
                         [hunterArr[k], hunterArr[hunterArr.length-1]] = [hunterArr[hunterArr.length-1], hunterArr[k]]
                         hunterArr.pop()
                         k-=1
+                        killCount += 1
                         player.money += moneyPerKill
                     }
                     if(bulletArr[i].pierces > pierces + basePierces){
@@ -98,8 +104,8 @@ function loop(){
         healthBar.draw()
         moneyBar.draw()
         healthPots.draw()
-
-        c.fillText(`Current weapon: ${mode.toUpperCase()}`, 20, 25)
+        c.font = "19px monospace"
+        c.fillText(`Weapon: ${mode.toUpperCase()}  ::  Wave: ${wave}  ::  Kills: ${killCount}`, 20, 25)
 
     }
 }

@@ -45,10 +45,8 @@ let player = {
         this.pos.y+=this.vel.y
         this.vel.x*=0.9
         this.vel.y*=0.9
-        if(controller.w) {if(speedReduction[0]){this.vel.y = -(speed-speedReduction[1])} else{this.vel.y = -speed}}
-        if(controller.s) {if(speedReduction[0]){this.vel.y = speed-speedReduction[1]} else{this.vel.y = speed}}
-        if(controller.d) {if(speedReduction[0]){this.vel.x = speed-speedReduction[1]} else{this.vel.x = speed}}
-        if(controller.a) {if(speedReduction[0]){this.vel.x = -(speed-speedReduction[1])} else{this.vel.x = -speed}}
+
+
 
         if(controller.w && !controller.s && !controller.d && !controller.a){
             this.angle = 0
@@ -78,6 +76,11 @@ let player = {
             this.angle = Math.PI
         }
 
+
+        if(controller.a || controller.s || controller.d || controller.w){
+            this.vel.x = Math.cos(this.angle - Math.PI/2) * speed * speedMultiple
+            this.vel.y = Math.sin(this.angle - Math.PI/2) * speed * speedMultiple
+        }
         
         this.draw()
 
@@ -94,7 +97,7 @@ let player = {
 }
 
 let healthBar = {
-    leftTop: {x: 300, y: 50},
+    leftTop: {x: 450, y: 50},
     height: 25,
     startHealth: player.health,
     color: "red",
@@ -149,7 +152,5 @@ let healthPots = {
 }
 
 
-
-defaultSettings()
 
 
