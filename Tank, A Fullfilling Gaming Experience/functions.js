@@ -247,13 +247,14 @@ function changeGun(){
 
 
 function startGame(e){
-    type = e.target.name
+    if(e!= false) type = e.target.name
     defaultSettings()
     overlay.innerHTML = ""
     changeTank()
     changeGun()
     startShop()
     stop = false
+    wave = 1
     waves[wave-1]()
 }
 
@@ -432,7 +433,7 @@ function restart(){
         shopBtns[i].value = shopBtns[i].id
     }
     shopBtns[5].value = "SELECTED"
-    startGame()
+    startGame(false)
 }
 
 function youLose(){
