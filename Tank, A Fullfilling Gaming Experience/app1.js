@@ -31,7 +31,7 @@ function loop(){
         c.fillStyle = "beige"
         c.fillRect(0, 0, canvas.width, canvas.height)
 
-        c.filter = blur
+        // c.filter = blur
         if(mouseIsPressed && (mode == "lmg" || mode == "smg")){
             spray()
         }
