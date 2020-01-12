@@ -1,13 +1,18 @@
 const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
 
+canvas.width = window.innerWidth-400
+canvas.height = window.innerHeight-40
+
+// const blurOverlay = document.getElementById("blur")
+// blurOverlay.style.width = `${canvas.width}px` 
+// blurOverlay.style.height = `${canvas.height}px`
+
 
 //disable right-click
 
 document.addEventListener('contextmenu', event => event.preventDefault())
 
-canvas.width = window.innerWidth-400
-canvas.height = window.innerHeight-40
 
 let overlay = document.querySelector(".overlay")
 
@@ -31,7 +36,6 @@ let pushAwayStrengt = 0.2
 let pushWhenHitStrength = 30
 let pickupDistance = 10
 let oldTime = 0
-let blur = "blur(0px)"
 let stop = true
 let bulletArr = []
 let hunterArr = []

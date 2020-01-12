@@ -63,3 +63,10 @@ canvas{
     top:50px;
     left:50px;
 }
+/* #blur{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    filter: blur(3px)
+} */
