@@ -136,7 +136,7 @@ let moneyBar = {
         c.fillStyle = "green"
         c.textAlign = "start"
         c.font = "25 px monospace"
-        c.fillText(`$${player.money}`, canvas.width-125, 60)
+        c.fillText(`$${player.money}`, canvas.width-125, 30)
     }
 }
 
@@ -144,10 +144,10 @@ let moneyBar = {
 let healthPots = {
     antall: 0,
     draw: function(){
-        c.drawImage(healthPotImg, 0, 0, healthPotImg.width, healthPotImg.height, canvas.width-175, 30, 32, 32)
+        c.drawImage(healthPotImg, 0, 0, healthPotImg.width, healthPotImg.height, canvas.width-175, 0, 32, 32)
         c.font = "20px monospace"
         c.fillStyle = "black"
-        c.fillText(this.antall, canvas.width-175 + 32 - 10, 30+32)
+        c.fillText(this.antall, canvas.width-175 + 32 - 10, 32)
     }
 }
 
