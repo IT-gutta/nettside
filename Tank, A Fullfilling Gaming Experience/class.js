@@ -1,5 +1,5 @@
 class Bullet{
-    constructor(x, y, dx, dy, radius, fallOff, angle){
+    constructor(x, y, dx, dy, radius, fallOff, angle, mode, image, b){
         this.pos = {x:x, y:y}
         this.startPos = {x:x, y:y}
         this.vel = {x:dx, y:dy}
@@ -11,6 +11,18 @@ class Bullet{
         this.switch1 = true
         this.switch2 = true
         this.angle = angle
+        this.mode = mode
+        this.image = image
+        this.b = {
+            SX: b.SX,
+            SY: b.SY,
+            SW: b.SW,
+            SH: b.SH,
+            OX: b.OX,
+            OY: b.OY,
+            W: b.W,
+            H: b.H
+        }
     }
     update(){
         this.pos.x+=this.vel.x
@@ -19,20 +31,21 @@ class Bullet{
     }
     draw(){
         c.beginPath()
-        if(mode == "sniper"){
-            c.save()
-            c.translate(this.pos.x, this.pos.y)
-            c.rotate(this.angle + Math.PI/2)
-            c.translate(-this.pos.x, -this.pos.y)
-            c.drawImage(bulletImg, bulletSX, bulletSY, bulletSW, bulletSH, this.pos.x + bulletOffsetX, this.pos.y + bulletOffsetY, bulletWidth, bulletHeight)
-            c.restore()
-        }
-        else{
+        c.save()
+        c.translate(this.pos.x, this.pos.y)
+        c.rotate(this.angle + Math.PI/2)
+        c.translate(-this.pos.x, -this.pos.y)
+        if(this.mode != "shotgun") c.drawImage(this.image, this.b.SX, this.b.SY, this.b.SW, this.b.SH, this.pos.x + this.b.OX, this.pos.y + this.b.OY, this.b.W, this.b.H)
+        c.restore()
+        if(this.mode == "shotgun"){
             c.fillStyle = "blue"
             c.arc(this.pos.x, this.pos.y, this.r, 0, Math.PI*2)
             c.fill()
             c.closePath()
         }
+        // c.fillStyle = "blue"
+        // c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
+        // c.fill()
     }
 }
 

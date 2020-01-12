@@ -10,12 +10,6 @@ setInterval(function(){
 
 
 
-// setInterval(function(){
-//     if(!stop){
-//         hunterArr.push(new Hunter())
-//     }
-// }, 500)
-
 setInterval(function(){
     tid+=0.01
 }, 10)
@@ -31,11 +25,10 @@ function loop(){
         c.fillStyle = "beige"
         c.fillRect(0, 0, canvas.width, canvas.height)
 
-        // c.filter = blur
         if(mouseIsPressed && (mode == "lmg" || mode == "smg")){
             spray()
         }
-
+    
 
         for(let i = 0; i<bulletArr.length; i++){
             

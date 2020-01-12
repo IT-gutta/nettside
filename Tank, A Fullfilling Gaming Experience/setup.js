@@ -23,15 +23,27 @@ let tankImg = new Image()
 tankImg.src = "sprites/smallTank1.png"
 let gunImg = new Image()
 gunImg.src = "sprites/smallGun1.png"
-let bulletImg = new Image()
-bulletImg.src = "sprites/sniperBullet.png"
+let sniperBullet = new Image()
+sniperBullet.src = "sprites/sniperBullet.png"
+let pistolBullet = new Image()
+pistolBullet.src = "sprites/pistolBullet.png"
+let lmgBullet = new Image()
+lmgBullet.src = "sprites/lmgBullet.png"
+
+let bulletImg
+
+
 let healthPotImg = new Image()
 healthPotImg.src = "sprites/healthPot.png"
 
 
 
 
-let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots, fallOffRange, bulletSX, bulletSY, bulletSW, bulletSH, bulletWidth, bulletHeight, bulletOffsetX, bulletOffsetY, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, wave
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, 
+mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, 
+shotGunShots, fallOffRange, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, 
+wave, b
+
 let pushAwayStrengt = 0.2
 let pushWhenHitStrength = 30
 let pickupDistance = 10
@@ -48,6 +60,6 @@ document.querySelector("#bigTank").addEventListener("click", startGame)
 document.querySelector(".pause").addEventListener("click", function(){if(stop){stop = false} else{stop = true}})
 window.addEventListener("mousemove", moveMouse)
 window.addEventListener("mousedown", shoot)
-window.addEventListener("mouseup", function(){ mouseIsPressed = false })
+window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
 window.addEventListener("keydown", pressDown)
 window.addEventListener("keyup", releaseKey)

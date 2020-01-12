@@ -187,6 +187,17 @@ let weapons = {
         baseDmg = 50
         basePierces = 0
         speedMultiple = 1.25
+        bulletImg = pistolBullet
+        b = {
+            SX: 0,
+            SY: 0,
+            SW: 256,
+            SH: 512,
+            OX: -8,
+            OY: -17,
+            W: 256/15,
+            H: 512/15
+        }
     },
     smg: function(){
         mode = "smg"
@@ -197,6 +208,17 @@ let weapons = {
         bloom = Math.PI/15
         fireRate = 5
         speedMultiple = 1.2
+        b = {
+            SX: 0,
+            SY: 0,
+            SW: 256,
+            SH: 512,
+            OX: -8,
+            OY: -17,
+            W: 256/15,
+            H: 512/15
+        }
+        bulletImg = pistolBullet
     },
     lmg: function(){
         mode = "lmg"
@@ -207,6 +229,17 @@ let weapons = {
         basePierces = 1
         fireRate = 4
         bloom = Math.PI/12
+        b = {
+            SX: 0,
+            SY: 0,
+            SW: 256,
+            SH: 1000,
+            OX: -6,
+            OY: -17,
+            W: 256/20,
+            H: 1000/20
+        }
+        bulletImg = lmgBullet
     },
     sniper: function(){
         mode = "sniper"
@@ -215,14 +248,17 @@ let weapons = {
         baseDmg = 150
         fireRate = 1
         bulletRadius = 10
-        bulletSX = 0
-        bulletSY = 0
-        bulletSW = 1002
-        bulletSH = 3587
-        bulletWidth = 1002/50
-        bulletHeight = 3597/50
-        bulletOffsetX = -11
-        bulletOffsetY = -20
+        b = {
+            SX: 0,
+            SY: 0,
+            SW: 1002,
+            SH: 3587,
+            OX: -11,
+            OY: -20,
+            W: 1002/50,
+            H: 3587/50
+        }
+        bulletImg = sniperBullet
         speedMultiple = 1
     },
     shotgun: function(){
@@ -450,7 +486,8 @@ function youLose(){
 
 
 function shoot(){
-    setTimeout(function(){mouseIsPressed=true}, 100)
+    mouseIsPressed=true
+  
     let deltaX = mouse.x-player.pos.x
     let deltaY = mouse.y-player.pos.y
     let phi = Math.atan2(deltaY, deltaX)
@@ -462,7 +499,7 @@ function shoot(){
             let shotgunInterval = setInterval(() => {
                 tempNumberOfShots += 1
                 let tempPhi = randomInt(phi-bloom, phi+bloom)
-                bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.25, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.25, bulletRadius, true, tempPhi))
+                bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.25, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.25, bulletRadius, true, tempPhi, mode, bulletImg, b))
                 if(tempNumberOfShots == shotGunShots){
                     clearInterval(shotgunInterval)
                 }
@@ -480,7 +517,7 @@ function shoot(){
         else if(mode == "lmg"){
             readyToShoot = true
         }
-        if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi))
+        if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b))
     }
     readyToShoot = false
 }
@@ -492,7 +529,7 @@ function spray(){
     let phi = Math.atan2(deltaY, deltaX)
     phi = randomInt(phi-bloom, phi+bloom)
     if((tid-oldTime)*fireRate >= 1/fireRate){
-        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi))
+        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b))
         oldTime = tid
     }
 }
