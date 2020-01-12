@@ -461,6 +461,7 @@ function moveMouse(e){
 }
 
 function restart(){
+    clearInterval(hunterInterval)
     player.pos = {x:canvas.width/2, y:canvas.height/2}
     player.money = 0
     bulletArr = []
