@@ -31,11 +31,14 @@ input[type="button"]:active {
     transform: translateY(4px);
 }
 .overlay{
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-family: monospace;
     position: absolute;
-    top: 30vh;
-    left: 25vw;
+    left: 0;
+    top: 0;
     font-size: 40px;
     font-family: monospace;
     font-weight: 500;
@@ -49,10 +52,11 @@ input[type="button"]:active {
     font-family: monospace;
     font-weight: 500;
 }
-body{
+body, #wrapper{
     display: flex;
     flex-direction: row;
 }
+
 #margin-left{
     margin-left: 60px;
 }
@@ -64,10 +68,10 @@ canvas{
     top:50px;
     left:50px;
 }
-/* #blur{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    margin: 0px;
-    filter: blur(3px)
-} */
+#pauseMenu{
+    width: 300px;
+    height: 400px;
+    border: 1px solid black;
+    background: rgba(255, 100, 150, 0.5);
+    border-radius: 15%;
+}

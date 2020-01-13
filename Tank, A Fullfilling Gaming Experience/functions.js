@@ -1,7 +1,36 @@
 const distance = (pos1, pos2) => Math.sqrt(Math.pow(pos2.x-pos1.x, 2) + Math.pow(pos2.y-pos1.y, 2))
 const randomInt = (min, max) => Math.random()*(max-min)+min
 
+function pauseMenu(){
 
+    if(stop){
+        stop = false
+        canvas.style.filter = "none"
+        wrapper.style.filter = "none"
+        for(let i = 0; i < shopBtns.length; i++){
+            shopBtns[i].style.pointerEvents = "auto"
+        }
+        overlay.innerHTML = ""
+    }
+    else{
+        stop = true
+        canvas.style.filter = "blur(3px)"
+        wrapper.style.filter = "blur(3px)"
+        for(let i = 0; i < shopBtns.length; i++){
+            shopBtns[i].style.pointerEvents = "none"
+        }
+        overlay.style.color = "rgba(0, 0, 0, 1)"
+        overlay.innerHTML = ` <div id="pauseMenu"> 
+         Pause Menu 
+        <br>
+        <br>
+
+         Dette er en knapp: <input type="button">
+        </div> `
+    }
+    
+
+}
 
 function defaultSettings(){
     healthPotHeal = 300
@@ -297,7 +326,7 @@ function startGame(e){
 
 
 
-function startNewWave(text, countDownTime, text2){
+function startNewWave(text, countDownTime, text2, foo){
     let rgbAlpha = 0
     let tempTime = 0
     overlayInterval = setInterval(() => {
@@ -306,6 +335,7 @@ function startNewWave(text, countDownTime, text2){
             overlay.innerHTML = `${text} ${countDownTime - Math.ceil(tempTime)} <br> <br> <p>${text2}</p>`
             if(rgbAlpha < 1) rgbAlpha += 0.002
             tempTime += 0.01
+            if(tempTime > countDownTime) foo()
         }
     }, 10)
 }
@@ -315,13 +345,13 @@ let waves = [
     () => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 1 starting in", 5, "This should be easy")
-        setTimeout(() => {
+        startNewWave("Wave 1 starting in", 5, "This should be easy",
+        function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
             canvas.style.filter = "none"
-            let antallHunters = 6
+            let antallHunters = 6                                                       
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
                 if(!stop){
@@ -333,19 +363,19 @@ let waves = [
                     hunterArr.push(new Hunter(1, 100))
                 }
             }, 1000)
-
-        }, 5000)
-    },
+        }
+    )
+},
     () => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 2 starting in", 10, "Tankier enemies")
-        setTimeout(() => {
+        startNewWave("Wave 2 starting in", 10, "Tankier enemies",
+        function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
             canvas.style.filter = "none"
-            let antallHunters = 12
+            let antallHunters = 12                                                      
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
                 if(!stop){
@@ -357,18 +387,19 @@ let waves = [
                     hunterArr.push(new Hunter(1, 150))
                 }
             }, 1000)
-        }, 10000)
-    },
-    () => {
+        }
+    )
+},
+() => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 3 starting in", 10, "Enemy speed doubling")
-        setTimeout(() => {
+        startNewWave("Wave 3 starting in", 10, "Increased speed",
+        function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
             canvas.style.filter = "none"
-            let antallHunters = 20
+            let antallHunters = 24                                                    
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
                 if(!stop){
@@ -380,19 +411,19 @@ let waves = [
                     hunterArr.push(new Hunter(2, 150))
                 }
             }, 1000)
-
-        }, 10000)
-    },
+        }
+    )
+},
     () => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 4 starting in", 10, "Quicker spawns, watch out!")
-        setTimeout(() => {
+        startNewWave("Wave 4 starting in", 10, "Quicker spawns",
+        function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
             canvas.style.filter = "none"
-            let antallHunters = 35
+            let antallHunters = 35                                                      
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
                 if(!stop){
@@ -404,56 +435,68 @@ let waves = [
                     hunterArr.push(new Hunter(2, 150))
                 }
             }, 700)
-        }, 10000)
-    },
+        }
+    )
+},
+() => {
+    readyToStartNewWave = false
+    canvas.style.filter = "blur(3px)"
+    startNewWave("Wave 5 starting in", 10, "Even tankier",
+    function(){
+        clearInterval(overlayInterval)
+        overlay.innerHTML = ""
+        stop = false
+        canvas.style.filter = "none"
+        let antallHunters = 40                                                     
+        let deployedHunters = 1
+        hunterInterval = setInterval(() => {
+            if(!stop){
+                if(deployedHunters == antallHunters){
+                    clearInterval(hunterInterval)
+                    readyToStartNewWave = true
+                }
+                deployedHunters += 1
+                hunterArr.push(new Hunter(2, 200))
+            }
+        }, 700)
+    }
+)
+},
     () => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 5 starting in", 10, "Even tankier")
-        setTimeout(() => {
+        startNewWave("Freemode starting in", 10, "Have fun",
+        function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
-            canvas.style.filter = "none"
-            let antallHunters = 35
-            let deployedHunters = 1
+            canvas.style.filter = "none"                                                  
             hunterInterval = setInterval(() => {
                 if(!stop){
-                    if(deployedHunters == antallHunters){
-                        clearInterval(hunterInterval)
-                        readyToStartNewWave = true
-                    }
-                    deployedHunters += 1
-                    hunterArr.push(new Hunter(2, 200))
+                    hunterArr.push(new Hunter(2, 150))
                 }
             }, 700)
-        }, 10000)
-    },
-    () => {
-        readyToStartNewWave = false
-        canvas.style.filter = "blur(3px)"
-        startNewWave("Freemode starting in", 10, "Have fun")
-        setTimeout(() => {
-            clearInterval(overlayInterval)
-            overlay.innerHTML = ""
-            stop = false
-            canvas.style.filter = "none"
-            hunterInterval = setInterval(() => {
-                if(!stop) hunterArr.push(new Hunter(2, 200))
-            }, 700)
-        }, 10000)
-    }
+        }
+    )
+},
 ]
 
 
 
 function pressDown(e){
     if((e.key == "h" || e.key == "H") && healthPots.antall > 0 && player.health < healthBar.startHealth) {healthPots.antall -= 1; player.health += healthPotHeal; if(player.health > healthBar.startHealth) player.health = healthBar.startHealth}
-    else controller[e.key] = true
+    else if(e.keyCode == 65) controller.a = true
+    else if(e.keyCode == 87) controller.w = true
+    else if(e.keyCode == 68) controller.d = true
+    else if(e.keyCode == 83) controller.s = true
+    else if(e.keyCode == 27) pauseMenu()
 }
 
 function releaseKey(e){
-    controller[e.key] = false
+    if(e.keyCode == 65) controller.a = false
+    else if(e.keyCode == 87) controller.w = false
+    else if(e.keyCode == 68) controller.d = false
+    else if(e.keyCode == 83) controller.s = false
 }
 
 function moveMouse(e){

@@ -16,7 +16,12 @@ document.addEventListener('contextmenu', event => event.preventDefault())
 
 let overlay = document.querySelector(".overlay")
 
+overlay.style.width = `${canvas.width}px` 
+overlay.style.height = `${canvas.height}px`
+
 let shopBtns = document.querySelectorAll(".shopBtn")
+
+let wrapper = document.getElementById("wrapper")
 
 
 let tankImg = new Image()
@@ -58,7 +63,7 @@ let hunterArr = []
 
 document.querySelector("#smallTank").addEventListener("click", startGame)
 document.querySelector("#bigTank").addEventListener("click", startGame)
-document.querySelector(".pause").addEventListener("click", function(){if(stop){stop = false} else{stop = true}})
+document.querySelector("#pauseBtn").addEventListener("click", pauseMenu)
 window.addEventListener("mousemove", moveMouse)
 window.addEventListener("mousedown", shoot)
 window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
