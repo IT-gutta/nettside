@@ -301,11 +301,12 @@ function startNewWave(text, countDownTime, text2){
     let rgbAlpha = 0
     let tempTime = 0
     overlayInterval = setInterval(() => {
-    overlay.style.color = `rgba(0, 0, 0, ${rgbAlpha})`
-    overlay.innerHTML = `${text} ${countDownTime - Math.ceil(tempTime)} <br> <br> <p>${text2}</p>`
-    if(rgbAlpha < 1) rgbAlpha += 0.002
-    tempTime += 0.01
-
+        if(!stop){
+            overlay.style.color = `rgba(0, 0, 0, ${rgbAlpha})`
+            overlay.innerHTML = `${text} ${countDownTime - Math.ceil(tempTime)} <br> <br> <p>${text2}</p>`
+            if(rgbAlpha < 1) rgbAlpha += 0.002
+            tempTime += 0.01
+        }
     }, 10)
 }
 
@@ -313,13 +314,13 @@ function startNewWave(text, countDownTime, text2){
 let waves = [
     () => {
         readyToStartNewWave = false
-        c.filter = "blur(3px)"
+        canvas.style.filter = "blur(3px)"
         startNewWave("Wave 1 starting in", 5, "This should be easy")
         setTimeout(() => {
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
-            c.filter = "none"
+            canvas.style.filter = "none"
             let antallHunters = 6
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
@@ -337,13 +338,13 @@ let waves = [
     },
     () => {
         readyToStartNewWave = false
-        c.filter = "blur(3px)"
+        canvas.style.filter = "blur(3px)"
         startNewWave("Wave 2 starting in", 10, "Tankier enemies")
         setTimeout(() => {
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
-            c.filter = "none"
+            canvas.style.filter = "none"
             let antallHunters = 12
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
@@ -360,13 +361,13 @@ let waves = [
     },
     () => {
         readyToStartNewWave = false
-        c.filter = "blur(3px)"
+        canvas.style.filter = "blur(3px)"
         startNewWave("Wave 3 starting in", 10, "Enemy speed doubling")
         setTimeout(() => {
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
-            c.filter = "none"
+            canvas.style.filter = "none"
             let antallHunters = 20
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
@@ -384,13 +385,13 @@ let waves = [
     },
     () => {
         readyToStartNewWave = false
-        c.filter = "blur(3px)"
+        canvas.style.filter = "blur(3px)"
         startNewWave("Wave 4 starting in", 10, "Quicker spawns, watch out!")
         setTimeout(() => {
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
-            c.filter = "none"
+            canvas.style.filter = "none"
             let antallHunters = 35
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
@@ -407,13 +408,13 @@ let waves = [
     },
     () => {
         readyToStartNewWave = false
-        c.filter = "blur(3px)"
+        canvas.style.filter = "blur(3px)"
         startNewWave("Wave 5 starting in", 10, "Even tankier")
         setTimeout(() => {
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
-            c.filter = "none"
+            canvas.style.filter = "none"
             let antallHunters = 35
             let deployedHunters = 1
             hunterInterval = setInterval(() => {
@@ -430,13 +431,13 @@ let waves = [
     },
     () => {
         readyToStartNewWave = false
-        c.filter = "blur(3px)"
+        canvas.style.filter = "blur(3px)"
         startNewWave("Freemode starting in", 10, "Have fun")
         setTimeout(() => {
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
-            c.filter = "none"
+            canvas.style.filter = "none"
             hunterInterval = setInterval(() => {
                 if(!stop) hunterArr.push(new Hunter(2, 200))
             }, 700)

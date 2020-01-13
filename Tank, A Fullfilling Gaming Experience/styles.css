@@ -39,6 +39,7 @@ input[type="button"]:active {
     font-size: 40px;
     font-family: monospace;
     font-weight: 500;
+    z-index: 10;
 }
 .overlay p{
     font-size: 25px;
