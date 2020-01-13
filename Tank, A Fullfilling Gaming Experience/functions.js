@@ -24,9 +24,21 @@ function pauseMenu(){
          Pause Menu 
         <br>
         <br>
+        <br>
+        <br>
+        Brightness (<p id="brightness">100</p>): <input type="range" id="brightSlider"min="1" max="100" value="100">
 
          Dette er en knapp: <input type="button">
         </div> `
+
+        let pauseEl = document.getElementById("pauseMenu")
+    
+        let pEl = document.getElementById("brightness")
+        let slider = document.getElementById("brightSlider")
+        slider.addEventListener("change", () =>{
+        htmlEL.style.filter = `brightness(${slider.value/100})`
+        pEl.innerHTML = slider.value + "%"
+    })
     }
     
 

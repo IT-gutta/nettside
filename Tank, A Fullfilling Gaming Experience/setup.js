@@ -13,6 +13,8 @@ canvas.height = window.innerHeight-40
 
 document.addEventListener('contextmenu', event => event.preventDefault())
 
+let htmlEL = document.querySelector("html")
+
 
 let overlay = document.querySelector(".overlay")
 

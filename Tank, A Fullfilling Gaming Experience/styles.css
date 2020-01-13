@@ -2,6 +2,9 @@
     color: none;
     background: none;
 }
+/* html{
+    filter: brightness(1)
+} */
 
 
 
@@ -69,9 +72,11 @@ canvas{
     left:50px;
 }
 #pauseMenu{
-    width: 300px;
-    height: 400px;
+    width: 500px;
+    height: 600px;
+    padding: 30px;
+    margin: 20px;
     border: 1px solid black;
-    background: rgba(255, 100, 150, 0.5);
+    background: rgba(50, 50, 50, 1);
     border-radius: 15%;
 }
