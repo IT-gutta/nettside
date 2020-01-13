@@ -36,7 +36,7 @@ function pauseMenu(){
         let pEl = document.getElementById("brightness")
         let slider = document.getElementById("brightSlider")
         slider.addEventListener("change", () =>{
-        htmlEL.style.filter = `brightness(${slider.value/100})`
+        bodyEL.style.filter = `brightness(${slider.value/100})`
         pEl.innerHTML = slider.value + "%"
     })
     }
