@@ -22,8 +22,8 @@ function loop(){
         waves[wave-1]()
     }
     if(!stop){
-        c.fillStyle = "beige"
-        c.fillRect(0, 0, canvas.width, canvas.height)
+        // c.fillStyle = "beige"
+        c.clearRect(0, 0, canvas.width, canvas.height)
 
         if(mouseIsPressed && (mode == "lmg" || mode == "smg")){
             spray()
