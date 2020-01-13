@@ -29,6 +29,7 @@ let pistolBullet = new Image()
 pistolBullet.src = "sprites/pistolBullet.png"
 let lmgBullet = new Image()
 lmgBullet.src = "sprites/lmgBullet.png"
+let blur = false
 
 let bulletImg
 
