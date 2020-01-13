@@ -45,15 +45,8 @@ let player = {
         this.pos.y+=this.vel.y
         this.vel.x*=0.9
         this.vel.y*=0.9
-<<<<<<< HEAD
-        // if(controller.w) {if(speedReduction[0]){this.vel.y = -(speed-speedReduction[1])} else{this.vel.y = -speed}}
-        // if(controller.s) {if(speedReduction[0]){this.vel.y = speed-speedReduction[1]} else{this.vel.y = speed}}
-        // if(controller.d) {if(speedReduction[0]){this.vel.x = speed-speedReduction[1]} else{this.vel.x = speed}}
-        // if(controller.a) {if(speedReduction[0]){this.vel.x = -(speed-speedReduction[1])} else{this.vel.x = -speed}}
-=======
 
 
->>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
 
         if(controller.w && !controller.s && !controller.d && !controller.a){
             this.angle = 0
@@ -83,8 +76,6 @@ let player = {
             this.angle = Math.PI
         }
 
-<<<<<<< HEAD
-=======
 
         if(controller.a || controller.s || controller.d || controller.w){
             this.vel.x = Math.cos(this.angle - Math.PI/2) * speed * speedMultiple
@@ -92,34 +83,16 @@ let player = {
         }
         
         this.draw()
->>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
 
         if(this.health <= 0){
             stop = true
             youLose()
         }
 
-<<<<<<< HEAD
-        if(controller.a || controller.s || controller.w || controller.d){
-            this.vel.x = Math.cos(this.angle-Math.PI/2)*speed*speedReduction
-            this.vel.y = Math.sin(this.angle-Math.PI/2)*speed*speedReduction
-        }
-
-
-        if(this.pos.x < this.r && !controller.d) this.vel.x = 0.01
-        if(this.pos.x > canvas.width-this.r && !controller.a) this.vel.x = -0.01
-        if(this.pos.y > canvas.height-this.r && !controller.w) this.vel.y = -0.01
-        if(this.pos.y < this.r && !controller.s) this.vel.y = 0.01
-
-
-        
-        this.draw()
-=======
         if(this.pos.x < this.r && controller.a) this.vel.x = 0.01
         if(this.pos.x > canvas.width-this.r && controller.d) this.vel.x = -0.01
         if(this.pos.y > canvas.height-this.r && controller.s) this.vel.y = -0.01
         if(this.pos.y < this.r && controller.w) this.vel.y = 0.01
->>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
     }
 }
 
