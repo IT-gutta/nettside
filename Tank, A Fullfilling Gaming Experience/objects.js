@@ -3,7 +3,7 @@ let player = {
     vel: {x:0, y:0},
     r: 14,
     health: 400,
-    money: 10000000,
+    money: 0,
     carry: undefined,
     baseDmg: baseDmg,
     addedDmg: 0,
@@ -45,10 +45,10 @@ let player = {
         this.pos.y+=this.vel.y
         this.vel.x*=0.9
         this.vel.y*=0.9
-        if(controller.w) {if(speedReduction[0]){this.vel.y = -(speed-speedReduction[1])} else{this.vel.y = -speed}}
-        if(controller.s) {if(speedReduction[0]){this.vel.y = speed-speedReduction[1]} else{this.vel.y = speed}}
-        if(controller.d) {if(speedReduction[0]){this.vel.x = speed-speedReduction[1]} else{this.vel.x = speed}}
-        if(controller.a) {if(speedReduction[0]){this.vel.x = -(speed-speedReduction[1])} else{this.vel.x = -speed}}
+        // if(controller.w) {if(speedReduction[0]){this.vel.y = -(speed-speedReduction[1])} else{this.vel.y = -speed}}
+        // if(controller.s) {if(speedReduction[0]){this.vel.y = speed-speedReduction[1]} else{this.vel.y = speed}}
+        // if(controller.d) {if(speedReduction[0]){this.vel.x = speed-speedReduction[1]} else{this.vel.x = speed}}
+        // if(controller.a) {if(speedReduction[0]){this.vel.x = -(speed-speedReduction[1])} else{this.vel.x = -speed}}
 
         if(controller.w && !controller.s && !controller.d && !controller.a){
             this.angle = 0
@@ -78,18 +78,26 @@ let player = {
             this.angle = Math.PI
         }
 
-        
-        this.draw()
 
         if(this.health <= 0){
             stop = true
             youLose()
         }
 
+        if(controller.a || controller.s || controller.w || controller.d){
+            this.vel.x = Math.cos(this.angle-Math.PI/2)*speed*speedReduction
+            this.vel.y = Math.sin(this.angle-Math.PI/2)*speed*speedReduction
+        }
+
+
         if(this.pos.x < this.r && !controller.d) this.vel.x = 0.01
         if(this.pos.x > canvas.width-this.r && !controller.a) this.vel.x = -0.01
         if(this.pos.y > canvas.height-this.r && !controller.w) this.vel.y = -0.01
         if(this.pos.y < this.r && !controller.s) this.vel.y = 0.01
+
+
+        
+        this.draw()
     }
 }
 

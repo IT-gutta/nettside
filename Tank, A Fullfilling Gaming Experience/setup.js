@@ -21,7 +21,7 @@ let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, mon
 function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
-    speedReduction = [false, 1.5]
+    speedReduction = 1
     weapons.shotgun()
     shotGunShots = 10
     pierces = 0
@@ -217,7 +217,7 @@ let weapons = {
     lmg: function(){
         mode = "lmg"
         bulletSpeed = 7
-        speedReduction = [true, 1.5]
+        speedReduction = 0.75
         baseDmg = 65
         basePierces = 1
         fireRate = 3
