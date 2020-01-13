@@ -21,24 +21,23 @@ function pauseMenu(){
         }
         overlay.style.color = "rgba(0, 0, 0, 1)"
         overlay.innerHTML = ` <div id="pauseMenu"> 
-         Pause Menu 
+         <h1>Pause Menu</h1> 
         <br>
         <br>
-        <br>
-        <br>
-        Brightness (<p id="brightness">100</p>): <input type="range" id="brightSlider"min="1" max="100" value="100">
-
-         Dette er en knapp: <input type="button">
+        Turn on/off darkmode: <input type="button" id="darkModeBtn">
         </div> `
 
         let pauseEl = document.getElementById("pauseMenu")
     
-        let pEl = document.getElementById("brightness")
-        let slider = document.getElementById("brightSlider")
-        slider.addEventListener("change", () =>{
-        bodyEL.style.filter = `brightness(${slider.value/100})`
-        pEl.innerHTML = slider.value + "%"
-    })
+        let darkModeBtn = document.getElementById("darkModeBtn")
+        darkModeBtn.addEventListener("click", ()=>{
+            if(bodyEL.style.backgroundColor == "beige"){
+                bodyEL.style.backgroundColor = "hsl(60, 0%, 20%)"
+            }
+            else{
+                bodyEL.style.backgroundColor = "beige"
+            }
+        })
     }
     
 
@@ -324,7 +323,11 @@ function changeGun(){
 
 
 function startGame(e){
-    if(e!= false) type = e.target.name
+    if(e!= false) {
+        type = e.target.name
+        // document.querySelector("#pauseBtn").addEventListener("click", pauseMenu)
+        window.addEventListener("keydown", pressDown)
+    }
     defaultSettings()
     overlay.innerHTML = ""
     changeTank()
@@ -357,7 +360,7 @@ let waves = [
     () => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 1 starting in", 5, "This should be easy",
+        startNewWave("Wave 1 starting in", 15, "Move with the WASD keys <br> Aim and shoot with the mouse <br> Press ESC to pause/unpause the game at any time <br> Press H to use Health Potion <br> <br> Try to survive as long as possible",
         function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
@@ -526,6 +529,10 @@ function restart(){
         shopBtns[i].value = shopBtns[i].id
     }
     shopBtns[5].value = "SELECTED"
+    overlay.style.top = "0px"
+    overlay.style.left = "0px"
+    overlay.style.width = `${canvas.width}px` 
+    overlay.style.height = `${canvas.height}px`
     startGame(false)
 }
 

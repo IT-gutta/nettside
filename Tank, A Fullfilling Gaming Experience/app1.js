@@ -98,7 +98,8 @@ function loop(){
         moneyBar.draw()
         healthPots.draw()
         c.font = "19px monospace"
-        c.fillText(`Weapon: ${mode.toUpperCase()}  ::  Wave: ${wave}  ::  Kills: ${killCount}`, 20, 25)
+        c.fillText(`Weapon: ${mode.toUpperCase()}  ::  Wave: ${wave}`, 20, 25)
+        c.fillText(`Elapsed Time: ${Math.floor(tid)}  ::  Kills: ${killCount}`, 20, 75)
 
     }
 }

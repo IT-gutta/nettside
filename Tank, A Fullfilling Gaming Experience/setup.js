@@ -10,8 +10,10 @@ canvas.height = window.innerHeight-40
 
 
 //disable right-click
-
 document.addEventListener('contextmenu', event => event.preventDefault())
+
+//disable drag
+document.addEventListener('dragstart', event => event.preventDefault())
 
 let bodyEL = document.querySelector("body")
 
@@ -65,9 +67,7 @@ let hunterArr = []
 
 document.querySelector("#smallTank").addEventListener("click", startGame)
 document.querySelector("#bigTank").addEventListener("click", startGame)
-document.querySelector("#pauseBtn").addEventListener("click", pauseMenu)
 window.addEventListener("mousemove", moveMouse)
 window.addEventListener("mousedown", shoot)
 window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
-window.addEventListener("keydown", pressDown)
 window.addEventListener("keyup", releaseKey)

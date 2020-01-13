@@ -3,6 +3,7 @@
     background: none;
 }
 
+
 input[type="button"] {
     display: inline-block;
     padding: 15px 25px;
@@ -41,8 +42,12 @@ input[type="button"]:active {
     font-family: monospace;
     font-weight: 500;
     z-index: 10;
+    cursor: url("sprites/cursortest.png"), pointer;
+    /* url("sprites/cursors.png") */
 }
 .overlay p{
+    text-align: center;
+    line-height: 50px;
     font-size: 25px;
 }
 .shop{
@@ -51,7 +56,7 @@ input[type="button"]:active {
     font-weight: 500;
 }
 body{
-    background: hsl(60, 0%, 20%);
+    background: beige;
 }
 body, #wrapper{
     display: flex;
@@ -64,17 +69,25 @@ body, #wrapper{
 canvas{
     margin-right: 30px;
 }
-.pause{
+/* .pause{
     position: absolute;
     top:50px;
     left:50px;
-}
+    pointer-events: auto;
+} */
 #pauseMenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
     width: 500px;
     height: 600px;
     padding: 30px;
     margin: 20px;
     border: 1px solid black;
-    background: rgba(50, 50, 50, 1);
+    background: rgb(112, 27, 44);
     border-radius: 15%;
 }
+
+
