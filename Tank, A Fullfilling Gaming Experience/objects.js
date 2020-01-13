@@ -45,10 +45,15 @@ let player = {
         this.pos.y+=this.vel.y
         this.vel.x*=0.9
         this.vel.y*=0.9
+<<<<<<< HEAD
         // if(controller.w) {if(speedReduction[0]){this.vel.y = -(speed-speedReduction[1])} else{this.vel.y = -speed}}
         // if(controller.s) {if(speedReduction[0]){this.vel.y = speed-speedReduction[1]} else{this.vel.y = speed}}
         // if(controller.d) {if(speedReduction[0]){this.vel.x = speed-speedReduction[1]} else{this.vel.x = speed}}
         // if(controller.a) {if(speedReduction[0]){this.vel.x = -(speed-speedReduction[1])} else{this.vel.x = -speed}}
+=======
+
+
+>>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
 
         if(controller.w && !controller.s && !controller.d && !controller.a){
             this.angle = 0
@@ -78,12 +83,23 @@ let player = {
             this.angle = Math.PI
         }
 
+<<<<<<< HEAD
+=======
+
+        if(controller.a || controller.s || controller.d || controller.w){
+            this.vel.x = Math.cos(this.angle - Math.PI/2) * speed * speedMultiple
+            this.vel.y = Math.sin(this.angle - Math.PI/2) * speed * speedMultiple
+        }
+        
+        this.draw()
+>>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
 
         if(this.health <= 0){
             stop = true
             youLose()
         }
 
+<<<<<<< HEAD
         if(controller.a || controller.s || controller.w || controller.d){
             this.vel.x = Math.cos(this.angle-Math.PI/2)*speed*speedReduction
             this.vel.y = Math.sin(this.angle-Math.PI/2)*speed*speedReduction
@@ -98,11 +114,17 @@ let player = {
 
         
         this.draw()
+=======
+        if(this.pos.x < this.r && controller.a) this.vel.x = 0.01
+        if(this.pos.x > canvas.width-this.r && controller.d) this.vel.x = -0.01
+        if(this.pos.y > canvas.height-this.r && controller.s) this.vel.y = -0.01
+        if(this.pos.y < this.r && controller.w) this.vel.y = 0.01
+>>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
     }
 }
 
 let healthBar = {
-    leftTop: {x: 300, y: 50},
+    leftTop: {x: 450, y: 50},
     height: 25,
     startHealth: player.health,
     color: "red",
@@ -141,7 +163,7 @@ let moneyBar = {
         c.fillStyle = "green"
         c.textAlign = "start"
         c.font = "25 px monospace"
-        c.fillText(`$${player.money}`, canvas.width-125, 60)
+        c.fillText(`$${player.money}`, canvas.width-125, 30)
     }
 }
 
@@ -149,15 +171,13 @@ let moneyBar = {
 let healthPots = {
     antall: 0,
     draw: function(){
-        c.drawImage(healthPotImg, 0, 0, healthPotImg.width, healthPotImg.height, canvas.width-175, 30, 32, 32)
+        c.drawImage(healthPotImg, 0, 0, healthPotImg.width, healthPotImg.height, canvas.width-175, 0, 32, 32)
         c.font = "20px monospace"
         c.fillStyle = "black"
-        c.fillText(this.antall, canvas.width-175 + 32 - 10, 30+32)
+        c.fillText(this.antall, canvas.width-175 + 32 - 10, 32)
     }
 }
 
 
-
-defaultSettings()
 
 

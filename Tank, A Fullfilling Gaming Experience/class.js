@@ -1,15 +1,28 @@
 class Bullet{
-    constructor(x, y, dx, dy, fallOff){
+    constructor(x, y, dx, dy, radius, fallOff, angle, mode, image, b){
         this.pos = {x:x, y:y}
         this.startPos = {x:x, y:y}
         this.vel = {x:dx, y:dy}
-        this.r = 5
+        this.r = radius
         this.pierces = 0
         this.connectedHunter = undefined
         this.fallOff = fallOff
         this.reducedDmg = 0
         this.switch1 = true
         this.switch2 = true
+        this.angle = angle
+        this.mode = mode
+        this.image = image
+        this.b = {
+            SX: b.SX,
+            SY: b.SY,
+            SW: b.SW,
+            SH: b.SH,
+            OX: b.OX,
+            OY: b.OY,
+            W: b.W,
+            H: b.H
+        }
     }
     update(){
         this.pos.x+=this.vel.x
@@ -18,21 +31,33 @@ class Bullet{
     }
     draw(){
         c.beginPath()
-        c.fillStyle = "red"
-        c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
-        c.fill()
-        c.closePath()
+        c.save()
+        c.translate(this.pos.x, this.pos.y)
+        c.rotate(this.angle + Math.PI/2)
+        c.translate(-this.pos.x, -this.pos.y)
+        if(this.mode != "shotgun") c.drawImage(this.image, this.b.SX, this.b.SY, this.b.SW, this.b.SH, this.pos.x + this.b.OX, this.pos.y + this.b.OY, this.b.W, this.b.H)
+        c.restore()
+        if(this.mode == "shotgun"){
+            c.fillStyle = "blue"
+            c.arc(this.pos.x, this.pos.y, this.r, 0, Math.PI*2)
+            c.fill()
+            c.closePath()
+        }
+        // c.fillStyle = "blue"
+        // c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
+        // c.fill()
     }
 }
 
 class Hunter{
-    constructor(){
-        this.pos = {x: canvas.width, y: canvas.width/2}
+    constructor(speed, health){
+        this.pos = {x: Math.random() < 0.5 ? 0 : canvas.width, y: randomInt(0, canvas.height)}
         this.vel = {x: -5, y: 0}
         this.r = 10
         this.slowDown = false
-        this.health = 150
-        this.startHealth = this.health
+        this.health = health
+        this.startHealth = health
+        this.speed = speed
     }
     draw(){
         c.beginPath()
@@ -52,8 +77,9 @@ class Hunter{
         let deltaX = prevPos.x-this.pos.x
         let deltaY = prevPos.y-this.pos.y
         let phi = Math.atan2(deltaY, deltaX)
-        this.vel.x = Math.cos(phi)*hunterSpeed
-        this.vel.y = Math.sin(phi)*hunterSpeed
+        this.angle = Math.atan2(deltaY, deltaX)
+        this.vel.x = Math.cos(phi)*this.speed
+        this.vel.y = Math.sin(phi)*this.speed
         if(this.slowDown){
             this.pos.x += this.vel.x*0.3
             this.pos.y += this.vel.y*0.3

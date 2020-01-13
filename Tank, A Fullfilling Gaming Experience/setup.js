@@ -1,22 +1,44 @@
 const canvas = document.querySelector("canvas")
-const overlay = document.querySelector(".overlay")
 const c = canvas.getContext("2d")
+
 canvas.width = window.innerWidth-400
 canvas.height = window.innerHeight-40
+
+// const blurOverlay = document.getElementById("blur")
+// blurOverlay.style.width = `${canvas.width}px` 
+// blurOverlay.style.height = `${canvas.height}px`
+
+
+//disable right-click
+
+document.addEventListener('contextmenu', event => event.preventDefault())
+
+
+let overlay = document.querySelector(".overlay")
+
+let shopBtns = document.querySelectorAll(".shopBtn")
 
 
 let tankImg = new Image()
 tankImg.src = "sprites/smallTank1.png"
 let gunImg = new Image()
 gunImg.src = "sprites/smallGun1.png"
+let sniperBullet = new Image()
+sniperBullet.src = "sprites/sniperBullet.png"
+let pistolBullet = new Image()
+pistolBullet.src = "sprites/pistolBullet.png"
+let lmgBullet = new Image()
+lmgBullet.src = "sprites/lmgBullet.png"
+
+let bulletImg
+
+
 let healthPotImg = new Image()
 healthPotImg.src = "sprites/healthPot.png"
 
 
-let shopBtns = document.querySelectorAll(".shopBtn")
 
-
-
+<<<<<<< HEAD
 let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, hunterSpeed, moneyPerKill, pierces, tankLevel, mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, shotGunShots
 function defaultSettings(){
     healthPotHeal = 300
@@ -35,15 +57,23 @@ function defaultSettings(){
     tankLevel = 1
     gunLevel = 1
 }
+=======
+>>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
 
+let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, 
+mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, 
+shotGunShots, fallOffRange, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, 
+wave, b
 
 let pushAwayStrengt = 0.2
 let pushWhenHitStrength = 30
 let pickupDistance = 10
+let oldTime = 0
 let stop = true
 let bulletArr = []
 let hunterArr = []
 
+<<<<<<< HEAD
 let tanks = {
     small: [
         function(){
@@ -446,14 +476,16 @@ let shopFunctions = [
 
 
 
+=======
+>>>>>>> de00e795628e9ab32381e1dc4d6dad734e63c6d8
 
 
 
-document.querySelector("#smallTank").addEventListener("click", pickSmallTank)
-document.querySelector("#bigTank").addEventListener("click", pickBigTank)
+document.querySelector("#smallTank").addEventListener("click", startGame)
+document.querySelector("#bigTank").addEventListener("click", startGame)
 document.querySelector(".pause").addEventListener("click", function(){if(stop){stop = false} else{stop = true}})
 window.addEventListener("mousemove", moveMouse)
 window.addEventListener("mousedown", shoot)
-window.addEventListener("mouseup", function(){ mouseIsPressed = false })
+window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
 window.addEventListener("keydown", pressDown)
 window.addEventListener("keyup", releaseKey)

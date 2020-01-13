@@ -11,18 +11,16 @@ setInterval(function(){
 
 
 setInterval(function(){
-    if(!stop){
-        hunterArr.push(new Hunter())
-    }
-}, 1000)
-
-setInterval(function(){
     tid+=0.01
 }, 10)
 
 
 function loop(){
     requestAnimationFrame(loop)
+    if(hunterArr.length == 0 && readyToStartNewWave){
+        wave += 1
+        waves[wave-1]()
+    }
     if(!stop){
         c.fillStyle = "beige"
         c.fillRect(0, 0, canvas.width, canvas.height)
@@ -30,7 +28,7 @@ function loop(){
         if(mouseIsPressed && (mode == "lmg" || mode == "smg")){
             spray()
         }
-
+    
 
         for(let i = 0; i<bulletArr.length; i++){
             
@@ -40,9 +38,9 @@ function loop(){
                 i-=1
             }
             if(bulletArr[i].fallOff == true){
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 50 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 20; bulletArr[i].switch1 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 100 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > 200) {bulletArr.splice(i, 1); i-=1}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 20; bulletArr[i].switch1 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.5 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange) {bulletArr.splice(i, 1); i-=1}
             }
             bulletArr[i].update()
 
@@ -56,6 +54,7 @@ function loop(){
                         [hunterArr[k], hunterArr[hunterArr.length-1]] = [hunterArr[hunterArr.length-1], hunterArr[k]]
                         hunterArr.pop()
                         k-=1
+                        killCount += 1
                         player.money += moneyPerKill
                     }
                     if(bulletArr[i].pierces > pierces + basePierces){
@@ -98,8 +97,8 @@ function loop(){
         healthBar.draw()
         moneyBar.draw()
         healthPots.draw()
-
-        c.fillText(`Current weapon: ${mode.toUpperCase()}`, 20, 25)
+        c.font = "19px monospace"
+        c.fillText(`Weapon: ${mode.toUpperCase()}  ::  Wave: ${wave}  ::  Kills: ${killCount}`, 20, 25)
 
     }
 }

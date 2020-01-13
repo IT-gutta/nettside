@@ -1,3 +1,10 @@
+::selection {
+    color: none;
+    background: none;
+}
+
+
+
 input[type="button"] {
     display: inline-block;
     padding: 15px 25px;
@@ -24,6 +31,7 @@ input[type="button"]:active {
     transform: translateY(4px);
 }
 .overlay{
+    text-align: center;
     font-family: monospace;
     position: absolute;
     top: 30vh;
@@ -31,6 +39,9 @@ input[type="button"]:active {
     font-size: 40px;
     font-family: monospace;
     font-weight: 500;
+}
+.overlay p{
+    font-size: 25px;
 }
 .shop{
     font-size: 16px;
@@ -52,3 +63,10 @@ canvas{
     top:50px;
     left:50px;
 }
+/* #blur{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    filter: blur(3px)
+} */
