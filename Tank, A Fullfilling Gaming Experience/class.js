@@ -93,6 +93,53 @@ class Hunter{
     }
 }
 
+class Splint{
+    constructor(x, y, dx, dy, r, color){
+        this.pos = {x:x, y:y}
+        this.vel = {dx:dx, dy:dy}
+        this.r = r
+        this.color = color
+    }
+    draw(){
+        c.beginPath()
+        c.fillStyle = this.color
+        c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
+        c.fill()
+        c.closePath()
+    }
+    update(){
+        this.pos.x += this.vel.x
+        this.pos.y += this.vel.y
+        this.draw()
+    }
+}
+
+class Sploder extends Hunter{
+    constructor(speed, health, text){
+        super(speed, health)
+        this.splintArr = [text]
+    }
+    explode(){
+        for(let i = 0; i < 50; i++){
+            let splintAngle = Math.random()*2*Math.PI
+            this.splintArr.push(new Splint(this.pos.x, this.pos.y, Math.cos(splintAngle) * splintSpeed, Math.sin(splintAngle) * splintSpeed, 4, "black"))
+        }
+        for(let i = 0; i < hunterArr.length; i++){
+            if(distance(hunterArr[i].pos, this.pos) < hunterArr[i].r + splodeRange){
+                hunterArr[i].health -= splodeDamage
+            }
+        }
+        if(distance(player.pos, this.pos) < player.r + splodeRange){
+            player.health -= splodeDamage
+        }
+    }
+    drawSplints(){
+        this.splintArr.forEach(splint => {
+            splint.update()
+        })
+    }
+}
+
 
 
 class Pickup{
