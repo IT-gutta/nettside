@@ -2,7 +2,7 @@
 let weapons = {
     pistol: function(){
         mode = "pistol"
-        bulletSpeed = 6
+        bulletSpeed = 8
         bulletRadius = 5
         baseDmg = 50
         basePierces = 0
@@ -21,7 +21,7 @@ let weapons = {
     },
     smg: function(){
         mode = "smg"
-        bulletSpeed = 5
+        bulletSpeed = 6.5
         baseDmg = 25
         bulletRadius = 4
         basePierces = 0
@@ -64,9 +64,9 @@ let weapons = {
     sniper: function(){
         mode = "sniper"
         bulletSpeed = 20
-        basePierces = 2
+        basePierces = 8
         baseDmg = 150
-        fireRate = 1
+        fireRate = 1.5
         bulletRadius = 10
         b = {
             SX: 0,
@@ -83,12 +83,23 @@ let weapons = {
     },
     shotgun: function(){
         mode = "shotgun"
-        bulletSpeed = 12
+        bulletSpeed = 14
         bulletRadius = 2.5
-        basePierces = 0
+        basePierces = 2
         baseDmg = 150
-        fireRate = 1
-        bloom = Math.PI/15
-        speedMultiple = 1
+        fireRate = 1.5
+        bloom = Math.PI/10
+        speedMultiple = 1.2
+        bulletImg = pistolBullet
+        b = {
+            SX: 0,
+            SY: 0,
+            SW: 256,
+            SH: 512,
+            OX: -4,
+            OY: -11,
+            W: 256/30,
+            H: 512/30
+        }
     }
 }

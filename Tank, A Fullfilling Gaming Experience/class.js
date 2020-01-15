@@ -35,17 +35,8 @@ class Bullet{
         c.translate(this.pos.x, this.pos.y)
         c.rotate(this.angle + Math.PI/2)
         c.translate(-this.pos.x, -this.pos.y)
-        if(this.mode != "shotgun") c.drawImage(this.image, this.b.SX, this.b.SY, this.b.SW, this.b.SH, this.pos.x + this.b.OX, this.pos.y + this.b.OY, this.b.W, this.b.H)
+        c.drawImage(this.image, this.b.SX, this.b.SY, this.b.SW, this.b.SH, this.pos.x + this.b.OX, this.pos.y + this.b.OY, this.b.W, this.b.H)
         c.restore()
-        if(this.mode == "shotgun"){
-            c.fillStyle = "blue"
-            c.arc(this.pos.x, this.pos.y, this.r, 0, Math.PI*2)
-            c.fill()
-            c.closePath()
-        }
-        // c.fillStyle = "blue"
-        // c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
-        // c.fill()
     }
 }
 

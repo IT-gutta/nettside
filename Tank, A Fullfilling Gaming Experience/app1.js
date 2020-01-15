@@ -94,9 +94,12 @@ function loop(){
 
             //splice bullets
             if(bulletArr[i].fallOff == true){
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 20; bulletArr[i].switch1 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.5 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange) {bulletArr.splice(i, 1); i-=1}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 50; bulletArr[i].switch1 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.7 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange) {
+                    bulletArr.splice(i, 1)
+                    i-=1
+                }
             }
             
             else if(bulletArr[i].pierces > pierces + basePierces){

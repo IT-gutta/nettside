@@ -1,6 +1,8 @@
 const distance = (pos1, pos2) => Math.sqrt(Math.pow(pos2.x-pos1.x, 2) + Math.pow(pos2.y-pos1.y, 2))
 const randomInt = (min, max) => Math.random()*(max-min)+min
 
+
+
 function pauseMenu(){
 
     if(stop){
@@ -48,7 +50,7 @@ function defaultSettings(){
     wave = 1
     readyToStartNewWave = true
     weapons.pistol()
-    shotGunShots = 10
+    shotGunShots = 20
     fallOffRange = 200
     pierces = 0
     fireRate = 3
@@ -143,7 +145,7 @@ function youLose(){
 }
 
 
-
+//single-fire
 function shoot(){
     mouseIsPressed=true
   
@@ -181,7 +183,7 @@ function shoot(){
     readyToShoot = false
 }
 
-
+//auto-fire
 function spray(){
     let deltaX = mouse.x-player.pos.x
     let deltaY = mouse.y-player.pos.y
@@ -194,12 +196,13 @@ function spray(){
 }
 
 
+//alle funksjonene som skjer utifra hvilken shopbutton man har trykket på
 let shopFunctions = [
     function(pris){
         if(tankLevel < 7){
             tankLevel+=1
             changeTank()
-            let nyPris = pris + 300
+            let nyPris = pris + 450
             shopBtns[0].value = `$${nyPris}`
             if(tankLevel == 7){
                 shopBtns[0].value = `MAXED OUT`
@@ -213,7 +216,7 @@ let shopFunctions = [
     },
     function(pris){
         pierces+=1
-        let nyPris = pris + 1000
+        let nyPris = pris + 700
         shopBtns[1].value = `$${nyPris}`
     },
     function(pris){
@@ -221,7 +224,7 @@ let shopFunctions = [
             gunLevel+=1
             player.addedDmg+=20
             changeGun()
-            let nyPris = pris + 300
+            let nyPris = pris + 600
             shopBtns[2].value = `$${nyPris}`
             if(gunLevel == 7){
                 shopBtns[2].value = `MAXED OUT`
@@ -236,7 +239,7 @@ let shopFunctions = [
     },
     function(pris){
         moneyPerKill += 50
-        let nyPris = pris + 2000
+        let nyPris = pris + 2500
         shopBtns[3].value = `$${nyPris}`
     },
     function(){
@@ -244,6 +247,7 @@ let shopFunctions = [
     }
 ]
 
+//adder eventisteners til shoppen
 function startShop(){
     for(let i = 0; i<shopBtns.length; i++){
         shopBtns[i].addEventListener("click", function(){
@@ -256,12 +260,14 @@ function startShop(){
     
                 else{
                     if(!stop){
-                    weapons[shopBtns[i].name]()
-                    for(let k = 5; k < shopBtns.length; k++){
-                        shopBtns[k].value = shopBtns[k].id
-                    }
-                    shopBtns[i].value = "SELECTED"
-                }                }
+                        weapons[shopBtns[i].name]()
+                        shopBtns[i].id = "$0"
+                        for(let k = 5; k < shopBtns.length; k++){
+                            shopBtns[k].value = shopBtns[k].id
+                        }
+                        shopBtns[i].value = "SELECTED"
+                    }                
+                }
             }
         })
     }
