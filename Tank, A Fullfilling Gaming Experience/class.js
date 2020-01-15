@@ -99,6 +99,10 @@ class Splint{
         this.vel = {dx:dx, dy:dy}
         this.r = r
         this.color = color
+        this.dead = false
+        setTimeout(() => {
+            this.dead = true
+        }, 2000)
     }
     draw(){
         c.beginPath()
@@ -108,35 +112,34 @@ class Splint{
         c.closePath()
     }
     update(){
+        // console.log("updaterer nå")
         this.pos.x += this.vel.x
         this.pos.y += this.vel.y
-        this.draw()
+        if(!this.dead) this.draw()
     }
 }
 
 class Sploder extends Hunter{
-    constructor(speed, health, text){
+    constructor(speed, health){
         super(speed, health)
-        this.splintArr = [text]
     }
     explode(){
         for(let i = 0; i < 50; i++){
-            let splintAngle = Math.random()*2*Math.PI
-            this.splintArr.push(new Splint(this.pos.x, this.pos.y, Math.cos(splintAngle) * splintSpeed, Math.sin(splintAngle) * splintSpeed, 4, "black"))
+            splintAngle = Math.random()*2*Math.PI
+            splintArr.push(new Splint(this.pos.x, this.pos.y, Math.cos(splintAngle) * splintSpeed, Math.sin(splintAngle) * splintSpeed, 10, "white"))
         }
+        
+        //deal damage to other enemies
         for(let i = 0; i < hunterArr.length; i++){
             if(distance(hunterArr[i].pos, this.pos) < hunterArr[i].r + splodeRange){
                 hunterArr[i].health -= splodeDamage
             }
         }
+        
+        //deal damage to player
         if(distance(player.pos, this.pos) < player.r + splodeRange){
             player.health -= splodeDamage
         }
-    }
-    drawSplints(){
-        this.splintArr.forEach(splint => {
-            splint.update()
-        })
     }
 }
 

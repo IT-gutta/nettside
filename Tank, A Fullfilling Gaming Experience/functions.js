@@ -30,13 +30,11 @@ function pauseMenu(){
         let pauseEl = document.getElementById("pauseMenu")
     
         let darkModeBtn = document.getElementById("darkModeBtn")
+
         darkModeBtn.addEventListener("click", ()=>{
-            if(bodyEL.style.backgroundColor == "beige"){
-                bodyEL.style.backgroundColor = "hsl(60, 0%, 20%)"
-            }
-            else{
-                bodyEL.style.backgroundColor = "beige"
-            }
+            bodyEL.style.backgroundColor == "beige" ? 
+            bodyEL.style.backgroundColor = "hsl(60, 0%, 20%)" :
+            bodyEL.style.backgroundColor = "beige"
         })
     }
     
@@ -64,254 +62,8 @@ function defaultSettings(){
     killCount = 0
 }
 
-let tanks = {
-    small: [
-        function(){
-            player.health = 400
-            healthBar.startHealth = 400
-            speed = 3
-            tankImg.src = "sprites/smallTank1.png"
-        },
-        function(){
-            if(player.health > 375) player.health = 375 
-            healthBar.startHealth = 375
-            speed = 4
-            tankImg.src = "sprites/smallTank2.png"
-        },
-        function(){
-            if(player.health > 350) player.health = 350 
-            healthBar.startHealth = 350
-            speed = 5
-            tankImg.src = "sprites/smallTank3.png"
-        },
-        function(){
-            if(player.health > 325) player.health = 325 
-            healthBar.startHealth = 325
-            speed = 6
-            tankImg.src = "sprites/smallTank4.png"
-        },
-        function(){
-            if(player.health > 300) player.health = 300 
-            healthBar.startHealth = 300
-            speed = 6.5
-            tankImg.src = "sprites/smallTank5.png"
-        },
-        function(){
-            if(player.health > 275) player.health = 275 
-            healthBar.startHealth = 275
-            speed = 7
-            tankImg.src = "sprites/smallTank6.png"
-        },
-        function(){
-            if(player.health > 250) player.health = 250
-            healthBar.startHealth = 250
-            speed = 8.5
-            tankImg.src = "sprites/smallTank7.png"
-        },
-    ],
-    big: [
-        function(){
-            player.health = 500
-            healthBar.startHealth = 500
-            speed = 2.5
-            tankImg.src = "sprites/bigTank1.png"
-        },
-        function(){
-            if(player.health > 600) player.health = 600 
-            healthBar.startHealth = 600
-            speed = 2.5
-            tankImg.src = "sprites/bigTank2.png"
-        },
-        function(){
-            if(player.health > 700) player.health = 700 
-            healthBar.startHealth = 700
-            speed = 2.5
-            tankImg.src = "sprites/bigTank3.png"
-        },
-        function(){
-            if(player.health > 800) player.health = 800 
-            healthBar.startHealth = 800
-            speed = 2.5
-            tankImg.src = "sprites/bigTank4.png"
-        },
-        function(){
-            if(player.health > 900) player.health = 900 
-            healthBar.startHealth = 900
-            speed = 2.5
-            tankImg.src = "sprites/bigTank5.png"
-        },
-        function(){
-            if(player.health > 1000) player.health = 1000 
-            healthBar.startHealth = 1000
-            speed = 2.5
-            tankImg.src = "sprites/bigTank6.png"
-        },
-        function(){
-            if(player.health > 1500) player.health = 1500 
-            healthBar.startHealth = 1500
-            speed = 2
-            tankImg.src = "sprites/bigTank7.png"
-        }
-    ]
-}
-
-let guns = {
-    small: [
-        function(){
-            gunLength = 63
-            gunImg.src = "sprites/bigGun1.png"
-        },
-        function(){
-            gunLength = 63
-            gunImg.src = "sprites/bigGun2.png"
-        },
-        function(){
-            gunLength = 56
-            gunImg.src = "sprites/bigGun3.png"
-        },
-        function(){
-            gunLength = 56
-            gunImg.src = "sprites/bigGun4.png"
-        },
-        function(){
-            gunLength = 65
-            gunImg.src = "sprites/bigGun5.png"
-        },
-        function(){
-            gunLength = 50
-            gunImg.src = "sprites/bigGun6.png"
-        },
-        function(){
-            gunLength = 59
-            gunImg.src = "sprites/bigGun7.png"
-        },
-    ],
-    big: [
-        function(){
-            gunLength = 63
-            gunImg.src = "sprites/smallGun1.png"
-        },
-        function(){
-            gunLength = 63
-            gunImg.src = "sprites/smallGun2.png"
-        },
-        function(){
-            gunLength = 56
-            gunImg.src = "sprites/smallGun3.png"
-        },
-        function(){
-            gunLength = 56
-            gunImg.src = "sprites/smallGun4.png"
-        },
-        function(){
-            gunLength = 65
-            gunImg.src = "sprites/smallGun5.png"
-        },
-        function(){
-            gunLength = 50
-            gunImg.src = "sprites/smallGun6.png"
-        },
-        function(){
-            gunLength = 59
-            gunImg.src = "sprites/smallGun7.png"
-        },
-    ]
-}
 
 
-let weapons = {
-    pistol: function(){
-        mode = "pistol"
-        bulletSpeed = 6
-        bulletRadius = 5
-        baseDmg = 50
-        basePierces = 0
-        speedMultiple = 1.25
-        bulletImg = pistolBullet
-        b = {
-            SX: 0,
-            SY: 0,
-            SW: 256,
-            SH: 512,
-            OX: -8,
-            OY: -17,
-            W: 256/15,
-            H: 512/15
-        }
-    },
-    smg: function(){
-        mode = "smg"
-        bulletSpeed = 5
-        baseDmg = 25
-        bulletRadius = 4
-        basePierces = 0
-        bloom = Math.PI/15
-        fireRate = 5
-        speedMultiple = 1.2
-        b = {
-            SX: 0,
-            SY: 0,
-            SW: 256,
-            SH: 512,
-            OX: -8,
-            OY: -17,
-            W: 256/15,
-            H: 512/15
-        }
-        bulletImg = pistolBullet
-    },
-    lmg: function(){
-        mode = "lmg"
-        bulletSpeed = 8
-        speedMultiple = 0.75
-        baseDmg = 65
-        bulletRadius = 6.5
-        basePierces = 1
-        fireRate = 4
-        bloom = Math.PI/12
-        b = {
-            SX: 0,
-            SY: 0,
-            SW: 256,
-            SH: 1000,
-            OX: -6,
-            OY: -17,
-            W: 256/20,
-            H: 1000/20
-        }
-        bulletImg = lmgBullet
-    },
-    sniper: function(){
-        mode = "sniper"
-        bulletSpeed = 20
-        basePierces = 2
-        baseDmg = 150
-        fireRate = 1
-        bulletRadius = 10
-        b = {
-            SX: 0,
-            SY: 0,
-            SW: 1002,
-            SH: 3587,
-            OX: -11,
-            OY: -20,
-            W: 1002/50,
-            H: 3587/50
-        }
-        bulletImg = sniperBullet
-        speedMultiple = 1
-    },
-    shotgun: function(){
-        mode = "shotgun"
-        bulletSpeed = 12
-        bulletRadius = 2.5
-        basePierces = 0
-        baseDmg = 150
-        fireRate = 1
-        bloom = Math.PI/15
-        speedMultiple = 1
-    }
-}
 
 function changeTank(){
     tanks[type][tankLevel-1]()
@@ -360,7 +112,7 @@ let waves = [
     () => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 1 starting in", 15, "Move with the WASD keys <br> Aim and shoot with the mouse <br> Press ESC to pause/unpause the game at any time <br> Press H to use Health Potion <br> <br> Try to survive as long as possible",
+        startNewWave("Wave 1 starting in", 4, "Move with the WASD keys <br> Aim and shoot with the mouse <br> Press ESC to pause/unpause the game at any time <br> Press H to use Health Potion <br> <br> Try to survive as long as possible",
         function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
@@ -375,7 +127,7 @@ let waves = [
                         readyToStartNewWave = true
                     }
                     deployedHunters += 1
-                    hunterArr.push(new Hunter(1, 100))
+                    hunterArr.push(new Sploder(1, 100))
                 }
             }, 1000)
         }
@@ -482,6 +234,7 @@ let waves = [
         canvas.style.filter = "blur(3px)"
         startNewWave("Freemode starting in", 10, "Have fun",
         function(){
+            wave = "Freemode"
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
             stop = false
