@@ -32,7 +32,7 @@ let waves = [
                         readyToStartNewWave = true
                     }
                     deployedHunters += 1
-                    hunterArr.push(new Sploder(1, 100))
+                    hunterArr.push(new Hunter(1, 100))
                 }
             }, 1000)
         }
@@ -131,6 +131,63 @@ let waves = [
                 hunterArr.push(new Hunter(2, 200))
             }
         }, 700)
+    }
+)
+},
+() => {
+    readyToStartNewWave = false
+    canvas.style.filter = "blur(3px)"
+    startNewWave("Wave 6 starting in", 10, "Super tanky enemies (extra cash)",
+    function(){
+        clearInterval(overlayInterval)
+        let tempMoneyPerKill = moneyPerKill
+        moneyPerKill += 200
+        overlay.innerHTML = ""
+        stop = false
+        canvas.style.filter = "none"
+        let antallHunters = 5                                                   
+        let deployedHunters = 1
+        hunterInterval = setInterval(() => {
+            if(!stop){
+                if(deployedHunters == antallHunters){
+                    clearInterval(hunterInterval)
+                    readyToStartNewWave = true
+                    moneyPerKill = tempMoneyPerKill
+                }
+                deployedHunters += 1
+                hunterArr.push(new Sploder(1.5, 1000))
+            }
+        }, 100)
+    }
+)
+},
+() => {
+    readyToStartNewWave = false
+    canvas.style.filter = "blur(3px)"
+    startNewWave("Wave 7 starting in", 10, "Chaos",
+    function(){
+        clearInterval(overlayInterval)
+        overlay.innerHTML = ""
+        let tempSplodeRange = splodeRange
+        let tempSplodeDamage = splodeDamage
+        splodeRange += 150
+        splodeDamage -= 25
+        stop = false
+        canvas.style.filter = "none"
+        let antallHunters = 100                                                   
+        let deployedHunters = 1
+        hunterInterval = setInterval(() => {
+            if(!stop){
+                if(deployedHunters == antallHunters){
+                    clearInterval(hunterInterval)
+                    readyToStartNewWave = true
+                    splodeRange = tempSplodeRange
+                    splodeDamage = tempSplodeDamage
+                }
+                deployedHunters += 1
+                hunterArr.push(new Sploder(2, 1000))
+            }
+        }, 100)
     }
 )
 },
