@@ -47,7 +47,7 @@ function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedMultiple = 1
-    wave = 1
+    wave = 7
     readyToStartNewWave = true
     weapons.pistol()
     shotGunShots = 20
@@ -88,7 +88,6 @@ function startGame(e){
     changeGun()
     startShop()
     stop = false
-    wave = 1
     waves[wave-1]()
 }
 

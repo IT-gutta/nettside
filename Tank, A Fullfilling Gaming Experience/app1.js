@@ -80,15 +80,15 @@ function loop(){
                     bulletArr[i].connectedHunter = hunterArr[k]
                     bulletArr[i].pierces += 1
                     hunterArr[k].health -= player.baseDmg + player.addedDmg - bulletArr[i].reducedDmg
-                    if(hunterArr[k].health <=0){
-                        if(hunterArr[k].constructor.name == "Sploder") hunterArr[k].explode()
-                        // [hunterArr[k], hunterArr[hunterArr.length-1]] = [hunterArr[hunterArr.length-1], hunterArr[k]]
-                        // hunterArr.pop()
-                        hunterArr.splice(k, 1)
-                        k-=1
-                        killCount += 1
-                        player.money += moneyPerKill
-                    }
+                }
+                if(hunterArr[k].health <=0){
+                    if(hunterArr[k].constructor.name == "Sploder") hunterArr[k].explode()
+                    // [hunterArr[k], hunterArr[hunterArr.length-1]] = [hunterArr[hunterArr.length-1], hunterArr[k]]
+                    // hunterArr.pop()
+                    hunterArr.splice(k, 1)
+                    k-=1
+                    killCount += 1
+                    player.money += moneyPerKill
                 }
             }
 

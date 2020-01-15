@@ -168,26 +168,26 @@ let waves = [
     function(){
         clearInterval(overlayInterval)
         overlay.innerHTML = ""
-        let tempSplodeRange = splodeRange
+        // let tempSplodeRange = splodeRange
         let tempSplodeDamage = splodeDamage
-        splodeRange += 150
+        // splodeRange += 150
         splodeDamage -= 25
         stop = false
         canvas.style.filter = "none"
-        let antallHunters = 100                                                   
+        let antallHunters = 100                                               
         let deployedHunters = 1
         hunterInterval = setInterval(() => {
             if(!stop){
                 if(deployedHunters == antallHunters){
                     clearInterval(hunterInterval)
                     readyToStartNewWave = true
-                    splodeRange = tempSplodeRange
+                    // splodeRange = tempSplodeRange
                     splodeDamage = tempSplodeDamage
                 }
                 deployedHunters += 1
-                hunterArr.push(new Sploder(2, 1000))
+                hunterArr.push(new Sploder(1.2, 26))
             }
-        }, 100)
+        }, 400)
     }
 )
 },
