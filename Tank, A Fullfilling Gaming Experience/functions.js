@@ -47,7 +47,7 @@ function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedMultiple = 1
-    wave = 7
+    wave = 1
     readyToStartNewWave = true
     weapons.pistol()
     shotGunShots = 20
