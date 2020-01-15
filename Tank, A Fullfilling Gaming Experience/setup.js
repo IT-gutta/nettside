@@ -27,6 +27,8 @@ let shopBtns = document.querySelectorAll(".shopBtn")
 
 let wrapper = document.getElementById("wrapper")
 
+let splintImg = new Image()
+splintImg.src = "sprites/splint.png"
 
 let tankImg = new Image()
 tankImg.src = "sprites/smallTank1.png"
@@ -55,15 +57,10 @@ shotGunShots, fallOffRange, bulletRadius, killCount, overlayInterval, hunterInte
 wave, b
 
 let splintSpeed = 6
-let splodeRange = 200
+let splodeRange = 50
 let splodeDamage = 50
 let splintArr = []
 let splintAngle = Math.random()*2*Math.PI
-
-// for(let i = 0; i < 50; i++){
-//     splintAngle = Math.random()*2*Math.PI
-//     splintArr.push(new Splint(canvas.width/2, canvas.height/2, Math.cos(splintAngle) * splintSpeed, Math.sin(splintAngle) * splintSpeed, 4, "black"))
-// }
 
 let pushAwayStrengt = 0.2
 let pushWhenHitStrength = 30

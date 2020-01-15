@@ -58,10 +58,11 @@ class Hunter{
         this.health = health
         this.startHealth = health
         this.speed = speed
+        this.color = this.constructor.name == "Sploder" ? "yellow" : "red"
     }
     draw(){
         c.beginPath()
-        c.fillStyle="red"
+        c.fillStyle = this.color
         c.arc(this.pos.x, this.pos.y, this.r, 0, Math.PI*2)
         c.fill()
         c.closePath()
@@ -95,24 +96,27 @@ class Hunter{
 
 class Splint{
     constructor(x, y, dx, dy, r, color){
-        this.pos = {x:x, y:y}
-        this.vel = {dx:dx, dy:dy}
+        this.pos = {x: x, y: y}
+        this.startPos = {x: x, y: y}
+        this.vel = {x:dx, y:dy}
         this.r = r
         this.color = color
         this.dead = false
-        setTimeout(() => {
-            this.dead = true
-        }, 2000)
+        // setTimeout(() => {
+        //     this.dead = true
+        // }, 200)
     }
     draw(){
         c.beginPath()
-        c.fillStyle = this.color
-        c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
-        c.fill()
+        c.drawImage(splintImg, 0, 0, 1200, 1200, this.pos.x, this.pos.y, 8, 8)
+        // c.fillStyle = this.color
+        // c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
+        // c.fill()
         c.closePath()
     }
     update(){
-        // console.log("updaterer nå")
+        let randomOffsetRange = randomInt(-15, 15)
+        if(distance(this.pos, this.startPos) > splodeRange + randomOffsetRange) this.dead = true
         this.pos.x += this.vel.x
         this.pos.y += this.vel.y
         if(!this.dead) this.draw()
@@ -124,10 +128,14 @@ class Sploder extends Hunter{
         super(speed, health)
     }
     explode(){
-        for(let i = 0; i < 50; i++){
-            splintAngle = Math.random()*2*Math.PI
+        let numberOfSplints = 0
+        let splintInterval = setInterval(() => {
+            numberOfSplints += 1
+            splintAngle = randomInt(0, 2*Math.PI)
             splintArr.push(new Splint(this.pos.x, this.pos.y, Math.cos(splintAngle) * splintSpeed, Math.sin(splintAngle) * splintSpeed, 10, "white"))
-        }
+            if(numberOfSplints > 100) clearInterval(splintInterval)
+        }, 5)
+    
         
         //deal damage to other enemies
         for(let i = 0; i < hunterArr.length; i++){
