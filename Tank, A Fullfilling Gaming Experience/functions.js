@@ -62,7 +62,6 @@ function defaultSettings(){
     tankLevel = 1
     gunLevel = 1
     killCount = 0
-    addedDmg = 0
 }
 
 
@@ -202,7 +201,7 @@ let shopFunctions = [
         if(tankLevel < 7){
             tankLevel+=1
             changeTank()
-            let nyPris = pris + 450
+            let nyPris = 1.8
             shopBtns[0].value = `$${nyPris}`
             if(tankLevel == 7){
                 shopBtns[0].value = `MAXED OUT`
@@ -215,16 +214,21 @@ let shopFunctions = [
         }
     },
     function(pris){
-        pierces+=1
-        let nyPris = pris + 700
-        shopBtns[1].value = `$${nyPris}`
+        if(pierces < 6){
+            pierces+=1
+            let nyPris = pris * 1.8
+            shopBtns[1].value = `$${nyPris}`
+        }
+        else{
+            shopBtns[1].value = `MAXED OUT`
+            player.money += pris
+        }
     },
     function(pris){
         if(gunLevel < 7){
             gunLevel+=1
-            addedDmg+=20
             changeGun()
-            let nyPris = pris + 600
+            let nyPris = pris*2.5
             shopBtns[2].value = `$${nyPris}`
             if(gunLevel == 7){
                 shopBtns[2].value = `MAXED OUT`
@@ -238,7 +242,7 @@ let shopFunctions = [
         
     },
     function(pris){
-        moneyPerKill += 50
+        moneyPerKill += pris/100
         let nyPris = pris + 2500
         shopBtns[3].value = `$${nyPris}`
     },

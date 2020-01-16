@@ -94,60 +94,74 @@ let guns = {
         function(){
             gunLength = 63
             gunImg.src = "sprites/bigGun1.png"
+            addedDmg = 0
         },
         function(){
             gunLength = 63
             gunImg.src = "sprites/bigGun2.png"
+            addedDmg = 20
         },
         function(){
             gunLength = 56
             gunImg.src = "sprites/bigGun3.png"
+            addedDmg = 50
         },
         function(){
             gunLength = 56
             gunImg.src = "sprites/bigGun4.png"
+            addedDmg = 75
         },
         function(){
             gunLength = 65
             gunImg.src = "sprites/bigGun5.png"
+            addedDmg = 120
         },
         function(){
             gunLength = 50
             gunImg.src = "sprites/bigGun6.png"
+            addedDmg = 150
         },
         function(){
             gunLength = 59
             gunImg.src = "sprites/bigGun7.png"
+            addedDmg = 200
         },
     ],
     big: [
         function(){
             gunLength = 63
             gunImg.src = "sprites/smallGun1.png"
+            addedDmg = 0
         },
         function(){
             gunLength = 63
             gunImg.src = "sprites/smallGun2.png"
+            addedDmg = 20
         },
         function(){
             gunLength = 56
             gunImg.src = "sprites/smallGun3.png"
+            addedDmg = 50
         },
         function(){
             gunLength = 56
             gunImg.src = "sprites/smallGun4.png"
+            addedDmg = 75
         },
         function(){
             gunLength = 65
             gunImg.src = "sprites/smallGun5.png"
+            addedDmg = 120
         },
         function(){
             gunLength = 50
             gunImg.src = "sprites/smallGun6.png"
+            addedDmg = 150
         },
         function(){
             gunLength = 59
             gunImg.src = "sprites/smallGun7.png"
+            addedDmg = 200
         },
     ]
 }
