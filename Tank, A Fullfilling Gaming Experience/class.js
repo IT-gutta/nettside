@@ -1,13 +1,13 @@
 class Bullet{
-    constructor(x, y, dx, dy, radius, fallOff, angle, mode, image, b){
+    constructor(x, y, dx, dy, radius, fallOff, angle, mode, image, b, damage){
         this.pos = {x:x, y:y}
         this.startPos = {x:x, y:y}
         this.vel = {x:dx, y:dy}
+        this.damage = damage
         this.r = radius
         this.pierces = 0
         this.connectedHunter = undefined
         this.fallOff = fallOff
-        this.reducedDmg = 0
         this.switch1 = true
         this.switch2 = true
         this.angle = angle

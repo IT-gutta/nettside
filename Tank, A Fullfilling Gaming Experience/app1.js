@@ -79,12 +79,11 @@ function loop(){
                 if(distance(hunterArr[k].pos, bulletArr[i].pos) < bulletArr[i].r + hunterArr[k].r && bulletArr[i].connectedHunter != hunterArr[k]){
                     bulletArr[i].connectedHunter = hunterArr[k]
                     bulletArr[i].pierces += 1
-                    hunterArr[k].health -= player.baseDmg + player.addedDmg - bulletArr[i].reducedDmg
+                    hunterArr[k].health -= bulletArr[i].damage
                 }
                 if(hunterArr[k].health <=0){
                     if(hunterArr[k].constructor.name == "Sploder") hunterArr[k].explode()
-                    // [hunterArr[k], hunterArr[hunterArr.length-1]] = [hunterArr[hunterArr.length-1], hunterArr[k]]
-                    // hunterArr.pop()
+                    
                     hunterArr.splice(k, 1)
                     k-=1
                     killCount += 1
@@ -94,8 +93,8 @@ function loop(){
 
             //splice bullets
             if(bulletArr[i].fallOff == true){
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 50; bulletArr[i].switch1 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.7 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].damage -= 50; bulletArr[i].switch1 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.7 && bulletArr[i].switch2) {bulletArr[i].damage -= 70; bulletArr[i].switch2 = false}
                 if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange) {
                     bulletArr.splice(i, 1)
                     i-=1

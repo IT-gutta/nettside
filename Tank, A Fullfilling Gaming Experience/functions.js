@@ -62,6 +62,7 @@ function defaultSettings(){
     tankLevel = 1
     gunLevel = 1
     killCount = 0
+    addedDmg = 0
 }
 
 
@@ -159,7 +160,7 @@ function shoot(){
             let shotgunInterval = setInterval(() => {
                 tempNumberOfShots += 1
                 let tempPhi = randomInt(phi-bloom, phi+bloom)
-                bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.25, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.25, bulletRadius, true, tempPhi, mode, bulletImg, b))
+                bulletArr.push(new Bullet(player.pos.x + Math.cos(tempPhi)*(gunLength-35), player.pos.y + Math.sin(tempPhi)*(gunLength-35), Math.cos(tempPhi)*bulletSpeed + player.vel.x*0.25, Math.sin(tempPhi)*bulletSpeed + player.vel.y*0.25, bulletRadius, true, tempPhi, mode, bulletImg, b, baseDmg + addedDmg))
                 if(tempNumberOfShots == shotGunShots){
                     clearInterval(shotgunInterval)
                 }
@@ -177,7 +178,7 @@ function shoot(){
         else if(mode == "lmg"){
             readyToShoot = true
         }
-        if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b))
+        if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b, baseDmg + addedDmg))
     }
     readyToShoot = false
 }
@@ -189,7 +190,7 @@ function spray(){
     let phi = Math.atan2(deltaY, deltaX)
     phi = randomInt(phi-bloom, phi+bloom)
     if((tid-oldTime)*fireRate >= 1/fireRate){
-        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b))
+        bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b, baseDmg + addedDmg))
         oldTime = tid
     }
 }
@@ -221,7 +222,7 @@ let shopFunctions = [
     function(pris){
         if(gunLevel < 7){
             gunLevel+=1
-            player.addedDmg+=20
+            addedDmg+=20
             changeGun()
             let nyPris = pris + 600
             shopBtns[2].value = `$${nyPris}`

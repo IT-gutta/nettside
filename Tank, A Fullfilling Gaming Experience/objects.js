@@ -5,8 +5,6 @@ let player = {
     health: 400,
     money: 0,
     carry: undefined,
-    baseDmg: baseDmg,
-    addedDmg: 0,
     color: "blue",
     angle: 0,
     
@@ -40,7 +38,6 @@ let player = {
 
     },
     update: function(){
-        player.baseDmg = baseDmg
         this.pos.x+=this.vel.x
         this.pos.y+=this.vel.y
         this.vel.x*=0.9

@@ -54,7 +54,7 @@ healthPotImg.src = "sprites/healthPot.png"
 let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, 
 mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, 
 shotGunShots, fallOffRange, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, 
-wave, b
+wave, b, addedDmg
 
 let splintSpeed = 6
 let splodeRange = 50
