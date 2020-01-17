@@ -111,8 +111,8 @@ function releaseKey(e){
 }
 
 function moveMouse(e){
-    mouse.x = e.clientX
-    mouse.y = e.clientY
+    mouse.x = e.clientX - 8
+    mouse.y = e.clientY - 8
 }
 
 function restart(){
@@ -201,7 +201,7 @@ let shopFunctions = [
         if(tankLevel < 7){
             tankLevel+=1
             changeTank()
-            let nyPris = 1.8
+            let nyPris = pris * 1.8
             shopBtns[0].value = `$${nyPris}`
             if(tankLevel == 7){
                 shopBtns[0].value = `MAXED OUT`

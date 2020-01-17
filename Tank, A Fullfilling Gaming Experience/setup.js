@@ -76,6 +76,6 @@ let hunterArr = []
 document.querySelector("#smallTank").addEventListener("click", startGame)
 document.querySelector("#bigTank").addEventListener("click", startGame)
 window.addEventListener("mousemove", moveMouse)
-window.addEventListener("mousedown", shoot)
+overlay.addEventListener("mousedown", shoot)
 window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
 window.addEventListener("keyup", releaseKey)
