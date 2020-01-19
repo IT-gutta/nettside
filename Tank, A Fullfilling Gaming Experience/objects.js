@@ -82,7 +82,6 @@ let player = {
         this.draw()
 
         if(this.health <= 0){
-            stop = true
             youLose()
         }
 

@@ -42,8 +42,6 @@ input[type="button"]:active {
     font-family: monospace;
     font-weight: 500;
     z-index: 10;
-    /* cursor: url("sprites/cursortest.png"), pointer; */
-    /* cursor: none; */
 }
 .overlay p{
     text-align: center;

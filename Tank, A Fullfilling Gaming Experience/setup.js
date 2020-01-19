@@ -27,7 +27,7 @@ let overlay = document.querySelector(".overlay")
 overlay.style.width = `${canvas.width}px` 
 overlay.style.height = `${canvas.height}px`
 
-let shopBtns = document.querySelectorAll(".shopBtn")
+
 
 let wrapper = document.getElementById("wrapper")
 
@@ -57,12 +57,35 @@ let healthPotImg = new Image()
 healthPotImg.src = "sprites/healthPot.png"
 
 
+let pistolAudio = new Audio()
+let lmgAudio = new Audio()
+let shotgunAudio = new Audio()
+let winAudio = new Audio()
+let loseAudio = new Audio()
+let damagedAudio = new Audio()
+
+pistolAudio.src = "sounds/pistol.mp3"
+lmgAudio.src = "sounds/lmg.mp3"
+shotgunAudio.src = "sounds/shotgun.mp3"
+winAudio.src = "sounds/win.wav"
+loseAudio.src = "sounds/lose.wav"
+damagedAudio.src = "sounds/damaged.wav"
+
+pistolAudio.volume = 0.05
+lmgAudio.volume = 0.05
+shotgunAudio.volume = 0.1
+winAudio.volume = 0.2
+loseAudio.volume = 0.2
+damagedAudio.volume = 0.2
+
+
+
 
 
 let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, 
 mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, 
 shotGunShots, fallOffRange, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, 
-wave, b, addedDmg, totalHealthPots
+wave, b, addedDmg, totalHealthPots, shopBtns
 
 let splintSpeed = 6
 let splodeRange = 50
@@ -74,6 +97,7 @@ let pushAwayStrengt = 0.2
 let pushWhenHitStrength = 30
 let pickupDistance = 10
 let oldTime = 0
+let audioOldTime = 0
 let stop = true
 let bulletArr = []
 let hunterArr = []
@@ -87,3 +111,4 @@ window.addEventListener("mousemove", moveMouse)
 overlay.addEventListener("mousedown", shoot)
 window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
 window.addEventListener("keyup", releaseKey)
+window.addEventListener("keydown", pressDown)

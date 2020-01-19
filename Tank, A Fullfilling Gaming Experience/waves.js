@@ -1,4 +1,5 @@
 function startNewWave(text, countDownTime, text2, foo){
+    winAudio.play()
     let rgbAlpha = 0
     let tempTime = 0
     overlayInterval = setInterval(() => {

@@ -53,6 +53,7 @@ function loop(){
             }
             
             if(distance(hunterArr[i].pos, player.pos) < player.r + hunterArr[i].r){
+                damagedAudio.play()
                 player.health -= 50
                 let deltaX = player.pos.x - hunterArr[i].pos.x
                 let deltaY = player.pos.y - hunterArr[i].pos.y

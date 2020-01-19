@@ -6,6 +6,7 @@ let weapons = {
         bulletRadius = 5
         baseDmg = 50
         basePierces = 0
+        fireRate = 1
         speedMultiple = 1.25
         bulletImg = pistolBullet
         b = {
@@ -26,7 +27,7 @@ let weapons = {
         bulletRadius = 4
         basePierces = 0
         bloom = Math.PI/15
-        fireRate = 5
+        fireRate = 25
         speedMultiple = 1.2
         b = {
             SX: 0,
@@ -47,7 +48,7 @@ let weapons = {
         baseDmg = 65
         bulletRadius = 6.5
         basePierces = 1
-        fireRate = 4
+        fireRate = 16
         bloom = Math.PI/12
         b = {
             SX: 0,
@@ -85,7 +86,7 @@ let weapons = {
         mode = "shotgun"
         bulletSpeed = 14
         bulletRadius = 2.5
-        basePierces = 2
+        basePierces = 0
         baseDmg = 150
         fireRate = 2
         bloom = Math.PI/10
@@ -98,8 +99,8 @@ let weapons = {
             SH: 512,
             OX: -4,
             OY: -11,
-            W: 256/30,
-            H: 512/30
+            W: 256/20,
+            H: 512/20
         }
     }
 }

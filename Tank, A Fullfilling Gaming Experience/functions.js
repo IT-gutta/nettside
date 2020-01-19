@@ -52,22 +52,24 @@ function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedMultiple = 1
-    wave = 8
+    wave = 1
     readyToStartNewWave = true
-    weapons.pistol()
+    mode = "pistol"
+    weapons[mode]()
     shotGunShots = 20
     fallOffRange = 200
-    pierces = 0
-    fireRate = 3
-    speed = 3
     tid = 0
-    gunLength = 59
-    playerIsCarrying = false
+    oldTime = 0
+    audioOldTime = 0
     moneyPerKill = 25
     tankLevel = 1
     gunLevel = 1
     killCount = 0
     totalHealthPots = 0
+    pierces = 0
+    healthPots.antall = 0
+    addedDmg = 0
+
 }
 
 
@@ -87,14 +89,12 @@ function startGame(e){
     backgroundMusic.play()
     if(e!= false) {
         type = e.target.name
-        // document.querySelector("#pauseBtn").addEventListener("click", pauseMenu)
-        window.addEventListener("keydown", pressDown)
     }
-    defaultSettings()
     overlay.innerHTML = ""
+    startShop()
+    defaultSettings()
     changeTank()
     changeGun()
-    startShop()
     stop = false
     waves[wave-1]()
     overlay.style.cursor = "none"
@@ -130,10 +130,6 @@ function restart(){
     player.money = 0
     bulletArr = []
     hunterArr = []
-    for(let i = 0; i < shopBtns.length; i++){
-        shopBtns[i].value = shopBtns[i].id
-    }
-    shopBtns[5].value = "SELECTED"
     overlay.style.top = "0px"
     overlay.style.left = "0px"
     overlay.style.width = `${canvas.width}px` 
@@ -142,13 +138,15 @@ function restart(){
 }
 
 function youLose(){
+    stop = true
+    overlay.style.cursor = "auto"
+    loseAudio.play()
     backgroundMusic.pause()
-    overlay.style = ""
     overlay.innerHTML = `You lose <input type="button" class="restart" value="Restart?">`
-    overlay.style.position = "absolute"
-    overlay.style.fontSize = "40px"
-    overlay.style.left = `${canvas.width/2-100}px`
-    overlay.style.top = `${canvas.height/2-30}px`
+    // overlay.style.position = "absolute"
+    // overlay.style.fontSize = "40px"
+    // overlay.style.left = `${canvas.width/2-100}px`
+    // overlay.style.top = `${canvas.height/2-30}px`
     let restartBtn = document.querySelector(".restart")
     restartBtn.addEventListener("click", restart)
 }
@@ -156,14 +154,16 @@ function youLose(){
 
 //single-fire
 function shoot(){
-    mouseIsPressed=true
+    mouseIsPressed = true
   
     let deltaX = mouse.x-player.pos.x
     let deltaY = mouse.y-player.pos.y
     let phi = Math.atan2(deltaY, deltaX)
-    let radius = 5
+
     if(mode == "shotgun"){
         if(tid - oldTime >= 0.75/fireRate){
+            shotgunAudio.currentTime = 0
+            shotgunAudio.play()
             oldTime = tid
             let tempNumberOfShots = 0
             let shotgunInterval = setInterval(() => {
@@ -178,13 +178,17 @@ function shoot(){
     }
     else{
         if(mode == "sniper"){
-            if(tid - oldTime >= 0.75/fireRate) {readyToShoot = true; oldTime = tid}
+            if(tid - oldTime >= 0.75/fireRate) {readyToShoot = true; shotgunAudio.currentTime = 0; shotgunAudio.play(); oldTime = tid}
             else readyToShoot = false
         }
         else if(mode == "pistol" || mode == "smg") {
+            pistolAudio.currentTime = 0
+            pistolAudio.play()
             readyToShoot = true
         }
         else if(mode == "lmg"){
+            lmgAudio.currentTime = 0
+            lmgAudio.play()
             readyToShoot = true
         }
         if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b, baseDmg + addedDmg))
@@ -198,7 +202,25 @@ function spray(){
     let deltaY = mouse.y-player.pos.y
     let phi = Math.atan2(deltaY, deltaX)
     phi = randomInt(phi-bloom, phi+bloom)
-    if((tid-oldTime)*fireRate >= 1/fireRate){
+    if(mode == "smg"){
+        if((tid-audioOldTime) >= 0.08){
+            pistolAudio.currentTime = 0
+            pistolAudio.play()
+            audioOldTime = tid
+        }
+    }
+
+    else if(mode == "lmg"){
+        if((tid-audioOldTime) >= 0.1){
+            lmgAudio.currentTime = 0
+            lmgAudio.play()
+            audioOldTime = tid
+        }
+    }
+
+    if((tid-oldTime) >= 1/fireRate){
+        
+
         bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b, baseDmg + addedDmg))
         oldTime = tid
     }
@@ -276,6 +298,26 @@ let shopFunctions = [
 
 //adder eventisteners til shoppen
 function startShop(){
+        document.getElementById("wrapper").innerHTML = `<div class="shop">
+            --Upgrades--<br><br>
+            Tank: <br><input type="button" class="shopBtn" value="$600" id="$600"> <br>
+            Piercing:<br> <input type="button" class="shopBtn" value="$1000" id="$1000"><br>
+            Canon:<br> <input type="button" class="shopBtn" value="$800" id="$800"><br>
+            Money Income:<br> <input type="button" class="shopBtn" value="$2000" id="$2000"><br>
+            Health Potion: <br><input type="button" class="shopBtn" value="$500" id="$500"><br>
+        </div>
+        <div class="shop" id="margin-left">
+            --Tankselector-- <br><br>
+            Pistol: <br><input type="button" class="shopBtn" value="SELECTED" name="pistol" id="$0"><br>
+            Sniper:<br> <input type="button" class="shopBtn" value="$1000" name="sniper" id="$1000"><br>
+            Lmg: <br><input type="button" class="shopBtn" value="$2000" name="lmg" id="$2000"><br>
+            Smg: <br><input type="button" class="shopBtn" value="$2000" name="smg" id="$2000"><br>
+            Shotgun: <br><input type="button" class="shopBtn" value="$1000" name="shotgun" id="$1000">
+        </div>`
+
+    shopBtns = document.querySelectorAll(".shopBtn")
+
+
     for(let i = 0; i<shopBtns.length; i++){
         shopBtns[i].addEventListener("click", function(){
     
