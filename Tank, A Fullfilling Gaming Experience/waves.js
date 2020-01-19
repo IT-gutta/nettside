@@ -141,7 +141,11 @@ let waves = [
     function(){
         clearInterval(overlayInterval)
         let tempMoneyPerKill = moneyPerKill
-        moneyPerKill += 200
+        moneyPerKill *= 2
+        let tempSplodeDamage = splodeDamage
+        let tempSplodeRange = splodeRange
+        splodeDamage += 100
+        splodeRange += 150
         overlay.innerHTML = ""
         stop = false
         canvas.style.filter = "none"
@@ -153,9 +157,11 @@ let waves = [
                     clearInterval(hunterInterval)
                     readyToStartNewWave = true
                     moneyPerKill = tempMoneyPerKill
+                    splodeDamage = tempSplodeDamage
+                    splodeRange = tempSplodeRange
                 }
                 deployedHunters += 1
-                hunterArr.push(new Sploder(1.5, 1000))
+                hunterArr.push(new Sploder(2.5, 1000))
             }
         }, 100)
     }
@@ -185,28 +191,69 @@ let waves = [
                     splodeDamage = tempSplodeDamage
                 }
                 deployedHunters += 1
-                hunterArr.push(new Sploder(1.2, 26))
+                hunterArr.push(new Sploder(1.5, 26))
             }
         }, 400)
     }
 )
-},
-    () => {
-        readyToStartNewWave = false
-        canvas.style.filter = "blur(3px)"
-        startNewWave("Freemode starting in", 10, "Have fun",
-        function(){
-            wave = "Freemode"
-            clearInterval(overlayInterval)
-            overlay.innerHTML = ""
-            stop = false
-            canvas.style.filter = "none"                                                  
-            hunterInterval = setInterval(() => {
-                if(!stop){
-                    hunterArr.push(new Hunter(2, 150))
-                }
-            }, 700)
-        }
-    )
-},
+}
 ]
+
+let tempSpeed = 2
+let tempHealth = 200
+let deployedHunters = 1
+
+for(let i = 8; i < 100; i++){
+    
+    waves.push(
+        () => {
+            readyToStartNewWave = false
+            canvas.style.filter = "blur(3px)"
+            startNewWave(`Wave ${i} starting in`, 5, "",
+            function(){
+                clearInterval(overlayInterval)
+                overlay.innerHTML = ""
+                stop = false
+                canvas.style.filter = "none"
+                
+                let antallHunters = randomInt(40, 150)                                
+                deployedHunters = 1
+                tempSpeed += 0.025
+                tempHealth += 1.5
+
+                hunterInterval = setInterval(() => {
+                    if(!stop){
+                        if(deployedHunters >= antallHunters){
+                            clearInterval(hunterInterval)
+                            readyToStartNewWave = true
+                        }
+                        deployedHunters += 1
+                        i%4==0 ? hunterArr.push(new Sploder(tempSpeed, tempHealth)) : hunterArr.push(new Hunter(tempSpeed, tempHealth))
+                    }
+                }, randomInt(300, 800))
+            }
+        )
+        },
+    )
+}
+
+
+let freemode = () => {
+    readyToStartNewWave = false
+    canvas.style.filter = "blur(3px)"
+    startNewWave("Freemode starting in", 10, "Have fun",
+    function(){
+        wave = "Freemode"
+        clearInterval(overlayInterval)
+        overlay.innerHTML = ""
+        stop = false
+        canvas.style.filter = "none"                                                  
+        hunterInterval = setInterval(() => {
+            if(!stop){
+                hunterArr.push(new Hunter(2, 150))
+            }
+        }, 700)
+    }
+)
+}
+waves.push(freemode)

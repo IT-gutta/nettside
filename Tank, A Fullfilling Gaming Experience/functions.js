@@ -52,7 +52,7 @@ function defaultSettings(){
     healthPotHeal = 300
     readyToShoot = true
     speedMultiple = 1
-    wave = 1
+    wave = 8
     readyToStartNewWave = true
     weapons.pistol()
     shotGunShots = 20
@@ -252,7 +252,7 @@ let shopFunctions = [
         
     },
     function(pris){
-        if(moneyPerKill < 7){
+        if(moneyPerKill < 400){
             moneyPerKill *= 2
             let nyPris = pris * 3
             shopBtns[3].value = `$${nyPris}`
