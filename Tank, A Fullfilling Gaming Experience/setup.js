@@ -27,6 +27,8 @@ let shopBtns = document.querySelectorAll(".shopBtn")
 
 let wrapper = document.getElementById("wrapper")
 
+let splintImg = new Image()
+splintImg.src = "sprites/splint.png"
 
 let tankImg = new Image()
 tankImg.src = "sprites/smallTank1.png"
@@ -52,7 +54,13 @@ healthPotImg.src = "sprites/healthPot.png"
 let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, 
 mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, 
 shotGunShots, fallOffRange, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, 
-wave, b
+wave, b, addedDmg
+
+let splintSpeed = 6
+let splodeRange = 50
+let splodeDamage = 50
+let splintArr = []
+let splintAngle = Math.random()*2*Math.PI
 
 let pushAwayStrengt = 0.2
 let pushWhenHitStrength = 30
@@ -68,6 +76,6 @@ let hunterArr = []
 document.querySelector("#smallTank").addEventListener("click", startGame)
 document.querySelector("#bigTank").addEventListener("click", startGame)
 window.addEventListener("mousemove", moveMouse)
-window.addEventListener("mousedown", shoot)
+overlay.addEventListener("mousedown", shoot)
 window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
 window.addEventListener("keyup", releaseKey)

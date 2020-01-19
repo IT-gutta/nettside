@@ -1,13 +1,13 @@
 class Bullet{
-    constructor(x, y, dx, dy, radius, fallOff, angle, mode, image, b){
+    constructor(x, y, dx, dy, radius, fallOff, angle, mode, image, b, damage){
         this.pos = {x:x, y:y}
         this.startPos = {x:x, y:y}
         this.vel = {x:dx, y:dy}
+        this.damage = damage
         this.r = radius
         this.pierces = 0
         this.connectedHunter = undefined
         this.fallOff = fallOff
-        this.reducedDmg = 0
         this.switch1 = true
         this.switch2 = true
         this.angle = angle
@@ -35,17 +35,8 @@ class Bullet{
         c.translate(this.pos.x, this.pos.y)
         c.rotate(this.angle + Math.PI/2)
         c.translate(-this.pos.x, -this.pos.y)
-        if(this.mode != "shotgun") c.drawImage(this.image, this.b.SX, this.b.SY, this.b.SW, this.b.SH, this.pos.x + this.b.OX, this.pos.y + this.b.OY, this.b.W, this.b.H)
+        c.drawImage(this.image, this.b.SX, this.b.SY, this.b.SW, this.b.SH, this.pos.x + this.b.OX, this.pos.y + this.b.OY, this.b.W, this.b.H)
         c.restore()
-        if(this.mode == "shotgun"){
-            c.fillStyle = "blue"
-            c.arc(this.pos.x, this.pos.y, this.r, 0, Math.PI*2)
-            c.fill()
-            c.closePath()
-        }
-        // c.fillStyle = "blue"
-        // c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
-        // c.fill()
     }
 }
 
@@ -58,10 +49,11 @@ class Hunter{
         this.health = health
         this.startHealth = health
         this.speed = speed
+        this.color = this.constructor.name == "Sploder" ? "yellow" : "red"
     }
     draw(){
         c.beginPath()
-        c.fillStyle="red"
+        c.fillStyle = this.color
         c.arc(this.pos.x, this.pos.y, this.r, 0, Math.PI*2)
         c.fill()
         c.closePath()
@@ -90,6 +82,63 @@ class Hunter{
         }
 
         this.draw()
+    }
+}
+
+class Splint{
+    constructor(x, y, dx, dy, r, color){
+        this.pos = {x: x, y: y}
+        this.startPos = {x: x, y: y}
+        this.vel = {x:dx, y:dy}
+        this.r = r
+        this.color = color
+        this.dead = false
+        // setTimeout(() => {
+        //     this.dead = true
+        // }, 200)
+    }
+    draw(){
+        c.beginPath()
+        c.drawImage(splintImg, 0, 0, 1200, 1200, this.pos.x, this.pos.y, 8, 8)
+        // c.fillStyle = this.color
+        // c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
+        // c.fill()
+        c.closePath()
+    }
+    update(){
+        let randomOffsetRange = randomInt(-15, 15)
+        if(distance(this.pos, this.startPos) > splodeRange + randomOffsetRange) this.dead = true
+        this.pos.x += this.vel.x
+        this.pos.y += this.vel.y
+        if(!this.dead) this.draw()
+    }
+}
+
+class Sploder extends Hunter{
+    constructor(speed, health){
+        super(speed, health)
+    }
+    explode(){
+        let numberOfSplints = 0
+        let splintInterval = setInterval(() => {
+            numberOfSplints += 1
+            splintAngle = randomInt(0, 2*Math.PI)
+            splintArr.push(new Splint(this.pos.x, this.pos.y, Math.cos(splintAngle) * splintSpeed, Math.sin(splintAngle) * splintSpeed, 10, "white"))
+            if(numberOfSplints > 100) clearInterval(splintInterval)
+        }, 5)
+    
+        
+        //deal damage to other enemies
+        for(let i = 0; i < hunterArr.length; i++){
+            if(distance(hunterArr[i].pos, this.pos) < hunterArr[i].r + splodeRange){
+                hunterArr[i].health -= splodeDamage
+            }
+        }
+        
+        //deal damage to player
+        if(distance(player.pos, this.pos) < player.r + splodeRange){
+            player.health -= splodeDamage
+        }
     }
 }
 

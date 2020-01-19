@@ -22,49 +22,23 @@ function loop(){
         waves[wave-1]()
     }
     if(!stop){
-        // c.fillStyle = "beige"
         c.clearRect(0, 0, canvas.width, canvas.height)
 
         if(mouseIsPressed && (mode == "lmg" || mode == "smg")){
             spray()
         }
-    
+        
 
-        for(let i = 0; i<bulletArr.length; i++){
-            
-            if(bulletArr[i].pos.x < 0 || bulletArr[i].pos.x > canvas.width || bulletArr[i].pos.y < 0 || bulletArr[i].pos.y > canvas.height){
-                [bulletArr[i], bulletArr[bulletArr.length-1]] = [bulletArr[bulletArr.length-1], bulletArr[i]]
-                bulletArr.pop()
+        for(let i = 0; i < splintArr.length; i++){
+            splintArr[i].update()
+            if(splintArr[i].dead){
+                splintArr.splice(i, 1)
                 i-=1
             }
-            if(bulletArr[i].fallOff == true){
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].reducedDmg += 20; bulletArr[i].switch1 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.5 && bulletArr[i].switch2) {bulletArr[i].reducedDmg += 70; bulletArr[i].switch2 = false}
-                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange) {bulletArr.splice(i, 1); i-=1}
-            }
-            bulletArr[i].update()
-
-
-            for(let k = 0; k<hunterArr.length; k++){
-                if(distance(hunterArr[k].pos, bulletArr[i].pos) < bulletArr[i].r + hunterArr[k].r && bulletArr[i].connectedHunter != hunterArr[k]){
-                    bulletArr[i].connectedHunter = hunterArr[k]
-                    bulletArr[i].pierces += 1
-                    hunterArr[k].health -= player.baseDmg + player.addedDmg - bulletArr[i].reducedDmg
-                    if(hunterArr[k].health <=0){
-                        [hunterArr[k], hunterArr[hunterArr.length-1]] = [hunterArr[hunterArr.length-1], hunterArr[k]]
-                        hunterArr.pop()
-                        k-=1
-                        killCount += 1
-                        player.money += moneyPerKill
-                    }
-                    if(bulletArr[i].pierces > pierces + basePierces){
-                        [bulletArr[i], bulletArr[bulletArr.length-1]] = [bulletArr[bulletArr.length-1], bulletArr[i]]
-                        bulletArr.pop()
-                        i-=1
-                    }
-                }
-            }
         }
+
+
+        //enemies alene og damage på player
         for(let i = 0; i<hunterArr.length; i++){
             for(let k = 0; k<hunterArr.length; k++){
                 if(i!=k && distance(hunterArr[i].pos, hunterArr[k].pos) < hunterArr[i].r + hunterArr[k].r){
@@ -77,6 +51,7 @@ function loop(){
                     hunterArr[k].pos.y+= Math.sin(phi)*pushAwayStrengt
                 }
             }
+            
             if(distance(hunterArr[i].pos, player.pos) < player.r + hunterArr[i].r){
                 player.health -= 50
                 let deltaX = player.pos.x - hunterArr[i].pos.x
@@ -93,6 +68,55 @@ function loop(){
             }
             hunterArr[i].update()
         }
+
+        //alt med bullets
+        for(let i = 0; i<bulletArr.length; i++){
+            
+            bulletArr[i].update()
+
+            
+            for(let k = 0; k<hunterArr.length; k++){
+                if(distance(hunterArr[k].pos, bulletArr[i].pos) < bulletArr[i].r + hunterArr[k].r && bulletArr[i].connectedHunter != hunterArr[k]){
+                    bulletArr[i].connectedHunter = hunterArr[k]
+                    bulletArr[i].pierces += 1
+                    hunterArr[k].health -= bulletArr[i].damage
+                }
+                if(hunterArr[k].health <=0){
+                    if(hunterArr[k].constructor.name == "Sploder") hunterArr[k].explode()
+                    
+                    hunterArr.splice(k, 1)
+                    k-=1
+                    killCount += 1
+                    player.money += moneyPerKill
+                }
+            }
+
+            //splice bullets
+            if(bulletArr[i].fallOff == true){
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.25 && bulletArr[i].switch1) {bulletArr[i].damage -= 50; bulletArr[i].switch1 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange*0.7 && bulletArr[i].switch2) {bulletArr[i].damage -= 70; bulletArr[i].switch2 = false}
+                if(distance(bulletArr[i].pos, bulletArr[i].startPos) > fallOffRange) {
+                    bulletArr.splice(i, 1)
+                    i-=1
+                }
+            }
+            
+            else if(bulletArr[i].pierces > pierces + basePierces){
+                // [bulletArr[i], bulletArr[bulletArr.length-1]] = [bulletArr[bulletArr.length-1], bulletArr[i]]
+                // bulletArr.pop()
+                bulletArr.splice(i, 1)
+                i-=1
+            }
+
+            else if(bulletArr[i].pos.x < 0 || bulletArr[i].pos.x > canvas.width || bulletArr[i].pos.y < 0 || bulletArr[i].pos.y > canvas.height){
+                // [bulletArr[i], bulletArr[bulletArr.length-1]] = [bulletArr[bulletArr.length-1], bulletArr[i]]
+                // bulletArr.pop()
+                bulletArr.splice(i, 1)
+                i-=1
+            }
+
+        }
+
         player.update()
         healthBar.draw()
         moneyBar.draw()
