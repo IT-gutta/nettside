@@ -17,6 +17,10 @@ document.addEventListener('dragstart', event => event.preventDefault())
 
 let bodyEL = document.querySelector("body")
 
+let crosshair = new Image()
+
+crosshair.src = "sprites/crosshair.png"
+
 
 let overlay = document.querySelector(".overlay")
 
@@ -26,6 +30,10 @@ overlay.style.height = `${canvas.height}px`
 let shopBtns = document.querySelectorAll(".shopBtn")
 
 let wrapper = document.getElementById("wrapper")
+
+
+let backgroundMusic = document.querySelector("audio")
+backgroundMusic.volume = 0.04
 
 let splintImg = new Image()
 splintImg.src = "sprites/splint.png"
@@ -54,7 +62,7 @@ healthPotImg.src = "sprites/healthPot.png"
 let type, speed, tid, bulletSpeed, gunLength, playerIsCarrying, moneyPerKill, pierces, tankLevel, 
 mode, speedReduction, readyToShoot, baseDmg, bloom, fireRate, healthPotHeal, gunLevel, basePierces, 
 shotGunShots, fallOffRange, bulletRadius, killCount, overlayInterval, hunterInterval, readyToStartNewWave, 
-wave, b, addedDmg
+wave, b, addedDmg, totalHealthPots
 
 let splintSpeed = 6
 let splodeRange = 50

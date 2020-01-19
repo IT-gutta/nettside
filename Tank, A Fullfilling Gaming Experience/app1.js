@@ -124,6 +124,7 @@ function loop(){
         c.font = "19px monospace"
         c.fillText(`Weapon: ${mode.toUpperCase()}  ::  Wave: ${wave}`, 20, 25)
         c.fillText(`Elapsed Time: ${Math.floor(tid)}  ::  Kills: ${killCount}`, 20, 75)
+        c.drawImage(crosshair, 0, 0, 100, 100, mouse.x-8, mouse.y-8, 16, 16)
 
     }
 }

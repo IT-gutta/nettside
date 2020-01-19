@@ -6,6 +6,7 @@ const randomInt = (min, max) => Math.random()*(max-min)+min
 function pauseMenu(){
 
     if(stop){
+        backgroundMusic.volume = 0.04
         stop = false
         canvas.style.filter = "none"
         wrapper.style.filter = "none"
@@ -13,8 +14,10 @@ function pauseMenu(){
             shopBtns[i].style.pointerEvents = "auto"
         }
         overlay.innerHTML = ""
+        overlay.style.cursor = "none"
     }
     else{
+        backgroundMusic.volume = 0.007
         stop = true
         canvas.style.filter = "blur(3px)"
         wrapper.style.filter = "blur(3px)"
@@ -38,6 +41,8 @@ function pauseMenu(){
             bodyEL.style.backgroundColor = "hsl(60, 0%, 20%)" :
             bodyEL.style.backgroundColor = "beige"
         })
+
+        overlay.style.cursor = "auto"
     }
     
 
@@ -62,6 +67,7 @@ function defaultSettings(){
     tankLevel = 1
     gunLevel = 1
     killCount = 0
+    totalHealthPots = 0
 }
 
 
@@ -77,6 +83,8 @@ function changeGun(){
 
 
 function startGame(e){
+    backgroundMusic.load()
+    backgroundMusic.play()
     if(e!= false) {
         type = e.target.name
         // document.querySelector("#pauseBtn").addEventListener("click", pauseMenu)
@@ -89,6 +97,7 @@ function startGame(e){
     startShop()
     stop = false
     waves[wave-1]()
+    overlay.style.cursor = "none"
 }
 
 
@@ -133,6 +142,7 @@ function restart(){
 }
 
 function youLose(){
+    backgroundMusic.pause()
     overlay.style = ""
     overlay.innerHTML = `You lose <input type="button" class="restart" value="Restart?">`
     overlay.style.position = "absolute"
@@ -201,7 +211,7 @@ let shopFunctions = [
         if(tankLevel < 7){
             tankLevel+=1
             changeTank()
-            let nyPris = pris * 1.8
+            let nyPris = Math.ceil(pris * 2)
             shopBtns[0].value = `$${nyPris}`
             if(tankLevel == 7){
                 shopBtns[0].value = `MAXED OUT`
@@ -214,9 +224,9 @@ let shopFunctions = [
         }
     },
     function(pris){
-        if(pierces < 6){
+        if(pierces < 4){
             pierces+=1
-            let nyPris = pris * 1.8
+            let nyPris = Math.ceil(pris * 2.8)
             shopBtns[1].value = `$${nyPris}`
         }
         else{
@@ -242,12 +252,25 @@ let shopFunctions = [
         
     },
     function(pris){
-        moneyPerKill += pris/100
-        let nyPris = pris + 2500
-        shopBtns[3].value = `$${nyPris}`
+        if(moneyPerKill < 7){
+            moneyPerKill *= 2
+            let nyPris = pris * 3
+            shopBtns[3].value = `$${nyPris}`
+        }
+        else{
+            shopBtns[3].value = `MAXED OUT`
+            player.money += pris
+        }
     },
     function(){
-        healthPots.antall += 1
+        if(totalHealthPots < 7){
+            healthPots.antall += 1
+            totalHealthPots+=1
+        }
+        else{
+            shopBtns[4].value = `SOLD OUT`
+            player.money += pris
+        }
     }
 ]
 
