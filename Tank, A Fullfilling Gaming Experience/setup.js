@@ -33,7 +33,7 @@ let wrapper = document.getElementById("wrapper")
 
 
 let backgroundMusic = document.querySelector("audio")
-backgroundMusic.volume = 0.04
+backgroundMusic.volume = 0.1
 
 let splintImg = new Image()
 splintImg.src = "sprites/splint.png"
@@ -64,6 +64,7 @@ let winAudio = new Audio()
 let loseAudio = new Audio()
 let damagedAudio = new Audio()
 
+
 pistolAudio.src = "sounds/pistol.mp3"
 lmgAudio.src = "sounds/lmg.mp3"
 shotgunAudio.src = "sounds/shotgun.mp3"
@@ -71,12 +72,18 @@ winAudio.src = "sounds/win.wav"
 loseAudio.src = "sounds/lose.wav"
 damagedAudio.src = "sounds/damaged.wav"
 
-pistolAudio.volume = 0.05
+let audioArr = [pistolAudio, lmgAudio, shotgunAudio, winAudio, loseAudio, damagedAudio]
+
+let volumeLevel = 3
+
+
+pistolAudio.volume = 0.03
 lmgAudio.volume = 0.05
 shotgunAudio.volume = 0.1
-winAudio.volume = 0.2
-loseAudio.volume = 0.2
-damagedAudio.volume = 0.2
+winAudio.volume = 0.05
+loseAudio.volume = 0.1
+damagedAudio.volume = 0.1
+
 
 
 
