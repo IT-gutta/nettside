@@ -80,7 +80,7 @@ let volumeLevel = 3
 pistolAudio.volume = 0.03
 lmgAudio.volume = 0.05
 shotgunAudio.volume = 0.1
-winAudio.volume = 0.05
+winAudio.volume = 0.03
 loseAudio.volume = 0.1
 damagedAudio.volume = 0.1
 

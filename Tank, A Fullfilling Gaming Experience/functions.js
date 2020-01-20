@@ -55,11 +55,12 @@ function pauseMenu(){
         overlay.innerHTML = ` <div id="pauseMenu"> 
          <h1>Pause Menu</h1> 
         <br>
-        <br>
         Turn on/off darkmode: <input type="button" id="darkModeBtn">
+        <br><br>
+        Volume: <br>
+    
+        <input type="button" id="pluss" value="+"> <p id="displayP"></p> <input type="button" id="minus" value="-"> 
 
-        Volume:
-        <input type="button" id="minus" value="-"> <p id="displayP"></p> <input type="button" id="pluss" value="+">
         </div> `
         let displayP = document.getElementById("displayP")
 
