@@ -39,36 +39,8 @@ function loop(){
 
 
         //enemies alene og damage på player
-        for(let i = 0; i<hunterArr.length; i++){
-            for(let k = 0; k<hunterArr.length; k++){
-                if(i!=k && distance(hunterArr[i].pos, hunterArr[k].pos) < hunterArr[i].r + hunterArr[k].r){
-                    let deltaX = hunterArr[k].pos.x - hunterArr[i].pos.x
-                    let deltaY = hunterArr[k].pos.y - hunterArr[i].pos.y
-                    let phi = Math.atan2(deltaY, deltaX)
-                    hunterArr[i].pos.x+= -Math.cos(phi)*pushAwayStrengt
-                    hunterArr[i].pos.y+= -Math.sin(phi)*pushAwayStrengt
-                    hunterArr[k].pos.x+= Math.cos(phi)*pushAwayStrengt
-                    hunterArr[k].pos.y+= Math.sin(phi)*pushAwayStrengt
-                }
-            }
-            
-            if(distance(hunterArr[i].pos, player.pos) < player.r + hunterArr[i].r){
-                damagedAudio.play()
-                player.health -= 50
-                let deltaX = player.pos.x - hunterArr[i].pos.x
-                let deltaY = player.pos.y - hunterArr[i].pos.y
-                let phi = Math.atan2(deltaY, deltaX)
-                hunterArr[i].vel.x += -Math.cos(phi)*pushWhenHitStrength
-                hunterArr[i].vel.y += -Math.sin(phi)*pushWhenHitStrength
-                hunterArr[i].pos.x += hunterArr[i].vel.x
-                hunterArr[i].pos.y += hunterArr[i].vel.y
-                hunterArr[i].slowDown = true
-                setTimeout(() => {
-                    hunterArr[i].slowDown = false
-                }, 2000);
-            }
-            hunterArr[i].update()
-        }
+        
+
 
         //alt med bullets
         for(let i = 0; i<bulletArr.length; i++){
@@ -81,14 +53,6 @@ function loop(){
                     bulletArr[i].connectedHunter = hunterArr[k]
                     bulletArr[i].pierces += 1
                     hunterArr[k].health -= bulletArr[i].damage
-                }
-                if(hunterArr[k].health <=0){
-                    if(hunterArr[k].constructor.name == "Sploder") hunterArr[k].explode()
-                    
-                    hunterArr.splice(k, 1)
-                    k-=1
-                    killCount += 1
-                    player.money += moneyPerKill
                 }
             }
 
@@ -116,6 +80,48 @@ function loop(){
                 i-=1
             }
 
+        }
+
+        
+        for(let i = 0; i<hunterArr.length; i++){
+            for(let k = 0; k<hunterArr.length; k++){
+                if(i!=k && distance(hunterArr[i].pos, hunterArr[k].pos) < hunterArr[i].r + hunterArr[k].r){
+                    let deltaX = hunterArr[k].pos.x - hunterArr[i].pos.x
+                    let deltaY = hunterArr[k].pos.y - hunterArr[i].pos.y
+                    let phi = Math.atan2(deltaY, deltaX)
+                    hunterArr[i].pos.x+= -Math.cos(phi)*pushAwayStrengt
+                    hunterArr[i].pos.y+= -Math.sin(phi)*pushAwayStrengt
+                    hunterArr[k].pos.x+= Math.cos(phi)*pushAwayStrengt
+                    hunterArr[k].pos.y+= Math.sin(phi)*pushAwayStrengt
+                }
+            }
+            
+            
+            if(distance(hunterArr[i].pos, player.pos) < player.r + hunterArr[i].r){
+                damagedAudio.play()
+                player.health -= 50
+                let deltaX = player.pos.x - hunterArr[i].pos.x
+                let deltaY = player.pos.y - hunterArr[i].pos.y
+                let phi = Math.atan2(deltaY, deltaX)
+                hunterArr[i].vel.x += -Math.cos(phi)*pushWhenHitStrength
+                hunterArr[i].vel.y += -Math.sin(phi)*pushWhenHitStrength
+                hunterArr[i].pos.x += hunterArr[i].vel.x
+                hunterArr[i].pos.y += hunterArr[i].vel.y
+                hunterArr[i].slowDown = true
+                setTimeout(() => {
+                    hunterArr[i].slowDown = false
+                }, 2000);
+            }
+            hunterArr[i].update()
+
+            if(hunterArr[i].health <=0){
+                if(hunterArr[i].constructor.name == "Sploder") hunterArr[i].explode()
+                
+                hunterArr.splice(i, 1)
+                i-=1
+                killCount += 1
+                player.money += moneyPerKill
+            }
         }
 
         player.update()

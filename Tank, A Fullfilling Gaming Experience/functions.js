@@ -2,11 +2,38 @@ const distance = (pos1, pos2) => Math.sqrt(Math.pow(pos2.x-pos1.x, 2) + Math.pow
 const randomInt = (min, max) => Math.random()*(max-min)+min
 
 
+function updateAudio(dir){
+    displayP.innerHTML = ""
+    for(let i = 0; i < volumeLevel; i++){
+        displayP.innerHTML += "| "
+    }
+
+    if(dir == "min"){
+        for(let i = 0; i < audioArr.length; i++){
+            audioArr[i].volume /= 1.45
+        }
+    }
+
+    else if(dir == "plu"){
+        for(let i = 0; i < audioArr.length; i++){
+            audioArr[i].volume *= 1.45
+        }
+    }
+}
+
+
+function playAudio(audioEl){
+    if(!stop){
+        audioEl.currentTime = 0
+        audioEl.play()
+    }
+}
+
 
 function pauseMenu(){
 
     if(stop){
-        backgroundMusic.volume = 0.04
+        backgroundMusic.volume *= 2
         stop = false
         canvas.style.filter = "none"
         wrapper.style.filter = "none"
@@ -17,7 +44,7 @@ function pauseMenu(){
         overlay.style.cursor = "none"
     }
     else{
-        backgroundMusic.volume = 0.007
+        backgroundMusic.volume /= 2
         stop = true
         canvas.style.filter = "blur(3px)"
         wrapper.style.filter = "blur(3px)"
@@ -28,11 +55,29 @@ function pauseMenu(){
         overlay.innerHTML = ` <div id="pauseMenu"> 
          <h1>Pause Menu</h1> 
         <br>
-        <br>
         Turn on/off darkmode: <input type="button" id="darkModeBtn">
-        </div> `
+        <br><br>
+        Volume: <br>
+    
+        <input type="button" id="pluss" value="+"> <p id="displayP"></p> <input type="button" id="minus" value="-"> 
 
-        let pauseEl = document.getElementById("pauseMenu")
+        </div> `
+        let displayP = document.getElementById("displayP")
+
+        updateAudio(false)
+
+        document.getElementById("minus").addEventListener("click", ()=>{
+            if(volumeLevel > 1){
+                volumeLevel-=1
+                updateAudio("min")
+            }
+        })
+        document.getElementById("pluss").addEventListener("click", ()=>{
+            if(volumeLevel < 9){
+                volumeLevel+=1
+                updateAudio("plu")
+            }
+        })
     
         let darkModeBtn = document.getElementById("darkModeBtn")
 
@@ -138,9 +183,9 @@ function restart(){
 }
 
 function youLose(){
+    playAudio(loseAudio)
     stop = true
     overlay.style.cursor = "auto"
-    loseAudio.play()
     backgroundMusic.pause()
     overlay.innerHTML = `You lose <input type="button" class="restart" value="Restart?">`
     // overlay.style.position = "absolute"
@@ -162,8 +207,7 @@ function shoot(){
 
     if(mode == "shotgun"){
         if(tid - oldTime >= 0.75/fireRate){
-            shotgunAudio.currentTime = 0
-            shotgunAudio.play()
+            playAudio(shotgunAudio)
             oldTime = tid
             let tempNumberOfShots = 0
             let shotgunInterval = setInterval(() => {
@@ -178,17 +222,15 @@ function shoot(){
     }
     else{
         if(mode == "sniper"){
-            if(tid - oldTime >= 0.75/fireRate) {readyToShoot = true; shotgunAudio.currentTime = 0; shotgunAudio.play(); oldTime = tid}
+            if(tid - oldTime >= 0.75/fireRate) {readyToShoot = true; playAudio(shotgunAudio); oldTime = tid}
             else readyToShoot = false
         }
         else if(mode == "pistol" || mode == "smg") {
-            pistolAudio.currentTime = 0
-            pistolAudio.play()
+            playAudio(pistolAudio)
             readyToShoot = true
         }
         else if(mode == "lmg"){
-            lmgAudio.currentTime = 0
-            lmgAudio.play()
+            playAudio(lmgAudio)
             readyToShoot = true
         }
         if(readyToShoot) bulletArr.push(new Bullet(player.pos.x + Math.cos(phi)*(gunLength-35), player.pos.y + Math.sin(phi)*(gunLength-35), Math.cos(phi)*bulletSpeed + player.vel.x*0.25, Math.sin(phi)*bulletSpeed + player.vel.y*0.25, bulletRadius, false, phi, mode, bulletImg, b, baseDmg + addedDmg))
@@ -204,16 +246,14 @@ function spray(){
     phi = randomInt(phi-bloom, phi+bloom)
     if(mode == "smg"){
         if((tid-audioOldTime) >= 0.08){
-            pistolAudio.currentTime = 0
-            pistolAudio.play()
+            playAudio(pistolAudio)
             audioOldTime = tid
         }
     }
 
     else if(mode == "lmg"){
         if((tid-audioOldTime) >= 0.1){
-            lmgAudio.currentTime = 0
-            lmgAudio.play()
+            playAudio(lmgAudio)
             audioOldTime = tid
         }
     }
