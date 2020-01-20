@@ -141,10 +141,7 @@ let waves = [
     startNewWave("Wave 6 starting in", 10, "Super tanky enemies (extra cash)",
     function(){
         clearInterval(overlayInterval)
-        let tempMoneyPerKill = moneyPerKill
         moneyPerKill *= 2
-        let tempSplodeDamage = splodeDamage
-        let tempSplodeRange = splodeRange
         splodeDamage += 100
         splodeRange += 150
         overlay.innerHTML = ""
@@ -157,9 +154,9 @@ let waves = [
                 if(deployedHunters == antallHunters){
                     clearInterval(hunterInterval)
                     readyToStartNewWave = true
-                    moneyPerKill = tempMoneyPerKill
-                    splodeDamage = tempSplodeDamage
-                    splodeRange = tempSplodeRange
+                    moneyPerKill /= 2
+                    splodeDamage -= 100
+                    splodeRange -= 150
                 }
                 deployedHunters += 1
                 hunterArr.push(new Sploder(2.5, 1000))
