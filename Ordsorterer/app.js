@@ -12,7 +12,7 @@ let presenterHTML = () =>{
     p.innerHTML += `<li onclick="fjernElem(${i})">${sorted[i]}</li>`
   }
 }
-
+console.log("Dette er en test")
 
 
 // Oppdaterer lista ift localstorage
