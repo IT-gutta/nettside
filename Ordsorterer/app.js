@@ -12,7 +12,6 @@ let presenterHTML = () =>{
     p.innerHTML += `<li onclick="fjernElem(${i})">${sorted[i]}</li>`
   }
 }
-console.log("Dette er en test")
 
 
 // Oppdaterer lista ift localstorage
@@ -29,10 +28,10 @@ input.addEventListener("keyup", (event) => {
   }
 });
 
-// Dytter ord inn i sortert array
+// Dytter ord inn i sortert array, /\S/ matcher alt som ikke er whitespace
 let push = (ord) => {
   ord = input.value
-  if (ord != "" && ord != " " && ord != "  ") {
+  if (/\S/.test(ord)) {
     unsorted.push(ord);
     setitem()
     sorted = [...unsorted]
@@ -74,15 +73,3 @@ document.addEventListener('keydown', (event) => {
     }
 }
 })
-
-// Wipe-event
-// document.addEventListener('keydown', (event) => {
-//   if (event.ctrlKey && event.key == "Delete" && sorted.length) {
-//     if (confirm(`Er du sikker på at du vil slette alle ordene fra listen?`)) {
-//       p.innerHTML = ""
-//       sorted = []
-//       unsorted = []
-//       setitem()
-//     }
-//   }
-// })
