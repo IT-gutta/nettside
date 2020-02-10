@@ -25,6 +25,26 @@
         transform: rotate(720deg);
         background-color: blue;
     }
+
+    #selectWrap{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #content{
+        font-size: 20px;
+        font-family: monospace;
+        margin: 200px 300px 300px 200px;
+        text-align: left;
+    }
+    #sentraleTrekk{
+        appearance: none;
+
+        background-color: grey;
+        color: beige;
+        height: 50px;
+    }
     
     </style>
 </head>
@@ -33,13 +53,57 @@
     <h1>Velkommen til Mormonersiden :D:D:D</h1>
 
     <div id="meny"> 
-        <p>Mormons bok</p>
+        <div id="selectWrap">
+            Sentrale Trekk:<select id="sentraleTrekk">
+                <option>Joseph Smith</option>
+                <option>Mormons Bok</option>
+                <option>Jesus Kristus</option>
+                <option>Livet etter døden</option>
+            </select>
+        </div>
+        
         <p>Nummer 2</p>
         <p>Hei</p>
         <p>Kan legge til enda en</p>
     </div>
+    <div id="content"></div>
+    
+    <script>
+        let sentraleTrekkSel = document.getElementById("sentraleTrekk")
+        let content = document.getElementById("content")
+        function byttHTML(e){
+            content.innerHTML = pages[e.target.id][e.target.selectedIndex]
+        }
+        sentraleTrekkSel.addEventListener("change", byttHTML)
 
-    <div id="snurr"></div> 
+        let pages = {
+            
+            sentraleTrekk: [
+            //Joseph Smith
+            `
+            Jesu Kristi Kirke av Siste Dagers Hellige ser på seg selv som en gjenopprettelse av den originale kirken, grunnlagt av Jesus Kristus. Det var Joseph Smith som på 1800-tallet grunnla denne gjenopprettede kirken som et resultat av et søk etter den riktige kirken. Joseph Smith ba til Gud om å veilede han i valget om hvilken kirke han skulle følge. Som et svar på bønnen fikk han en åpenbaring der himmelske fader og Jesus Kristus viste seg for han, og han fikk beskjed om at han skulle starte sin egen kirke fordi de andre kirkene hadde beveget seg vekk fra sannheten. 3 år etter denne åpenbaringen ba Joseph Smith igjen, og fikk besøk av engelen Moroni som fortalte han at han skulle bringe fram en nedgravd opptegnelse. Deretter skulle han, gjennom Guds gave og kraft, oversette denne hellige skriften, inngravert i to gullplater. Dette er det vi kaller for Mormons bok, og den sies å være Guds ord. 
+            `, 
+            //Mormons bok
+            `
+            I Jesu Kristi Kirke av Siste Dagers Hellige står Mormons bok veldig sentralt. Den blir kalt et annet testament om Jesus Kristus, og ifølge Siste Dager Hellige er den nettopp det: Et testament som komplementerer bibelens første og andre testament, og styrker troverdigheten.
+
+            Mormons bok tar for seg historier om folkeslaget som kom til det Amerikanske kontinentet fra Jerusalem rundt år 600 før Kristus. Gjennom ulike historier følger man dette folkeslaget gjennom generasjoner i omtrent 1000år, og får innblikk i deres oppturer og nedturer. I perioder lever de etter evangeliet, og i perioder ikke. Folket splittes i to grupper, og det oppstår deretter strid mellom gruppene. Etter Jesu oppstandelse besøkte han dette folket, underviste dem, opprettet sin kirke og gav de myndighet. Etter besøket lever gruppene i fred med hverandre i et par hundre år, men etter hvert skyver de religionen til side og begge gruppene blir igjen ganske krigerske. Det ender med folkemord, der den ene gruppen utraderer den andre. Til slutt avslutter siste gjenlevende fra denne gruppen opptegnelsen og begraver den i jorden. 
+            `, 
+            //Jesu Kristi plass i troen
+            `I likhet med i den Lutherske-protestantiske kirke står Jesus Kristus står veldig sentralt i troen, og individets forhold til han vektlegges. Den ganske konservative kirken tolker alt Jesus sa og gjorde veldig bokstavelig, og tror at gjennom hans forsoning, gav han alle mennesker en sjanse til å oppnå frelse. Medlemmene i kirken strever derfor også etter å gjøre som Jesus, og være lik ham, i den grad det lar seg gjøre. For å vise seg lydige mot himmelske fars bud, må man leve gode liv, og først da kan man oppnå frelsen og bli kvitt sine synder. 
+            `,
+            //Livet etter døden
+            `Ifølge Kjetil, er døden en adskillelse av kropp og ånd, der ånden lever videre i et sted man kan kalle "åndeverdenen". Der vil vi møte alle de som har dødd før oss, familie og venner. Når Kristus vender tilbake vil ånden igjen bli gjenforent med vår fysiske kropp, en gjenoppstått og perfekt kropp, gjort mulig gjennom Jesu Kristi forsoning. Vi vil motta en herlighetsgrad basert hvordan vi har levd livet på jorda, basert på våre forutsetninger. Deretter vil man for evig leve i himmelske fars nærvær, og sammen med sine familier i det celestiale riket.
+
+            <br>
+            På samme måte tror de at vi levde som himmelske fars åndebarn før vår tid her på jorda. Dette var noe som ble uttalt av Joseph Smith i 1840-årene. Herfra ble vi sendt til jorda og fikk en fysisk kropp og slettet hukommelse, der vi skulle bli testet i vår tro. Dette er himmelske fars plan, ofte omtalt "Plan of salvation". Planen er designet slik at flest mulig av hans åndebarn skulle kunne oppnå framgang mot fullstendig herlighet. 
+            `]
+        }
+
+
+    </script>
+
+
     
 </body>
 </html>
