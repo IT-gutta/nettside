@@ -49,6 +49,9 @@
         color: beige;
         height: 50px;
     }
+    #mormon{
+        color: brown;
+    }
     
     </style>
 </head>
@@ -59,11 +62,14 @@
     <div id="meny"> 
         <div id="selectWrap">
             Sentrale Trekk:<select id="sentraleTrekk">
+                <option>Velg...</option>
                 <option>Den mytiske dimensjonen</option>
-                <option>Joseph Smith</option>
                 <option>Mormons Bok</option>
+                <option>Joseph Smith</option>
                 <option>Jesus Kristus</option>
                 <option>Livet etter døden</option>
+                <option>Åpenbaring i vår tid</option>
+                <option>Konvensjonens struktur</option>
             </select>
         </div>
         
@@ -76,39 +82,89 @@
     <script>
         let sentraleTrekkSel = document.getElementById("sentraleTrekk")
         let content = document.getElementById("content")
-        function byttHTML(e){
-            content.innerHTML = pages[e.target.id][e.target.selectedIndex]
+        let firstTimeSel = true
+        function byttHTML(){
+            if(firstTimeSel){
+                let index = sentraleTrekkSel.selectedIndex-1
+                content.innerHTML = sentraleTrekk[index]
+                sentraleTrekkSel.innerHTML = `
+                <option>Den mytiske dimensjonen</option>
+                <option>Mormons Bok</option>
+                <option>Joseph Smith</option>
+                <option>Jesus Kristus</option>
+                <option>Livet etter døden</option>
+                <option>Åpenbaring i vår tid</option>
+                <option>Konvensjonens struktur</option>`
+                sentraleTrekkSel.selectedIndex = index
+                firstTimeSel = false
+                if(index == 0 || index == 2){
+                    let mormonLink = document.getElementById("mormon")
+                    mormonLink.addEventListener("click", ()=>{
+                        sentraleTrekkSel.selectedIndex = 1
+                        byttHTML()
+                    })
+                }
+            }
+            else{
+                let index = sentraleTrekkSel.selectedIndex
+                content.innerHTML = sentraleTrekk[index]
+                if(index == 0 || index == 2){
+                    let mormonLink = document.getElementById("mormon")
+                    mormonLink.addEventListener("click", ()=>{
+                        sentraleTrekkSel.selectedIndex = 1
+                        byttHTML()
+                    })
+                }
+            }
         }
         sentraleTrekkSel.addEventListener("change", byttHTML)
 
-        let pages = {
             
-            sentraleTrekk: [
+        let sentraleTrekk = [
+            
+              
                 `
-                Fortellingsdimensjonen er viktig i Jesu Kristi Kirke av Siste Dagers Hellige. I tillegg til bibelens første og andre testament, har de 3 andre kanoniske standardverk. Disse er <a id="link1"> "Mormons bok"</a>, "Lære og pakter" og "Den kostelige perle". Læredimensjonen og den etiske dimensjonen er, i likhet med i Den Norske Kirke, veldig nært knyttet opp til fortellingsdimensjonen. Særlig er lære og pakters åpenbaringer viktig for den etiske dimensjonen.
+                Fortellingsdimensjonen er viktig i Jesu Kristi Kirke av Siste Dagers Hellige. I tillegg til bibelens første og andre testament, har de 3 andre kanoniske standardverk. Disse er <a id="mormon">"Mormons bok"</a>, "Lære og pakter" og "Den kostelige perle". Læredimensjonen og den etiske dimensjonen er, i likhet med i Den Norske Kirke, veldig nært knyttet opp til fortellingsdimensjonen. Særlig er lære og pakters åpenbaringer viktig for den etiske dimensjonen.
+
                 `
                 ,
-            //Joseph Smith
-            `
-            Jesu Kristi Kirke av Siste Dagers Hellige ser på seg selv som en gjenopprettelse av den originale kirken, grunnlagt av Jesus Kristus. Det var Joseph Smith som på 1800-tallet grunnla denne gjenopprettede kirken som et resultat av et søk etter den riktige kirken. Joseph Smith ba til Gud om å veilede han i valget om hvilken kirke han skulle følge. Som et svar på bønnen fikk han en åpenbaring der himmelske fader og Jesus Kristus viste seg for han, og han fikk beskjed om at han skulle starte sin egen kirke fordi de andre kirkene hadde beveget seg vekk fra sannheten. 3 år etter denne åpenbaringen ba Joseph Smith igjen, og fikk besøk av engelen Moroni som fortalte han at han skulle bringe fram en nedgravd opptegnelse. Deretter skulle han, gjennom Guds gave og kraft, oversette denne hellige skriften, inngravert i to gullplater. Dette er det vi kaller for Mormons bok, og den sies å være Guds ord. 
-            `, 
+            
             //Mormons bok
             `
-            (Under konstruksjon)
-            I Jesu Kristi Kirke av Siste Dagers Hellige står Mormons bok veldig sentralt i fortellingsdimensjonen. Den blir kalt et annet testament om Jesus Kristus, og ifølge Siste Dager Hellige er den nettopp det: Et testament som komplementerer bibelens første og andre testament, og styrker troverdigheten. Bibelen og Mormons bok vitner om den samme sannheten, men fra ulike perspektiver. Siste Dagers Hellige hevder at sammen viser de et mer helhetlig bilde av sannheten. De hevder at Mormons bok er Guds sanne ord, mens bibelen kun er sann så vidt den er riktig oversatt.
+            I Jesu Kristi Kirke av Siste Dagers Hellige står Mormons bok veldig sentralt i fortellingsdimensjonen. Den blir kalt et annet testament om Jesus Kristus, og ifølge Siste Dagers Hellige er den nettopp det: Et testament som komplementerer bibelens første og andre testament, og dermed styrker troverdigheten. Bibelen og Mormons bok vitner om den samme sannheten, men fra ulike perspektiver. Siste Dagers Hellige hevder at sammen viser de et mer helhetlig bilde av sannheten, men at bibelen kun er sann så vidt den er riktig oversatt. Mormons bok derimot, hevdes å være Guds sanne ord.
             <br><br>
-            Mormons bok tar for seg historier om folkeslaget som kom til det Amerikanske kontinentet fra Jerusalem rundt år 600 før Kristus. Gjennom ulike historier følger man dette folkeslaget gjennom generasjoner i omtrent 1000år, og får innblikk i deres oppturer og nedturer. I perioder lever de etter evangeliet, og i perioder ikke. Folket splittes i to grupper, og det oppstår deretter strid mellom gruppene. Etter Jesu oppstandelse besøkte han dette folket, underviste dem, opprettet sin kirke og gav de myndighet. Etter besøket lever gruppene i fred med hverandre i et par hundre år, men etter hvert skyver de religionen til side og begge gruppene blir igjen ganske krigerske. Det ender med folkemord, der den ene gruppen utraderer den andre. Til slutt avslutter siste gjenlevende fra denne gruppen opptegnelsen og begraver den i jorden. 
+            Mormons bok tar for seg historier om folkeslaget som kom til det Amerikanske kontinentet fra Jerusalem rundt år 600 før Kristus. Gjennom ulike historier følger man dette folkeslaget gjennom generasjoner i omtrent 1000år, og får innblikk i deres oppturer og nedturer. I perioder lever de etter evangeliet, og i perioder ikke. Folket splittes i to grupper, og det oppstår deretter strid mellom gruppene. Etter Jesu oppstandelse besøker han dette folket. Han underviser dem, oppretter sin kirke og gir de myndighet. Etter besøket lever gruppene i fred med hverandre i et par hundre år, men etter hvert skyver de religionen til side og begge gruppene blir igjen ganske krigerske. Det ender med folkemord, der den ene gruppen utraderer den andre. Til slutt avslutter en av de siste gjenlevende fra denne gruppen, Moroni,  opptegnelsen og begraver den i jorden, for senere å lede Joseph Smith til den.
+
             `, 
+
+            //Joseph Smith
+            `
+            Jesu Kristi Kirke av Siste Dagers Hellige ser på seg selv som en gjenopprettelse av den originale kirken, grunnlagt av Jesus Kristus. Det var Joseph Smith som på 1800-tallet grunnla denne gjenopprettede kirken som et resultat av et søk etter den riktige kirken. Joseph Smith ba til Gud om å veilede han i valget om hvilken kirke han skulle følge. Som et svar på bønnen fikk han en åpenbaring der himmelske fader og Jesus Kristus viste seg for han, og han fikk beskjed om at han skulle starte sin egen kirke fordi de andre kirkene hadde beveget seg vekk fra sannheten. 3 år etter denne åpenbaringen ba Joseph Smith igjen, og fikk besøk av engelen Moroni som fortalte han at han skulle bringe fram en nedgravd opptegnelse. Deretter skulle han, gjennom Guds gave og kraft, oversette denne hellige skriften, inngravert i to gullplater. Denne skriften, som på mirakuløst vis ble oversatt, ble utgitt som <a id="mormon">"Mormons bok"</a>, og den sies å være Guds ord. Så sant historien om Joseph Smith er sann, tror Siste Dagers Hellige at alt som står i Mormons bok er sann.
+
+            `, 
+
             //Jesu Kristi plass i troen
-            `I likhet med i den Lutherske-protestantiske kirke står Jesus Kristus står veldig sentralt i troen, og individets forhold til han vektlegges. Den ganske konservative kirken tolker alt Jesus sa og gjorde veldig bokstavelig, og tror at gjennom hans forsoning, gav han alle mennesker en sjanse til å oppnå frelse. Medlemmene i kirken strever derfor også etter å gjøre som Jesus, og være lik ham, i den grad det lar seg gjøre. For å vise seg lydige mot himmelske fars bud, må man leve gode liv, og først da kan man oppnå frelsen og bli kvitt sine synder. 
+            `I likhet med i den Lutherske-protestantiske kirke står Jesus Kristus står veldig sentralt i troen, og individets forhold til han vektlegges. Den troendes opplevelser, altså opplevelsesdimensjonen, er dermed ganske viktig. Den ganske konservative kirken tolker alt Jesus sa og gjorde veldig bokstavelig, mens den Den Norske Kirke er litt mindre bokstavelige i tolkningen når det gjelder visse tema, som for eksempel homofili. De troende tror at gjennom Jesus Kristi forsoning, gav han alle mennesker en sjanse til å oppnå frelse. Medlemmene i kirken strever derfor også etter å gjøre som Jesus, og være lik ham, i den grad det lar seg gjøre. De prøver altså å leve etter hans etiske rettesnor. For å vise seg lydige mot himmelske fars bud, må man nemlig leve gode liv, og først da kan man oppnå frelsen og bli kvitt sine synder. 
+
             `,
             //Livet etter døden
-            `Ifølge Kjetil, er døden en adskillelse av kropp og ånd, der ånden lever videre i et sted man kan kalle "åndeverdenen". Der vil vi møte alle de som har dødd før oss, familie og venner. Når Kristus vender tilbake vil ånden igjen bli gjenforent med vår fysiske kropp, en gjenoppstått og perfekt kropp, gjort mulig gjennom Jesu Kristi forsoning. Vi vil motta en herlighetsgrad basert hvordan vi har levd livet på jorda, basert på våre forutsetninger. Deretter vil man for evig leve i himmelske fars nærvær, og sammen med sine familier i det celestiale riket.
+            `Ifølge Kjetil, er døden en adskillelse av kropp og ånd, der ånden lever videre i et stadium man kan kalle "åndeverdenen". Der vil vi møte alle de som har dødd før oss, familie og venner. Når Jesus vender tilbake, vil ånden igjen bli gjenforent med vår fysiske kropp, en gjenoppstått og perfekt kropp, gjort mulig gjennom Jesu Kristi forsoning. Vi vil motta en herlighetsgrad basert hvordan vi har levd livet på jorda, men tatt i betraktning våre forutsetninger. De tror altså at frelsen er gradert. Deretter vil de troende for evig leve i himmelske fars nærvær i det celestiale riket.
+            <br><br>
+            På samme måte tror Siste Dagers Hellige at vi levde som himmelske fars åndebarn før vår tid her på jorda. Dette var noe som ble uttalt av Joseph Smith i 1840-årene. Herfra ble vi sendt til jorda og fikk en fysisk kropp og slettet hukommelse, der vi skulle bli testet i vår tro. På jorda skulle vi også lære forskjellen på godt og ondt. Dette er himmelske fars plan, ofte omtalt "Plan of salvation". Planen er designet slik at flest mulig av hans åndebarn skulle kunne oppnå framgang mot fullstendig herlighet. Hvem som helst kan oppnå denne frelsen, men man må selv velge å ta imot Jesus Kristus og hans frelse og forsoning.
 
-            <br>
-            På samme måte tror de at vi levde som himmelske fars åndebarn før vår tid her på jorda. Dette var noe som ble uttalt av Joseph Smith i 1840-årene. Herfra ble vi sendt til jorda og fikk en fysisk kropp og slettet hukommelse, der vi skulle bli testet i vår tro. Dette er himmelske fars plan, ofte omtalt "Plan of salvation". Planen er designet slik at flest mulig av hans åndebarn skulle kunne oppnå framgang mot fullstendig herlighet. 
-            `]
-        }
+            `, 
+            //åpenbaring i vår tid
+            `
+            Siste Dagers Hellige ser på kirkens øverste ledere som Joseph Smith og kirkens etterfølgende presidenter som Guds profeter og apostler i vår tid. Disse blir likestilt med Moses, Abraham, Jesaja og Jesu disipler. Med disse profetene i vår tid kommer fortsatt åpenbaringer og nye skrifter, for eksempel Mormons bok eller mindre bidrag fra kirkens presidenter. Dette er noe vi ikke finner igjen i Den Norske Kirke.
+            `,
+            //Religiøs struktur
+            `
+            Jesu Kristi Kirke av Siste Dagers Hellige har en unik struktur på sitt religiøse hierarki. Øverst er som Kjetil sier Herren selv. Men av vanlige syndige, er det øverste embete holdt av presidenten av kirken – Russel Nelson. Han har to rådgivere, og sammen utgjør de det første presidentskap. Under presidentskapet er de tolv apostlers forum, som består av tolv apostler, slik som i bibelen. Rundt de tolv apostlers forum er det diverse mindre presidentskap, med ansvar for egne områder, blant annet primære osv. Under disse, er de sytti, som er et begrep fra bibelen. Noen sytti har ansvar for egne deler av Europa, som kirken har delt i forskjellige områder. På nasjonalt nivå, har man det som kalles staver. Dette er igjen et bibelsk begrep, som kommer fra Jessaja 33:20-21, der Sion beskrives som et telt, som holdes oppe som teltpæler, eller staver. For eksempel tilhører Fredrikstad, Moss og Oslo menighet til under Oslo Stav. Stav kan da sammenlignes med bispedømmet i den norske kirke, hvor Norge er inndelt i elleve bispedømmer. Helt underst er da de enkelte menighetene. I tillegg har de siste dagers hellige egne presidentskap for templene sine – tempelpresidentskap. 
+            <br><br>
+            Det blir knotete å sammenligne den generelle strukturen av Jesu Kristi Kirke av Siste Dagers Hellige med strukturen til den norske kirke, siden den ene kirken er internasjonal, mens den andre er nasjonal. Et klart likhetstrekk man likevel kan trekke, er de tolv apostlers forum, som baserer seg på bibelens tolv apostler. Det er også tolv biskoper, slik som de tolv apostlene i bibelen. 
+            `
+            ]
+        
 
 
     </script>
