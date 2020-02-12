@@ -14,20 +14,7 @@
         justify-content: space-evenly;
         background-color: beige;
     }
-    #snurr{
-        background-color: darkred;
-        width: 200px;
-        height: 50px;
-        position: absolute;
-        top: 40vh;
-        left: 40vw;
-        transform-origin: center;
-        transition: 4s linear;
-    }
-    #snurr:hover{
-        transform: rotate(720deg);
-        background-color: blue;
-    }
+    
 
     #selectWrap{
         display: flex;
@@ -42,7 +29,7 @@
         width: 600px;
         text-align: left;
     }
-    #sentraleTrekk{
+    select{
         appearance: none;
 
         background-color: grey;
@@ -59,6 +46,7 @@
     <div id="meny"> 
         <div id="selectWrap">
             Sentrale Trekk:<select id="sentraleTrekk">
+                <option>Velg...</option>
                 <option>Joseph Smith</option>
                 <option>Mormons Bok</option>
                 <option>Jesus Kristus</option>
@@ -66,19 +54,53 @@
             </select>
         </div>
         
-        <p>Nummer 2</p>
-        <p>Hei</p>
-        <p>Kan legge til enda en</p>
+        <div id="selectWrap">
+            Ritualer og Estetikk:<select id="ritualer">
+                <option>Velg...</option>
+                <option>....</option>
+                <option>....</option>
+                <option>....</option>
+                <option>....</option>
+            </select>
+        </div>
+
+        <div id="selectWrap">
+            Kjønnsroller:<select id="kjonnsRoller">
+                <option>Velg...</option>
+                <option>...</option>
+                <option>...</option>
+                <option>...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div id="selectWrap">
+            Syn på andre religioner:<select id="andreRel">
+                <option>Velg...</option>
+                <option>...</option>
+                <option>...</option>
+                <option>...</option>
+                <option>...</option>
+            </select>
+        </div>
     </div>
     <div id="content"></div>
     
     <script>
-        let sentraleTrekkSel = document.getElementById("sentraleTrekk")
+        let selects = document.querySelectorAll("select")
         let content = document.getElementById("content")
         function byttHTML(e){
-            content.innerHTML = pages[e.target.id][e.target.selectedIndex]
+            content.innerHTML = pages[e.target.id][e.target.selectedIndex-1]
+            for(let i = 0; i < selects.length; i++){
+                if(selects[i]!=e.target){
+                    selects[i].selectedIndex = 0
+                }
         }
-        sentraleTrekkSel.addEventListener("change", byttHTML)
+        }
+
+        for(let i = 0; i < selects.length; i++){
+            selects[i].addEventListener("change", byttHTML)
+        }
+        
 
         let pages = {
             
@@ -102,7 +124,19 @@
 
             <br>
             På samme måte tror de at vi levde som himmelske fars åndebarn før vår tid her på jorda. Dette var noe som ble uttalt av Joseph Smith i 1840-årene. Herfra ble vi sendt til jorda og fikk en fysisk kropp og slettet hukommelse, der vi skulle bli testet i vår tro. Dette er himmelske fars plan, ofte omtalt "Plan of salvation". Planen er designet slik at flest mulig av hans åndebarn skulle kunne oppnå framgang mot fullstendig herlighet. 
-            `]
+            `],
+
+            ritualer: [
+                "Heihei", "Dette er en test"
+            ],
+
+            kjonnsRoller:[
+                "Kjonnsroller"
+            ],
+
+            andreRel: [
+                "her skal det stå noe om synet på andre religioner"
+            ]
         }
 
 
