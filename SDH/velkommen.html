@@ -25,14 +25,15 @@
     #content{
         display: flex;
         flex-direction: row;
-        align-items: center;
+        text-align: center;
+        margin: 0 10% 0 10%;
     }
 
     #text{
         font-size: 14px;
         line-height: 200%;
         
-        margin: 100px 0 0 200px;
+        margin: 100px 0 100px 200px;
         width: 50%;
         text-align: left;
     }
@@ -49,8 +50,28 @@
     #p{
         cursor:pointer;
     }
+    img{
+        width: 30vw;
+        margin-left: 50px;
+        margin-top: 100px;
+    }
+
+    img[id="mindre"]{
+        width: 15vw;
+        margin-bottom: 0px;
+        margin-top: 50px;
+    }
+
     img[src="latterday.png"]{
+        margin: 0;
         width: 20%;
+    }
+    #bilder{
+        padding: 0;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
     
     </style>
@@ -65,7 +86,6 @@
         <p id="p">Den estetiske dimensjon</p>
         <p id="p">Kjønnsroller</p>
         <p id="p">Syn på andre religioner</p>
-        <p id="p">En søndag i kirken</p>
     </div>
     <div id="content">
         <div id="text"></div>
@@ -77,36 +97,41 @@
         let bilderEl = document.getElementById("bilder")
         let elems = document.querySelectorAll("div[id='meny'] p")
         let logo = document.querySelector("img[src='latterday.png']")
+
+
         //særtrekk
         elems[0].addEventListener("click", ()=>{
             textEl.innerHTML = særtrekkText
-        })
-        //søndag i kirken
-        elems[5].addEventListener("click", ()=>{
-            textEl.innerHTML = sondag
+            bilderEl.innerHTML = '<img src="mormonsbok.jpg"><img src="joseph.jpg"><img src="estetikk4.png"><img src="russel.jpg">'
         })
         //rituelle dimensjon
         elems[1].addEventListener("click", ()=>{
             textEl.innerHTML = rituelle
+            bilderEl.innerHTML = "<img src='basseng.png'><img src='dåp.jpg'><img src='tempel.jpg'>"
         })
         //estetiske dimensjon
         elems[2].addEventListener("click", ()=>{
             textEl.innerHTML = estetiske
+            bilderEl.innerHTML = "<img src='estetikk1.png'id='mindre'><img src='estetikk2.png'id='mindre'><img src='estetikk3.png'id='mindre'><img src='estetikk4.png'id='mindre'>"
         })
+        //kjønssroller
+        elems[3].addEventListener("click", ()=>{
+            textEl.innerHTML = kjonnsroller
+            bilderEl.innerHTML = ""
+        })
+        //syn på andre religioner
         elems[4].addEventListener("click", ()=>{
             textEl.innerHTML = andrerel
         })
-        elems[3].addEventListener("click", ()=>{
-            textEl.innerHTML = kjonnsroller
-        })
         function forside(){
-            textEl.innerHTML = velkommen
+            textEl.innerHTML = velkommen+sondag
+            bilderEl.innerHTML = "<img src='forside.png'><img src='salen.png'>"
         }
         logo.addEventListener("click", forside)
         
         let velkommen = `
         <p id="storbokstav">Velkommen til denne informasjonssiden om Jesu Kristi Kirke av Siste Dagers Hellige. Artiklene du kan lese her er basert på intervjuer med biskop Kjetil "etternavn" og Cecilie Lundgren fra den lokale menigheten i Fredrikstad, samt kirkens egen hjemmeside og andre eksterne kilder. For å navigere nettsiden kan du velge mellom forskjellige artikler på toppen av siden. Alt materiell er produsert av Jørgen Sandhaug, Brage Minge, Ola Dahl og Halvor Linder. </p>`
-        forside()
+        
         let kjonnsroller = `
         <h1>Kjønnsroller og familie</h1>
 <br>
@@ -169,7 +194,7 @@ I selve kirkerommet, der gudstjenesten tok sted, var det mer enkelt og nakent. D
 Når det kommer til hvordan medlemmene er kledd, i forhold til den norske kirke, er det en del forskjeller. Det relativt liten diskrepans mellom medlemmer på et søndagsbesøk i den norske kirke og i Jesu Kristi Kirke av Siste Dagers Hellige. Man er gjerne litt mer anstendig kledd i et søndagsmøte hos SDH – selve seremonien og nattverden regnes kanskje som litt mer ærbødig enn i den norske kirke. Prestene og biskopene i SDH er som sagt tidligere vanlige, ordinerte medlemmer av menighetene, og går (hvertfall i menigheten vi besøkte) like pent kledd som de andre medlemmene. Dette står i kontrast med den norske kirkes mer tradisjonelle prestebekledning, med liturgiske plagg som albaen og stolaen. 
   <br><br>
 <h3>Kilder:</h3>
- https://www.churchofjesuschrist.org/study/liahona/2010/06/renewing-covenants-through-the-sacrament?lang=nor
+- <a href="https://kirken.no/nb-NO/om-kirken/">Kirken</a><br>
 `
 
 
@@ -208,14 +233,21 @@ Menn har disse fem hellige, frelsende ordinansene, mens kvinner har fire. Dette 
 Nattverden regnes ikke som en av de fem frelsende ordinanser, men har en sentral rolle i gudstjenestene i Jesu Kristi Kirke av Siste Dagers Hellige. Når man deltar i nattverden fornyer man paktene man inngikk ved dåpen. Den foregår i stor grad slik som den i den norske kirke, med et par unntak:
 Den kan utføres av barn som har blitt ordinert til det aronske prestedømmet. Når vi deltok i en seanse i de siste dagers helliges menighet i Fredrikstad, var det yngre som utførte utdelingen av nattverden. 
 En mer bokstavelig tolkning av bibelens nattverd i det at det utdeles brød og vann, i stedet for oblat og vin/saft.
- <br>
+ <br><br>
+
+<h2>Kilder:</h2>
+- <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fnorcalpublicmedia.org%2Fkrcb-news-feed%2Fmormon-temple-in-oakland-open-to-public-for-limited-time&psig=AOvVaw33loOcQ39sdOq7_gHDlm8z&ust=1581625461309000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJCpqIntzOcCFQAAAAAdAAAAABAD">Tempelbilde</a><br>
+- <a href="https://i.pinimg.com/originals/6d/d7/34/6dd734196c30266fdf6fdf422fb3b4c1.jpg">Dåp</a><br>
+- <a href="https://www.churchofjesuschrist.org/study/liahona/2010/06/renewing-covenants-through-the-sacrament?lang=nor">Nadverd</a><br>
+- <a href="https://kirken.no/nb-NO/om-kirken/">Kirken</a><br>
 `
 
         let sondag = `
+        <br><br>
         <h1>En søndag i kirken</h1>
         <br>
-        Gudstjenesten i Jesu Kristi Kirke av Siste Dagers Hellige er ikke like mye preget av tekstlesning som i den norske kirke, her var det mer fokus på tale fra personer i menigheten, og nattverd. Nattverden gjennomføres hver gudstjeneste, hvor det som oftest er misjonærene som bærer ut vann og brød til menigheten. Den første gudstjenesten i måneden er det også mulig for deltagere på gudstjenesten å bære frem sitt vitnesbyrd, og dette var den gudstjenesten vi var med på. Så den første halvtimen snakket Kjetil i noen minutter og åpnet gudstjenesten, før det ble sunget to salmer fra De Siste Dagers Helliges egne salmebok, så snakket Cecilie i noen minutter. Deretter var det en åpen halvtime hvor resten av menigheten snakket. Da fikk vi blant annet høre fra en som ble døpt for rundt 100 dager siden, men som sa at han bare ble mer og mer glad i kirken for hver dag som gikk, og fra en enke fra Kenya som hadde mistet mannen sin for 30 år siden, men som fant trøst i kirken. Etter at flere hadde snakket, blant annet de som passer på misjonærene(misjonslederene), ble det igjen sunget en salme, før gudstjenesten ble avsluttet og deltagerne gikk videre til time to, hvor det foregikk litt forskjellige aktiviteter avhengig av aldersgrupper. 
-        <br><br>
+        Gudstjenesten i Jesu Kristi Kirke av Siste Dagers Hellige er ikke like liturgisk som i den norske kirke, her var det mer fokus på tale fra personer i menigheten, og nattverd. Nattverden gjennomføres hver gudstjeneste, hvor det som oftest er misjonærene som bærer ut vann og brød til menigheten. Den første gudstjenesten i måneden er det også mulig for deltagere på gudstjenesten å bære frem sitt vitnesbyrd, og dette var den gudstjenesten vi var med på. Så den første halvtimen snakket Kjetil i noen minutter og åpnet gudstjenesten, før det ble sunget to salmer fra De Siste Dagers Helliges egne salmebok, så snakket Cecilie i noen minutter. Deretter var det en åpen halvtime hvor resten av menigheten snakket. Da fikk vi blant annet høre fra en som ble døpt for rundt 100 dager siden, men som sa at han bare ble mer og mer glad i kirken for hver dag som gikk, og fra en enke fra Kenya som hadde mistet mannen sin for 30 år siden, men som fant trøst i kirken. Etter at flere hadde snakket, blant annet de som passer på misjonærene, ble det igjen sunget en salme, før gudstjenesten ble avsluttet og deltagerne gikk videre til time to, hvor det foregikk litt forskjellige aktiviteter avhengig av aldersgrupper. 
+<br><br>
 De aller minste samles i et rom nede hvor de kan leke og ha det gøy, og når de blir litt eldre prøver man å lære dem litt om noen tekster. Når de blir enda eldre er det etter hvert mer og mer fokus på lære og læredimensjonen, samtidig som man også får oppleve den sosiale dimensjonen til De Siste Dagers Hellige. Dette fordi man har en form for søndagsskole for de voksne, hvor det snakkes, diskuteres og erfaringer deles. Her går det på rundgang hvilken skriftsamling som det undervises i, hvor man veksler mellom Lære og pakter, Bibelen og Mormons bok.`
 
 
@@ -282,10 +314,13 @@ Det blir knotete å sammenligne den generelle strukturen av Jesu Kristi Kirke av
 	- <a href="https://en.wikipedia.org/wiki/Degrees_of_glory">Degrees_of_glory</a><br>
 	- <a href="https://www.bible.com/no/bible/102/ISA.33.20-21.NB ">Bible.com</a><br>
 	- <a href="https://no.wikipedia.org/wiki/Den_norske_kirke#Nasjonalt_niv%C3%A5 ">Den Norske Kirke</a><br>
+	- <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.amazon.com%2FMormons-Bok-Norwegian-Book-Mormon%2Fdp%2F8270843075&psig=AOvVaw1o4ladwdUWUFIRdcTgCqsb&ust=1581626053046000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJCMxcXuzOcCFQAAAAAdAAAAABAD">Mormons bok(bilde)</a><br>
+	- <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fno.wikipedia.org%2Fwiki%2FJoseph_Smith&psig=AOvVaw1-TMX434liEVqoKvGt07ee&ust=1581626163623000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLCC2N_uzOcCFQAAAAAdAAAAABAD">Joseph Smith(bilde)</a><br>
+	- <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.churchofjesuschrist.org%2Fchurch%2Fleader%2Frussell-m-nelson%3Flang%3Deng&psig=AOvVaw2heoMoRB9qY5-kaxNIqs3a&ust=1581626360394000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNjS_MHvzOcCFQAAAAAdAAAAABAD">President Nelson(bilde)</a><br>
 
         `
         
-
+        forside()
     </script>
 
 
