@@ -84,8 +84,12 @@
         elems[3].addEventListener("click", ()=>{
             textEl.innerHTML = kjonnsroller
         })
+        function forside(){
+            textEl.innerHTML = velkommen
+        forside()
 
-
+        let velkommen = `
+        <p id="storbokstav">Velkommen til denne informasjonssiden om Jesu Kristi Kirke av Siste Dagers Hellige. Artiklene du kan lese her er basert på intervjuer med biskop Kjetil "etternavn" og Cecilie Lundgren fra den lokale menigheten i Fredrikstad, samt kirkens egen hjemmeside og andre eksterne kilder. For å navigere nettsiden kan du velge mellom forskjellige artikler på toppen av siden. Alt materiell er produsert av Jørgen Sandhaug, Brage Minge, Ola Dahl og Halvor Linder. </p>`
         let kjonnsroller = `
         <h1>Kjønnsroller og familie</h1>
 <br>
@@ -109,9 +113,9 @@ Hovedforskjellen mellom Den Norske Kirke og Jesu Kristi Kirke av Siste Dagers He
 <br><br>
 
 <h3>Kilder:</h3>
-	- <a href="https://www.churchofjesuschrist.org/bc/content/shared/content/norwegian/pdf/language-materials/31180_nor.pdf?lang=nor"></a>
-	- <a href="https://snl.no/prest"></a>
-<a href="https://kirken.no/nb-NO/om-kirken/diakoni-og-samfunnsansvar/homofile-kirken/"></a>`
+	- <a href="https://www.churchofjesuschrist.org/bc/content/shared/content/norwegian/pdf/language-materials/31180_nor.pdf?lang=nor">Familien</a><br>
+	- <a href="https://snl.no/prest">Prest</a><br>
+- <a href="https://kirken.no/nb-NO/om-kirken/diakoni-og-samfunnsansvar/homofile-kirken/">Homofile i kirken</a>`
 
 
         let andrerel = `
@@ -134,8 +138,8 @@ I den norske kirke er det satt i gang et omfattende økumenisk arbeid, men de sa
 <br><br>
 
 <h3>Kilder:</h3>
-	- <a href="https://kirken.no/globalassets/kirken.no/om-kirken/slik-styres-kirken/kirkeradet/2015/desember/kr_6_0_15_religionsmoete_dialog.pdf">Kirken.no</a>
-<a href="https://polopoly.prod.mm.cloud.atex.com/preview/2.599/2.632/1.46041">Vårt Land</a>`
+	- <a href="https://kirken.no/globalassets/kirken.no/om-kirken/slik-styres-kirken/kirkeradet/2015/desember/kr_6_0_15_religionsmoete_dialog.pdf">Kirken.no</a><br>
+- <a href="https://polopoly.prod.mm.cloud.atex.com/preview/2.599/2.632/1.46041">Vårt Land</a>`
 
 
         let estetiske = `<h1>DEN ESTETISKE DIMENSJONEN</h1>
@@ -191,6 +195,8 @@ En mer bokstavelig tolkning av bibelens nattverd i det at det utdeles brød og v
 `
 
         let sondag = `
+        <h1>En søndag i kirken</h1>
+        <br>
         Gudstjenesten i Jesu Kristi Kirke av Siste Dagers Hellige er ikke like mye preget av tekstlesning som i den norske kirke, her var det mer fokus på tale fra personer i menigheten, og nattverd. Nattverden gjennomføres hver gudstjeneste, hvor det som oftest er misjonærene som bærer ut vann og brød til menigheten. Den første gudstjenesten i måneden er det også mulig for deltagere på gudstjenesten å bære frem sitt vitnesbyrd, og dette var den gudstjenesten vi var med på. Så den første halvtimen snakket Kjetil i noen minutter og åpnet gudstjenesten, før det ble sunget to salmer fra De Siste Dagers Helliges egne salmebok, så snakket Cecilie i noen minutter. Deretter var det en åpen halvtime hvor resten av menigheten snakket. Da fikk vi blant annet høre fra en som ble døpt for rundt 100 dager siden, men som sa at han bare ble mer og mer glad i kirken for hver dag som gikk, og fra en enke fra Kenya som hadde mistet mannen sin for 30 år siden, men som fant trøst i kirken. Etter at flere hadde snakket, blant annet de som passer på misjonærene(misjonslederene), ble det igjen sunget en salme, før gudstjenesten ble avsluttet og deltagerne gikk videre til time to, hvor det foregikk litt forskjellige aktiviteter avhengig av aldersgrupper. 
         <br><br>
 De aller minste samles i et rom nede hvor de kan leke og ha det gøy, og når de blir litt eldre prøver man å lære dem litt om noen tekster. Når de blir enda eldre er det etter hvert mer og mer fokus på lære og læredimensjonen, samtidig som man også får oppleve den sosiale dimensjonen til De Siste Dagers Hellige. Dette fordi man har en form for søndagsskole for de voksne, hvor det snakkes, diskuteres og erfaringer deles. Her går det på rundgang hvilken skriftsamling som det undervises i, hvor man veksler mellom Lære og pakter, Bibelen og Mormons bok.`
@@ -200,7 +206,9 @@ De aller minste samles i et rom nede hvor de kan leke og ha det gøy, og når de
 
         let særtrekkText = 
         `
-        Fortellingsdimensjonen er viktig i Jesu Kristi Kirke av Siste Dagers Hellige. I tillegg til bibelens første og andre testament, har de 3 andre kanoniske standardverk. Disse er "Mormons bok", "Lære og pakter" og "Den kostelige perle". Læredimensjonen og den etiske dimensjonen er, i likhet med i Den Norske Kirke, veldig nært knyttet opp til fortellingsdimensjonen. Særlig er lære og pakters åpenbaringer viktig for den etiske dimensjonen.
+        <h1>Særtrekk for konvensjonen</h1>
+        <br>
+        Fortellingsdimensjonen er viktig i Jesu Kristi Kirke av Siste Dagers Hellige. I tillegg til bibelens første og andre testament, har de 3 andre kanoniske standardverk. Disse er "Mormons bok", "Lære og pakter" og "Den kostelige perle". Læredimensjonen og den etiske dimensjonen er, i likhet med i Den Norske Kirke, veldig nært knyttet opp til fortellingsdimensjonen. Særlig er lære og pakters åpenbaringer viktig kirkens etikk og normer.
 
 <br><br>
 <h2>Mormons Bok</h2>
