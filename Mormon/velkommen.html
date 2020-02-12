@@ -7,6 +7,9 @@
     <title>Document</title>
     <style>
     @import url('https://fonts.googleapis.com/css?family=PT+Serif&display=swap');
+    *{
+        font-family: 'PT Serif', serif;
+    }
     body{
         text-align: center;
     }
@@ -15,6 +18,8 @@
         display: flex;
         justify-content: space-evenly;
         background-color: beige;
+        border-radius: 4px;
+        margin: 0 10% 0 10%;
     }
     
     #content{
@@ -26,32 +31,34 @@
     #text{
         font-size: 14px;
         line-height: 200%;
-        font-family: 'PT Serif', serif;
+        
         margin: 100px 0 0 200px;
         width: 50%;
         text-align: left;
     }
     
-    .stor{
-        font-size: 18px;
-        font-weight: 600;
-    }
 
-    /* #storbokstav::first-letter{
-        font-size: 25px;
+    #storbokstav::first-letter{
+        font-size: 4em;
         font-weight: 700;
         font-family: serif;
-    } */
+    }
+    #storbokstav{
+        font-size: 20px;
+    }
     #p{
         cursor:pointer;
+    }
+    img[src="latterday.png"]{
+        width: 20%;
     }
     
     </style>
 </head>
 <body>
 
-    <h1>Jesu Kristi Kirke av Siste Dagers Hellige</h1>
-
+    <!-- <h1 id="overskrift">JESU KRISTI KIRKE AV SISTE DAGERS HELLIGE</h1> -->
+    <img src="latterday.png" id="p">
     <div id="meny">
         <p id="p">Særtrekk</p>
         <p id="p">Den rituelle dimensjon</p>
@@ -69,7 +76,7 @@
         let textEl = document.getElementById("text")
         let bilderEl = document.getElementById("bilder")
         let elems = document.querySelectorAll("div[id='meny'] p")
-
+        let logo = document.querySelector("img[src='latterday.png']")
         //særtrekk
         elems[0].addEventListener("click", ()=>{
             textEl.innerHTML = særtrekkText
@@ -94,10 +101,12 @@
         })
         function forside(){
             textEl.innerHTML = velkommen
-        forside()
-
+        }
+        logo.addEventListener("click", forside)
+        
         let velkommen = `
         <p id="storbokstav">Velkommen til denne informasjonssiden om Jesu Kristi Kirke av Siste Dagers Hellige. Artiklene du kan lese her er basert på intervjuer med biskop Kjetil "etternavn" og Cecilie Lundgren fra den lokale menigheten i Fredrikstad, samt kirkens egen hjemmeside og andre eksterne kilder. For å navigere nettsiden kan du velge mellom forskjellige artikler på toppen av siden. Alt materiell er produsert av Jørgen Sandhaug, Brage Minge, Ola Dahl og Halvor Linder. </p>`
+        forside()
         let kjonnsroller = `
         <h1>Kjønnsroller og familie</h1>
 <br>
