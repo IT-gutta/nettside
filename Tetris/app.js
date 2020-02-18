@@ -229,20 +229,25 @@ window.addEventListener("keydown", function(e){
 
 let touchStartTime = undefined
 let touchStartX = undefined
+let touchStartY = undefined
 let swipe = true
 window.addEventListener("touchstart", (e)=>{
   touchStartX = e.touches[0].clientX
+  touchStartY = e.touches[0].clientY
   touchStartTime = elapsedTime
   swipe = true
 })
 window.addEventListener("touchend", (e)=>{
-  if(elapsedTime-touchStartTime < 1){
-    hardDrop()
-  }
+  // if(elapsedTime-touchStartTime < 1){
+  //   hardDrop()
+  // }
 })
 window.addEventListener("touchmove", (e)=>{
   let deltaX = touchStartX-e.touches[0].clientX
-   if(Math.abs(deltaX) > 100){
+  let deltaY = e.touches[0].clientY-touchStartY
+
+  if(deltaY > 200) hardDrop()
+  if(Math.abs(deltaX) > 100 && swipe){
      swipe = false
 
      if(deltaX > 0) move(-1)
