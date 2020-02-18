@@ -231,17 +231,17 @@ let touchStartTime = undefined
 let touchStartX = undefined
 let swipe = true
 window.addEventListener("touchstart", (e)=>{
-  touchStartX = e[0].clientX
+  touchStartX = e.touches[0].clientX
   touchStartTime = elapsedTime
   swipe = true
 })
 window.addEventListener("touchend", (e)=>{
-  if(elapsedTime-touchStartTime < 0.1){
+  if(elapsedTime-touchStartTime < 1){
     hardDrop()
   }
 })
 window.addEventListener("touchmove", (e)=>{
-  let deltaX = touchStartX-e[0].clientX
+  let deltaX = touchStartX-e.touches[0].clientX
    if(Math.abs(deltaX) > 100){
      swipe = false
 
