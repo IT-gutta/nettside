@@ -231,18 +231,21 @@ let touchStartTime = undefined
 let touchStartX = undefined
 let touchStartY = undefined
 let swipe = true
+let isMoving = false
 window.addEventListener("touchstart", (e)=>{
   touchStartX = e.touches[0].clientX
   touchStartY = e.touches[0].clientY
   touchStartTime = elapsedTime
   swipe = true
+  isMoving = false
 })
 window.addEventListener("touchend", (e)=>{
-  // if(elapsedTime-touchStartTime < 1){
-  //   hardDrop()
-  // }
+  if(!isMoving){
+    rotate(player.matrix)
+  }
 })
 window.addEventListener("touchmove", (e)=>{
+  isMoving = true
   let deltaX = touchStartX-e.touches[0].clientX
   let deltaY = e.touches[0].clientY-touchStartY
 
