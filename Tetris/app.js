@@ -22,7 +22,14 @@ music.addEventListener("end", ()=>{
 window.addEventListener("click", ()=>{
   music.play()
 })
+
 c.scale(25, 25);
+
+if(/Mobi|Android/i.test(navigator.userAgent)){
+  c.scale(50, 50)
+  canvas.width*=2
+  canvas.height*=2
+}
 
 const cols = 10;
 const rows = 24;
