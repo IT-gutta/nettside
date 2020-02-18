@@ -7,7 +7,7 @@ canvas.height = canvas.width*2.4;
 
 
 //prøver å disable scrolling på tlf
-window.blockMenuHeaderScroll = true
+// window.blockMenuHeaderScroll = true
 // const bodyEl = document.querySelector("body")
 let music = new Audio()
 music.src = "Sprut.mp3"
