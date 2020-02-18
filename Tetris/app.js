@@ -141,7 +141,6 @@ function background(){
 }
 
 createMatrix(randomMatrix());
-let testmatrix = player.matrix;
 let testy = player.y
 
 
@@ -149,8 +148,8 @@ function draw(){
   background();
   drawMatrix(arena, 0, 0)
   drawMatrix(player.matrix, player.x, player.y)
-  console.log(testmatrix, player.x, testy)
-  drawMatrix(testmatrix, player.x, testy)
+  // console.log(, player.x, testy)
+  drawMatrix(player.matrix, player.x, testy)
 }
 
 function drop(){
@@ -238,7 +237,7 @@ function doesCollide(matrix, arena, y){
   for(let y = 0; y<m.length; y++){
     for(let x=0; x<m[y].length; x++){
       if(m[y][x] !== 0 && (arena[y+oY] && arena[y+oY][x+oX]) !== 0){
-        return true; console.log("hei")
+        return true;
       }
     }
   }
@@ -251,7 +250,7 @@ function resetPlayer(){
   sweep(arena);
   createMatrix(randomMatrix());
   dropping = false;
-  testbool = false;
+  testbool = true;
   if(doesCollide(player.matrix, arena, player.y)){
     resetGame();
   }
@@ -267,8 +266,9 @@ function resetGame(){
 }
 
 function preview(){
+  testy = player.y
+  testbool = true
   let temp = JSON.parse(JSON.stringify(arena))
-  testmatrix = player.matrix
   while(testbool){
     testDrop()
   }
