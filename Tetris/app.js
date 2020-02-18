@@ -5,6 +5,20 @@ document.querySelector("body").appendChild(canvas);
 canvas.width = 250;
 canvas.height = canvas.width*2.4;
 
+// const bodyEl = document.querySelector("body")
+let music = new Audio()
+music.src = "Sprut.mp3"
+music.volume = 0.5
+
+music.addEventListener("end", ()=>{
+  music.pause()
+  music.currentTime = 0
+  music.play()
+})
+
+window.addEventListener("click", ()=>{
+  music.play()
+})
 c.scale(25, 25);
 
 const cols = 10;
@@ -122,7 +136,7 @@ function drawMatrix(matrix, offsetX, offsetY, colorOption){
 
 function updateScore(){
   if(score > highscore){highscore = score}
-    scoreEl.innerHTML = "Score: " +score + "         Highscore: " + highscore
+    scoreEl.innerHTML = `Score: ${score}<br><br>Highscore: ${highscore}`
 }
 updateScore()
 
