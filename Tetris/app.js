@@ -189,10 +189,11 @@ function testDrop(){
   }
 }
 
-
+let elapsedTime = 0
 let lastTime = 0;
 let dCount = 0;
 function animate(time = 0){
+  elapsedTime = time
   const deltaTime = time-lastTime;
   lastTime = time;
   dCount += deltaTime;
@@ -226,6 +227,29 @@ window.addEventListener("keydown", function(e){
   }
 })
 
+let touchStartTime = undefined
+let touchStartX = undefined
+let swipe = true
+window.addEventListener("touchstart", (e)=>{
+  touchStartX = e[0].clientX
+  touchStartTime = elapsedTime
+  swipe = true
+})
+window.addEventListener("touchend", (e)=>{
+  if(elapsedTime-touchStartTime < 0.1){
+    hardDrop()
+  }
+})
+window.addEventListener("touchmove", (e)=>{
+  let deltaX = touchStartX-e[0].clientX
+   if(Math.abs(deltaX) > 100){
+     swipe = false
+
+     if(deltaX > 0) move(-1)
+
+     else move(1)
+   }
+})
 function sweep(arena){
   let sweepCount = 0;
   outer:
