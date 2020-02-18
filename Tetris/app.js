@@ -230,14 +230,14 @@ window.addEventListener("keydown", function(e){
 let touchStartTime = undefined
 let touchStartX = undefined
 let touchStartY = undefined
-let swipeX = true
+let swipeX = 0
 let swipeY = true
 let isMoving = false
 window.addEventListener("touchstart", (e)=>{
   touchStartX = e.touches[0].clientX
   touchStartY = e.touches[0].clientY
   touchStartTime = elapsedTime
-  swipeX = true
+  swipeX = -1
   swipeY = true
   isMoving = false
 })
@@ -248,6 +248,7 @@ window.addEventListener("touchend", (e)=>{
 })
 window.addEventListener("touchmove", (e)=>{
   isMoving = true
+  swipeX++
   let deltaX = touchStartX-e.touches[0].clientX
   let deltaY = e.touches[0].clientY-touchStartY
 
@@ -255,9 +256,9 @@ window.addEventListener("touchmove", (e)=>{
     hardDrop()
     swipeY = false
   }
-  if(Math.abs(deltaX) > 40 && swipeX){
-     swipeX = false
-
+  if(Math.abs(deltaX) > 40){
+    touchStartX = e.touches[0].clientX
+    
      if(deltaX > 0) move(-1)
 
      else move(1)
