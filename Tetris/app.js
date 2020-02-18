@@ -105,12 +105,14 @@ function rotate(o){
 }
 
 
-function drawMatrix(matrix, offsetX, offsetY){
+function drawMatrix(matrix, offsetX, offsetY, colorOption){
   c.beginPath();
   c.fillStyle = matrix.color
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
       if(value!=0){
+        if(colorOption == "preview") c.globalAlpha = 0.4
+        else c.globalAlpha = 1
         c.fillStyle = colorArr[value-1]
         c.fillRect(x+offsetX, y+offsetY, 1, 1)
       }
@@ -147,9 +149,9 @@ let testy = player.y
 function draw(){
   background();
   drawMatrix(arena, 0, 0)
-  drawMatrix(player.matrix, player.x, player.y)
+  drawMatrix(player.matrix, player.x, player.y, "standard")
   // console.log(, player.x, testy)
-  drawMatrix(player.matrix, player.x, testy)
+  drawMatrix(player.matrix, player.x, testy, "preview")
 }
 
 function drop(){
