@@ -26,7 +26,7 @@ window.addEventListener("click", ()=>{
 c.scale(25, 25);
 
 if(/Mobi|Android/i.test(navigator.userAgent)){
-  c.scale(50, 50)
+  c.scale(2, 2)
   canvas.width*=2
   canvas.height*=2
 }
