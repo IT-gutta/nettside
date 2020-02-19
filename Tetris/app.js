@@ -253,6 +253,7 @@ let touchStartY = undefined
 let swipeY = true
 let isMoving = false
 window.addEventListener("touchstart", (e)=>{
+  e.preventDefault()
   touchStartX = e.touches[0].clientX
   touchStartY = e.touches[0].clientY
   touchStartTime = elapsedTime
@@ -261,6 +262,7 @@ window.addEventListener("touchstart", (e)=>{
   isMoving = false
 })
 window.addEventListener("touchend", (e)=>{
+  e.preventDefault()
   if(!isMoving){
     rotate(player.matrix)
     startMusic()
