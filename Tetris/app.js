@@ -18,10 +18,10 @@ music.addEventListener("end", ()=>{
   music.currentTime = 0
   music.play()
 })
-
-window.addEventListener("click", ()=>{
-  music.play()
-})
+function startMusic(){
+  if(music.currentTime == 0) music.play()
+}
+window.addEventListener("click", startMusic)
 
 c.scale(25, 25);
 let scale = 25
@@ -253,6 +253,7 @@ window.addEventListener("touchstart", (e)=>{
 window.addEventListener("touchend", (e)=>{
   if(!isMoving){
     rotate(player.matrix)
+    startMusic()
   }
 })
 window.addEventListener("touchmove", (e)=>{
