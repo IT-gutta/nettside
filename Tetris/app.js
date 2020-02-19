@@ -24,11 +24,13 @@ window.addEventListener("click", ()=>{
 })
 
 c.scale(25, 25);
+let scale = 25
 
 if(/Mobi|Android/i.test(navigator.userAgent)){
   c.scale(2, 2)
   canvas.width*=2
   canvas.height*=2
+  scale*=2
 }
 
 const cols = 10;
@@ -154,7 +156,7 @@ function background(){
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   c.strokeStyle = "white";
-  c.lineWidth = 1/25
+  c.lineWidth = 1/scale
   for(var i = 0; i <= cols; i++){
     c.moveTo(i, 0);
     c.lineTo(i, canvas.height)
