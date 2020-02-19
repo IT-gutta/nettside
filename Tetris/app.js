@@ -23,14 +23,16 @@ function startMusic(){
 }
 window.addEventListener("click", startMusic)
 
-c.scale(25, 25);
-let scale = 25
-
+let skalering
 if(/Mobi|Android/i.test(navigator.userAgent)){
-  c.scale(2, 2)
+  c.scale(50, 50)
   canvas.width*=2
   canvas.height*=2
-  scale*=2
+  skalering = 50
+}
+else{
+  c.scale(25, 25)
+  skalering = 25
 }
 
 const cols = 10;
@@ -156,7 +158,7 @@ function background(){
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   c.strokeStyle = "white";
-  c.lineWidth = 1/scale
+  c.lineWidth = 1/skalering
   for(var i = 0; i <= cols; i++){
     c.moveTo(i, 0);
     c.lineTo(i, canvas.height)
