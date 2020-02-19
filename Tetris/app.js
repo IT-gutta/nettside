@@ -25,13 +25,13 @@ window.addEventListener("click", startMusic)
 
 let skalering
 if(/Mobi|Android/i.test(navigator.userAgent)){
-  c.scale(50, 50)
+  // c.scale(50, 50)
   canvas.width*=2
   canvas.height*=2
   skalering = 50
 }
 else{
-  c.scale(25, 25)
+  // c.scale(25, 25)
   skalering = 25
 }
 
@@ -50,7 +50,7 @@ let colorArr = ["red", "orange", "purple", "blue", "lightgreen", "yellow", "pink
 
 let nameArr = ["T", "L", "J", "I", "Z", "S", "K"];
 let randomMatrix = () => nameArr[Math.floor(Math.random()*nameArr.length)]
-
+ 
 let arena;
 
 function createArena(){
@@ -139,10 +139,18 @@ function drawMatrix(matrix, offsetX, offsetY, colorOption){
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
       if(value!=0){
+        c.beginPath()
         if(colorOption == "preview") c.globalAlpha = 0.4
         else c.globalAlpha = 1
         c.fillStyle = colorArr[value-1]
-        c.fillRect(x+offsetX, y+offsetY, 1, 1)
+        c.strokeStyle = "white"
+        c.rect((x+offsetX)*skalering, (y+offsetY)*skalering, skalering, skalering)
+        c.fill()
+        if(c.globalAlpha == 1) {
+          c.globalAlpha = 0.7
+          c.stroke()
+        }
+        c.closePath()
       }
     })
   })
@@ -158,14 +166,14 @@ function background(){
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
   c.strokeStyle = "white";
-  c.lineWidth = 1/skalering
+  c.lineWidth = skalering/25
   for(var i = 0; i <= cols; i++){
-    c.moveTo(i, 0);
-    c.lineTo(i, canvas.height)
+    c.moveTo(i*skalering, 0);
+    c.lineTo(i*skalering, canvas.height)
   }
   for(var j = 0; j <= rows; j++){
-    c.moveTo(0, j);
-    c.lineTo(canvas.width, j)
+    c.moveTo(0, j*skalering);
+    c.lineTo(canvas.width, j*skalering)
   }
   c.stroke();
 }
