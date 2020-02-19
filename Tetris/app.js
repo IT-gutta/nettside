@@ -253,16 +253,17 @@ let touchStartY = undefined
 let swipeY = true
 let isMoving = false
 window.addEventListener("touchstart", (e)=>{
-  e.preventDefault()
+  // e.preventDefault()
   touchStartX = e.touches[0].clientX
   touchStartY = e.touches[0].clientY
+  touchStartY2 = e.touches[0].clientY
   touchStartTime = elapsedTime
   // swipeX = -1
   swipeY = true
   isMoving = false
 })
 window.addEventListener("touchend", (e)=>{
-  e.preventDefault()
+  // e.preventDefault()
   if(!isMoving){
     rotate(player.matrix)
     startMusic()
@@ -273,11 +274,15 @@ window.addEventListener("touchmove", (e)=>{
   // swipeX++
   let deltaX = touchStartX-e.touches[0].clientX
   let deltaY = e.touches[0].clientY-touchStartY
-
-  if(deltaY > 200 && swipeY){
-    hardDrop()
-    swipeY = false
+  let deltaY2 = e.touches[0].clientY-touchStartY2
+  if(deltaY2 > 30){
+    drop()
+    touchStartY2 = e.touches[0].clientY
   }
+  // if(deltaY > 200 && swipeY){
+  //   hardDrop()
+  //   swipeY = false
+  // }
   if(Math.abs(deltaX) > 40){
     touchStartX = e.touches[0].clientX
 
