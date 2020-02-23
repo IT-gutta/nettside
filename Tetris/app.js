@@ -340,7 +340,15 @@ function resetPlayer(){
   testbool = true;
   if(doesCollide(player.matrix, arena, player.y)){
     // Legger inn player-score i databasen
-    new_rating(name, score)
+    fetch(URL + "/new_rating", {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: name, score: score})
+    }).then(res=>res.text())
+      .then(res => console.log(res)).then(populate_scoreboard)
     resetGame();
   }
   testy = player.y
@@ -352,8 +360,6 @@ function resetGame(){
   score= 0;
   tid = 990;
   updateScore();
-  // Hver gang den resettes legges scores i scoreboarden
-  setTimeout(populate_scoreboard, 400)
 }
 
 function preview(){
@@ -374,11 +380,14 @@ function hardDrop(){
 
 
 
-// Henrik, snakker med API-en jeg har laga: https://nettside-api-v2.herokuapp.com/
-const sb = document.getElementById('scoreBoard')
+// Henrik, snakker med API-en jeg har laga: https://nettside-api-v2.herokuapp.com/const sb = document.getElementById('scoreBoard')
+const body = document.querySelector('body')
 const form = document.getElementById('login-form')
 const login_text = document.getElementById('login-text')
 const errors = document.querySelector(".errors")
+const login_div = document.getElementById('login')
+const scoreBoardDiv = document.getElementById('scoreBoardDiv')
+const sb = document.getElementById("scoreBoard")
 
 const URL = "https://nettside-api-v2.herokuapp.com"
 
@@ -445,6 +454,12 @@ form.addEventListener('submit', e=>{
       login_text.value = ""
       return false
   }
+  if (name.length == 0){
+    errors.style = "display: block"
+    errors.innerHTML = "<li>Kan ikke være tomt gitt</li>"
+    login_text.value = ""
+    return false
+}
   
   fetch(URL + '/ratings')
     .then(res => res.json())
@@ -460,18 +475,10 @@ form.addEventListener('submit', e=>{
     if(name_available){
       new_user(name)
     }
-      document.body.removeChild(document.querySelector('#login'))
+      body.removeChild(login_div)
       scoreEl.style = "display: block;"
-      document.getElementById('scoreBoardDiv').style = "display: block;"
-        // Hver gang den resettes legges scores i scoreboarden
+      scoreBoardDiv.style = "display: block;"
       populate_scoreboard()
       animate()
-
-    // else {
-    //   login_text.value = ""
-      
-    //   errors.style = "display: block"
-    //   errors.innerHTML = "<li>Navnet er allerede brukt</li>"
     // }
-
 })})
