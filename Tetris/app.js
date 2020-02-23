@@ -353,7 +353,7 @@ function resetGame(){
   tid = 990;
   updateScore();
   // Hver gang den resettes legges scores i scoreboarden
-  setTimeout(populate_scoreboard, 100)
+  setTimeout(populate_scoreboard, 400)
 }
 
 function preview(){
@@ -375,6 +375,11 @@ function hardDrop(){
 
 
 // Henrik, snakker med API-en jeg har laga: https://nettside-api-v2.herokuapp.com/
+const sb = document.getElementById('scoreBoard')
+const form = document.getElementById('login-form')
+const login_text = document.getElementById('login-text')
+const errors = document.querySelector(".errors")
+
 const URL = "https://nettside-api-v2.herokuapp.com"
 
 // Tre endpoints: 
@@ -383,20 +388,18 @@ const URL = "https://nettside-api-v2.herokuapp.com"
 // "/ratings" har method GET, og gir ut alle users med sine ratings
 
 function populate_scoreboard() {
-    fetch(URL + '/ratings')
+    fetch(URL + '/highscore')
     .then(res => res.json())
     .then(data => {
-      scores = data.data
-    let sb = document.getElementById('scoreBoard')
+    
+    
     sb.innerHTML = ""
-    for (let i = 0; i < scores.length; i++) {
-      if(scores[i].scores.length){
-      sb.innerHTML += `${scores[i].name}<br>`
-      for (let j = 0; j < scores[i].scores.length; j++) {
-        sb.innerHTML += `${scores[i].scores[j]}, `
-      }
-      sb.innerHTML += "<br><br>"
-    }}
+    for (let i = 0; i < data.length; i++) {
+      sb.innerHTML += `
+      <tr>
+        <td><b>${i+1} ${data[i].name}</b></td><td>${data[i].score}</td>
+      </tr>`
+    }
     })}
 
   
@@ -414,6 +417,7 @@ function new_user(currNavn) {
   }).then(res=>res.text())
     .then(res => console.log(res));
 }
+
 // "/new_rating" har method POST, og brukes for å legge til ny rating. Trenger id-en til brukeren for å legge til score til brukeren, så må querye to ganger
 function new_rating(curr_name, curr_score) {
   fetch(URL + "/new_rating", {
@@ -429,36 +433,45 @@ function new_rating(curr_name, curr_score) {
 
 
 let name = ""
-let form = document.getElementById('login-form')
+
 
 form.addEventListener('submit', e=>{
   e.preventDefault()
-  name = document.getElementById('login-text').value
+  name = login_text.value
+
+  if (name.length>20){
+      errors.style = "display: block"
+      errors.innerHTML = "<li>Ingen har så langt navn</li>"
+      login_text.value = ""
+      return false
+  }
   
   fetch(URL + '/ratings')
     .then(res => res.json())
     .then(data => {
-      let nameValid = true
+      let name_available = true
       scores = data.data
       scores.map(item=>{
         if(item.name == name){
-          nameValid = false
+          name_available = false
         }
       })
   
-    if(nameValid){
+    if(name_available){
       new_user(name)
+    }
       document.body.removeChild(document.querySelector('#login'))
       scoreEl.style = "display: block;"
       document.getElementById('scoreBoardDiv').style = "display: block;"
         // Hver gang den resettes legges scores i scoreboarden
       populate_scoreboard()
       animate()
-    } else {
-      document.getElementById('login-text').value = ""
+
+    // else {
+    //   login_text.value = ""
       
-      document.querySelector(".errors").style = "display: block"
-      document.querySelector(".errors").innerHTML = "<li>Navnet er allerede brukt</li>"
-    }
+    //   errors.style = "display: block"
+    //   errors.innerHTML = "<li>Navnet er allerede brukt</li>"
+    // }
 
 })})
