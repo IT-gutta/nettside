@@ -1,6 +1,6 @@
 const canvas = document.createElement("CANVAS");
 const c = canvas.getContext("2d");
-const scoreEl = document.querySelector("div");
+const scoreEl = document.querySelector("#div");
 document.querySelector("body").appendChild(canvas);
 canvas.width = 250;
 canvas.height = canvas.width*2.4;
@@ -196,6 +196,7 @@ function drop(){
   if(doesCollide(player.matrix, arena, player.y)){
     player.y--;
     merge(player, arena)
+
     resetPlayer()
   }
 }
@@ -336,6 +337,8 @@ function resetPlayer(){
   dropping = false;
   testbool = true;
   if(doesCollide(player.matrix, arena, player.y)){
+    // Legger inn player-score i databasen
+    new_rating(name, score)
     resetGame();
   }
   testy = player.y
@@ -347,6 +350,8 @@ function resetGame(){
   score= 0;
   tid = 990;
   updateScore();
+  // Hver gang den resettes legges scores i scoreboarden
+  populate_scoreboard()
 }
 
 function preview(){
@@ -364,3 +369,84 @@ function hardDrop(){
     drop();
   }
 }
+
+
+
+// Henrik, snakker med API-en jeg har laga: https://nettside-api-v2.herokuapp.com/
+const URL = "https://nettside-api-v2.herokuapp.com"
+
+// Tre endpoints: 
+// Bruker js fetch for å snakke med API-et
+
+// "/ratings" har method GET, og gir ut alle users med sine ratings
+function populate_scoreboard() {
+  fetch(URL + '/ratings')
+  .then(res => res.json())
+  .then(data => {
+    scores = data.data
+
+
+    let sb = document.getElementById('scoreBoard')
+    sb.innerHTML = ""
+    for (let i = 0; i < scores.length; i++) {
+      if(scores[i].scores.length){
+      sb.innerHTML += `${scores[i].name}<br>`
+      for (let j = 0; j < scores[i].scores.length; j++) {
+        sb.innerHTML += `${scores[i].scores[j]}, `
+      }
+      sb.innerHTML += "<br><br>"
+    }}
+    })
+}
+
+
+// "/new_user" har method POST, og brukes for å legge til ny bruker
+function new_user(currNavn) {
+  fetch(URL + "/new_user", {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name: currNavn})
+  }).then(res=>res.text())
+    .then(res => console.log(res));
+}
+// "/new_rating" har method POST, og brukes for å legge til ny rating. Trenger id-en til brukeren for å legge til score til brukeren, så må querye to ganger
+function new_rating(curr_name, curr_score) {
+  fetch(URL + "/new_rating", {
+    method: 'post',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({name: curr_name, score: curr_score})
+  }).then(res=>res.text())
+    .then(res => console.log(res));
+}
+
+
+let name = ""
+let form = document.getElementById('login-form')
+
+form.addEventListener('submit', e=>{
+  e.preventDefault()
+  name = document.getElementById('login-text').value
+  try {
+  new_user(name)
+  document.body.removeChild(document.querySelector('#login'))
+  scoreEl.style = "display: block;"
+  document.getElementById('scoreBoard').style = "display: block;"
+  resetGame()
+  }
+  catch(err) {
+    console.log(err)
+  }
+
+})
+
+
+
+
+
+

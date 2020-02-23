@@ -7,9 +7,11 @@
       body{
         text-align: center;
         /* height: 100%; */
-        overflow: hidden;
+        /* overflow: hidden; */
         /* width: 100%; */
         /* position: fixed; */
+        position: relative;
+        margin: 0;
       }
       *::selection{
         color: none;
@@ -28,6 +30,7 @@
         position: absolute;
         top: 35vh;
         left: 80vw;
+        display: none;
       }
       #top-left{
         position: absolute;
@@ -36,14 +39,62 @@
         font-family: monospace;
         font-size: 15px;
       }
+
+      #login {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgb(207, 207, 207);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      #login-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      #login-text {
+        margin-bottom: 10px;
+      }
+
+      #scoreBoard {
+        position: absolute;
+        top:600px;
+        left:50%;
+        transform: translateX(-50%);
+        width: 800px;
+        background: orange;
+        height: 500px;
+        display: none;
+      }
+
+
     </style>
-    <title></title>
+    <title>Tetris</title>
   </head>
   <body>
+
     <p id="top-left">Tap to start music</p>
+    <div id="login">
+      <form id="login-form">
+        <h3> Ditt navn: </h3>
+        <input type="text" name="login-text" id="login-text">
+        <input type="submit" name="login-submit" id="login-submit">
+      </form>
+    </div>
     <div id="div">
 
     </div>
+    <div id="scoreBoard"></div>
     <script src = "app.js">
 
     </script>
