@@ -5,6 +5,8 @@ document.querySelector("body").appendChild(canvas);
 canvas.width = 250;
 canvas.height = canvas.width*2.4;
 
+let startGame = false
+
 
 //prøver å disable scrolling på tlf
 // window.blockMenuHeaderScroll = true
@@ -225,7 +227,7 @@ function animate(time = 0){
 
   requestAnimationFrame(animate)
 }
-animate()
+
 
 
 function move(dir){
@@ -351,7 +353,7 @@ function resetGame(){
   tid = 990;
   updateScore();
   // Hver gang den resettes legges scores i scoreboarden
-  populate_scoreboard()
+  setTimeout(populate_scoreboard, 100)
 }
 
 function preview(){
@@ -379,13 +381,12 @@ const URL = "https://nettside-api-v2.herokuapp.com"
 // Bruker js fetch for å snakke med API-et
 
 // "/ratings" har method GET, og gir ut alle users med sine ratings
+
 function populate_scoreboard() {
-  fetch(URL + '/ratings')
-  .then(res => res.json())
-  .then(data => {
-    scores = data.data
-
-
+    fetch(URL + '/ratings')
+    .then(res => res.json())
+    .then(data => {
+      scores = data.data
     let sb = document.getElementById('scoreBoard')
     sb.innerHTML = ""
     for (let i = 0; i < scores.length; i++) {
@@ -396,8 +397,9 @@ function populate_scoreboard() {
       }
       sb.innerHTML += "<br><br>"
     }}
-    })
-}
+    })}
+
+  
 
 
 // "/new_user" har method POST, og brukes for å legge til ny bruker
@@ -432,21 +434,31 @@ let form = document.getElementById('login-form')
 form.addEventListener('submit', e=>{
   e.preventDefault()
   name = document.getElementById('login-text').value
-  try {
-  new_user(name)
-  document.body.removeChild(document.querySelector('#login'))
-  scoreEl.style = "display: block;"
-  document.getElementById('scoreBoard').style = "display: block;"
-  resetGame()
-  }
-  catch(err) {
-    console.log(err)
-  }
+  
+  fetch(URL + '/ratings')
+    .then(res => res.json())
+    .then(data => {
+      let nameValid = true
+      scores = data.data
+      scores.map(item=>{
+        if(item.name == name){
+          nameValid = false
+        }
+      })
+  
+    if(nameValid){
+      new_user(name)
+      document.body.removeChild(document.querySelector('#login'))
+      scoreEl.style = "display: block;"
+      document.getElementById('scoreBoardDiv').style = "display: block;"
+        // Hver gang den resettes legges scores i scoreboarden
+      populate_scoreboard()
+      animate()
+    } else {
+      document.getElementById('login-text').value = ""
+      
+      document.querySelector(".errors").style = "display: block"
+      document.querySelector(".errors").innerHTML = "<li>Navnet er allerede brukt</li>"
+    }
 
-})
-
-
-
-
-
-
+})})
