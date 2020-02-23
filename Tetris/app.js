@@ -11,19 +11,19 @@ let startGame = false
 //prøver å disable scrolling på tlf
 // window.blockMenuHeaderScroll = true
 // const bodyEl = document.querySelector("body")
-let music = new Audio()
-music.src = "Sprut.mp3"
-music.volume = 0.5
+// let music = new Audio()
+// music.src = "Sprut.mp3"
+// music.volume = 0.5
 
-music.addEventListener("end", ()=>{
-  music.pause()
-  music.currentTime = 0
-  music.play()
-})
-function startMusic(){
-  if(music.currentTime == 0) music.play()
-}
-window.addEventListener("click", startMusic)
+// music.addEventListener("end", ()=>{
+//   music.pause()
+//   music.currentTime = 0
+//   music.play()
+// })
+// function startMusic(){
+//   if(music.currentTime == 0) music.play()
+// }
+// window.addEventListener("click", startMusic)
 
 let skalering
 if(/Mobi|Android/i.test(navigator.userAgent)){
