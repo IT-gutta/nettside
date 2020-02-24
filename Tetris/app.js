@@ -78,8 +78,11 @@ function merge(player, arena){
 }
 
 
-function swap(){
+function swap(bool){
   [player.matrix, nextMatrix] = [nextMatrix, player.matrix]
+  if(bool && doesCollide(player.matrix, arena, player.y)){
+    swap(false)
+  }
 }
 
 function createMatrix(matrix){
@@ -267,7 +270,7 @@ window.addEventListener("keydown", function(e){
     case 32: hardDrop(); break
     case 82: rotate(player.matrix); break
     case 38: rotate(player.matrix); break
-    case 13: swap(); break
+    case 13: swap(true); break
   }
 })
 
