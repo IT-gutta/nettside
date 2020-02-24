@@ -146,7 +146,7 @@ function rotate(o){
 
 
 function drawMatrix(matrix, offsetX, offsetY, colorOption, con){
-  con.beginPath();
+
   con.fillStyle = matrix.color
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
@@ -159,6 +159,7 @@ function drawMatrix(matrix, offsetX, offsetY, colorOption, con){
         con.rect((x+offsetX)*skalering, (y+offsetY)*skalering, skalering, skalering)
         con.fill()
         if(con.globalAlpha == 1) {
+        
           con.globalAlpha = 0.7
           con.stroke()
         }
@@ -199,6 +200,15 @@ function draw(){
   background();
 
   c2.clearRect(0, 0, canvas2.width, canvas2.height);
+
+
+  c2.globalAlpha = 1
+  c2.fillStyle = "black"
+  c2.font = "15px Arial"
+  c2.fillText("Press ENTER to swap", 10, 18)
+
+
+  // c2.fill()
   
   drawMatrix(arena, 0, 0, "standard", c);
 
@@ -206,7 +216,7 @@ function draw(){
 
   drawMatrix(player.matrix, player.x, testy, "preview", c);
 
-  drawMatrix(nextMatrix, 0, 0, "standard", c2);
+  drawMatrix(nextMatrix, 1, 1, "standard", c2);
 
 }
 
