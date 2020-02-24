@@ -213,13 +213,14 @@ function drop(){
   dCount = 0
   if(doesCollide(player.matrix, arena, player.y)){
     player.y--;
-    if(collideWait = 1){
+    collideWait++;
+    if(collideWait == 2){
       merge(player, arena)
       resetPlayer()
     }
-    else{
-      collideWait++
-    }
+  }
+  else{
+    collideWait = 0;
   }
 }
 
@@ -266,7 +267,7 @@ window.addEventListener("keydown", function(e){
     case 32: hardDrop(); break
     case 82: rotate(player.matrix); break
     case 38: rotate(player.matrix); break
-    case 16: swap(); break
+    case 13: swap(); break
   }
 })
 
@@ -358,8 +359,7 @@ function resetPlayer(){
   sweep(arena);
   collideWait = 0;
   player = {x:3, y:0};
-  player.matrix = nextMatrix;
-  nextMatrix = createMatrix(randomMatrix());
+  player.matrix = createMatrix(randomMatrix());
   dropping = false;
   testbool = true;
   if(doesCollide(player.matrix, arena, player.y)){
