@@ -1,7 +1,11 @@
 const canvas = document.createElement("CANVAS");
 const c = canvas.getContext("2d");
+const canvas2 = document.createElement("CANVAS");
+canvas2.id = "canvas2"
+const c2 = canvas2.getContext("2d");
 const scoreEl = document.querySelector("#div");
 document.querySelector("body").appendChild(canvas);
+document.querySelector("body").appendChild(canvas2);
 canvas.width = 250;
 canvas.height = canvas.width*2.4;
 
@@ -40,7 +44,9 @@ else{
 const cols = 10;
 const rows = 24;
 
-let player;
+let player = {x:3, y:0}
+let nextMatrix;
+let collideWait = 0;
 let tid = 990;
 let dropping = false;
 let testbool = true;
@@ -72,42 +78,43 @@ function merge(player, arena){
 }
 
 
-
+function swap(){
+  [player.matrix, nextMatrix] = [nextMatrix, player.matrix]
+}
 
 function createMatrix(matrix){
-player = {x:3, y:0}
 
 switch(matrix){
-    case "T": player.matrix = [
+    case "T": return [
       [0, 1, 0],
       [1, 1, 1],
       [0, 0, 0],
     ]; break;
-    case "L" : player.matrix = [
+    case "L" : return [
       [0, 0, 0],
       [2, 2, 2],
       [2, 0, 0],
     ]; break;
-    case "J" : player.matrix = [
+    case "J" : return [
       [0, 0, 0],
       [3, 3, 3],
       [0, 0, 3],
     ]; break;
-    case "Z" : player.matrix = [
+    case "Z" : return [
       [0, 0, 0],
       [4, 4, 0],
       [0, 4, 4],
     ]; break;
-    case "S" : player.matrix = [
+    case "S" : return [
       [0, 0, 0],
       [0, 5, 5],
       [5, 5, 0],
     ]; break;
-    case "K": player.matrix = [
+    case "K": return [
       [6, 6],
       [6, 6]
     ]; break;
-    case "I" : player.matrix = [
+    case "I" : return [
       [0, 7, 0, 0],
       [0, 7, 0, 0],
       [0, 7, 0, 0],
@@ -135,24 +142,24 @@ function rotate(o){
 }
 
 
-function drawMatrix(matrix, offsetX, offsetY, colorOption){
-  c.beginPath();
-  c.fillStyle = matrix.color
+function drawMatrix(matrix, offsetX, offsetY, colorOption, con){
+  con.beginPath();
+  con.fillStyle = matrix.color
   matrix.forEach((row, y) => {
     row.forEach((value, x) => {
       if(value!=0){
-        c.beginPath()
-        if(colorOption == "preview") c.globalAlpha = 0.4
-        else c.globalAlpha = 1
-        c.fillStyle = colorArr[value-1]
-        c.strokeStyle = "white"
-        c.rect((x+offsetX)*skalering, (y+offsetY)*skalering, skalering, skalering)
-        c.fill()
-        if(c.globalAlpha == 1) {
-          c.globalAlpha = 0.7
-          c.stroke()
+        con.beginPath()
+        if(colorOption == "preview") con.globalAlpha = 0.4
+        else con.globalAlpha = 1
+        con.fillStyle = colorArr[value-1]
+        con.strokeStyle = "white"
+        con.rect((x+offsetX)*skalering, (y+offsetY)*skalering, skalering, skalering)
+        con.fill()
+        if(con.globalAlpha == 1) {
+          con.globalAlpha = 0.7
+          con.stroke()
         }
-        c.closePath()
+        con.closePath()
       }
     })
   })
@@ -180,26 +187,39 @@ function background(){
   c.stroke();
 }
 
-createMatrix(randomMatrix());
+player.matrix = createMatrix(randomMatrix());
+nextMatrix = createMatrix(randomMatrix());
 let testy = player.y
 
 
 function draw(){
   background();
-  drawMatrix(arena, 0, 0)
-  drawMatrix(player.matrix, player.x, player.y, "standard")
-  // console.log(, player.x, testy)
-  drawMatrix(player.matrix, player.x, testy, "preview")
+
+  c2.clearRect(0, 0, canvas2.width, canvas2.height);
+  
+  drawMatrix(arena, 0, 0, "standard", c);
+
+  drawMatrix(player.matrix, player.x, player.y, "standard", c);
+
+  drawMatrix(player.matrix, player.x, testy, "preview", c);
+
+  drawMatrix(nextMatrix, 0, 0, "standard", c2);
+
 }
+
 
 function drop(){
   player.y++;
   dCount = 0
   if(doesCollide(player.matrix, arena, player.y)){
     player.y--;
-    merge(player, arena)
-
-    resetPlayer()
+    if(collideWait = 1){
+      merge(player, arena)
+      resetPlayer()
+    }
+    else{
+      collideWait++
+    }
   }
 }
 
@@ -246,6 +266,7 @@ window.addEventListener("keydown", function(e){
     case 32: hardDrop(); break
     case 82: rotate(player.matrix); break
     case 38: rotate(player.matrix); break
+    case 16: swap(); break
   }
 })
 
@@ -335,7 +356,10 @@ function doesCollide(matrix, arena, y){
 
 function resetPlayer(){
   sweep(arena);
-  createMatrix(randomMatrix());
+  collideWait = 0;
+  player = {x:3, y:0};
+  player.matrix = nextMatrix;
+  nextMatrix = createMatrix(randomMatrix());
   dropping = false;
   testbool = true;
   if(doesCollide(player.matrix, arena, player.y)){
