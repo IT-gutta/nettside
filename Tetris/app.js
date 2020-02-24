@@ -307,10 +307,10 @@ function sweep(arena){
      sweepCount++
    }
   switch(sweepCount){
-    case 1: score+=100; tid -= 200/10; break;
-    case 2: score+=300; tid -= 600/10; break;
-    case 3: score+=600; tid -= 1200/10; break;
-    case 4: score+=1000; tid -= 2000/10; break;
+    case 1: score+=100; break;
+    case 2: score+=300; break;
+    case 3: score+=600; break;
+    case 4: score+=1000; break;
     default: break;
   }
   updateScore();
@@ -352,6 +352,7 @@ function resetPlayer(){
     resetGame();
   }
   testy = player.y
+  tid*=0.99
 }
 
 function resetGame(){
