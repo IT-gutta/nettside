@@ -45,6 +45,7 @@ const cols = 10;
 const rows = 24;
 
 let player = {x:3, y:0}
+let storedMatrix;
 let nextMatrix;
 let collideWait = 0;
 let tid = 990;
@@ -79,7 +80,7 @@ function merge(player, arena){
 
 
 function swap(bool){
-  [player.matrix, nextMatrix] = [nextMatrix, player.matrix]
+  [player.matrix, storedMatrix] = [storedMatrix, player.matrix]
   if(bool && doesCollide(player.matrix, arena, player.y)){
     swap(false)
   }
@@ -192,9 +193,12 @@ function background(){
 }
 
 player.matrix = createMatrix(randomMatrix());
+storedMatrix = createMatrix(randomMatrix());
 nextMatrix = createMatrix(randomMatrix());
 let testy = player.y
 
+canvas2.width = 200
+canvas2.height = 400
 
 function draw(){
   background();
@@ -206,6 +210,7 @@ function draw(){
   c2.fillStyle = "black"
   c2.font = "15px Arial"
   c2.fillText("Press ENTER to swap", 10, 18)
+  c2.fillText("Next piece", 10, 195)
 
 
   // c2.fill()
@@ -216,7 +221,9 @@ function draw(){
 
   drawMatrix(player.matrix, player.x, testy, "preview", c);
 
-  drawMatrix(nextMatrix, 1, 1, "standard", c2);
+  drawMatrix(storedMatrix, 1, 1, "standard", c2);
+
+  drawMatrix(nextMatrix, 1, 8, "standard", c2);
 
 }
 
@@ -372,7 +379,8 @@ function resetPlayer(){
   sweep(arena);
   collideWait = 0;
   player = {x:3, y:0};
-  player.matrix = createMatrix(randomMatrix());
+  player.matrix = nextMatrix;
+  nextMatrix = createMatrix(randomMatrix());
   dropping = false;
   testbool = true;
   if(doesCollide(player.matrix, arena, player.y)){
