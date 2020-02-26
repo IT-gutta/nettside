@@ -341,8 +341,7 @@ function sweep(arena){
   outer:
    for(let y = 0; y<arena.length; y++){
      for(let x = 0; x<arena[y].length; x++){
-       if(arena[y][x] == 0){continue outer
-       }
+       if(arena[y][x] == 0) continue outer
      }
      arena.splice(y, 1);
      arena.unshift(new Array(cols).fill(0))
@@ -354,6 +353,9 @@ function sweep(arena){
     case 3: score+=600; break;
     case 4: score+=1000; break;
     default: break;
+  }
+  if(sweepCount!=0){
+    tid*=0.95
   }
   updateScore();
 }
@@ -397,7 +399,7 @@ function resetPlayer(){
     resetGame();
   }
   testy = player.y
-  tid*=0.99
+  // tid*=0.99
 }
 
 function resetGame(){
