@@ -3,101 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="user-scalable=no">
-    <style media="screen">
-      body{
-        text-align: center;
-        /* height: 100%; */
-        /* overflow: hidden; */
-        /* width: 100%; */
-        /* position: fixed; */
-        position: relative;
-        margin: 0;
-      }
-      *::selection{
-        color: none;
-        background: none;
-      }
-      /* *{
-        touch-action: manipulation;
-      } */
-
-      #div{
-        font-family: monospace, sans-serif;
-        text-align: left;
-        color: black;
-        font-size: 20px;
-        /* font-size: 1.4vw; */
-        position: absolute;
-        top: 35vh;
-        left: 80vw;
-        display: none;
-      }
-
-      #top-left{
-        position: absolute;
-        top:20px;
-        left:20px;
-        font-family: monospace;
-        font-size: 15px;
-      }
-
-      #login {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgb(207, 207, 207);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-
-      #login-form {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-
-      #login-text {
-        margin-bottom: 10px;
-      }
-
-      #scoreBoardDiv {
-        font-family: monospace, sans-serif;
-        position: absolute;
-        top:80px;
-        left:80px;
-        width: 200px;
-        background: orange;
-        height: 80%;
-        display: none;
-        overflow: scroll
-      }
-
-      #scoreBoard {
-        color: rgb(32, 32, 32);
-      }
-
-      #scoreBoard td {
-        padding: 10px;
-      }
-
-      #scoreBoardOverskrift {
-        font-size: 20px;
-      }
-
-      .errors {
-        color: red;
-        display: none;
-      }
-
-
-    </style>
+    <link rel="stylesheet" href="style.css" media="screen">
     <title>Tetris</title>
   </head>
   <body>
@@ -118,6 +24,14 @@
       <div id="scoreBoardOverskrift">SCOREBOARD</div>
       <table id="scoreBoard"></table>
     </div>
+
+    <!-- <div class="new_post">
+      <h2 class="tilbakemelding">skriv no</h2>
+      <form class="form_new_post">
+          <textarea></textarea>
+          <input type="submit" value="Send">
+      </form>
+  </div> -->
     
     <script src = "app.js">
 

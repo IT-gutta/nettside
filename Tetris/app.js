@@ -498,6 +498,9 @@ form.addEventListener('submit', e=>{
     login_text.value = ""
     return false
 }
+body.removeChild(login_div)
+scoreEl.style = "display: block;"
+scoreBoardDiv.style = "display: block;"
   
   fetch(URL + '/ratings')
     .then(res => res.json())
@@ -513,9 +516,6 @@ form.addEventListener('submit', e=>{
     if(name_available){
       new_user(name)
     }
-      body.removeChild(login_div)
-      scoreEl.style = "display: block;"
-      scoreBoardDiv.style = "display: block;"
       populate_scoreboard()
       animate()
 })})
