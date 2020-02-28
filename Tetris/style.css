@@ -6,11 +6,11 @@
         /* position: fixed; */
         position: relative;
         margin: 0;
-      }
+      /* }
       *::selection{
         color: none;
         background: none;
-      }
+      } */
       /* *{
         touch-action: manipulation;
       } */
