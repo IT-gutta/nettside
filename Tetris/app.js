@@ -311,7 +311,7 @@ window.addEventListener("touchend", (e)=>{
   e.preventDefault()
   if(!isMoving){
     rotate(player.matrix)
-    startMusic()
+    // startMusic()
   }
 })
 window.addEventListener("touchmove", (e)=>{
