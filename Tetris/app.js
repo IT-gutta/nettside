@@ -229,6 +229,7 @@ function draw(){
 
 
 function drop(){
+  console.log("dropping")
   player.y++;
   dCount = 0
   if(doesCollide(player.matrix, arena, player.y)){
