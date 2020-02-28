@@ -6,8 +6,8 @@
         /* position: fixed; */
         position: relative;
         margin: 0;
-      /* }
-      *::selection{
+      }
+      /* *::selection{
         color: none;
         background: none;
       } */
