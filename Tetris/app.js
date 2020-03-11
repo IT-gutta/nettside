@@ -495,6 +495,7 @@ let name = ""
 form.addEventListener('submit', e=>{
   e.preventDefault()
   name = login_text.value
+  animate()
 
   if (name.length>20){
       errors.style = "display: block"
@@ -527,5 +528,5 @@ form.addEventListener('submit', e=>{
       scoreEl.style = "display: block;"
       scoreBoardDiv.style = "display: block;"
       populate_scoreboard()
-      animate()
+      // animate()
 })})
