@@ -229,6 +229,7 @@ function draw(){
 
 
 function drop(){
+  console.log("dropping")
   player.y++;
   dCount = 0
   if(doesCollide(player.matrix, arena, player.y)){
@@ -311,7 +312,7 @@ window.addEventListener("touchend", (e)=>{
   e.preventDefault()
   if(!isMoving){
     rotate(player.matrix)
-    startMusic()
+    // startMusic()
   }
 })
 window.addEventListener("touchmove", (e)=>{
