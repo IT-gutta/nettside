@@ -20,7 +20,6 @@ var highscoreEl = document.getElementById("highscore")
 var lastscoreEl = document.getElementById("lastScore")
 
 
-// navn = window.localStorage.getItem("name")
 //lager bilder og lyder
 var fugl = new Image()
 var bg = new Image()
@@ -75,7 +74,6 @@ function fly(e){
     if(e.keyCode === 32){
         fart=-3
         fugleLyd.play()
-        console.log(navn)
     }
 }
 
@@ -117,8 +115,7 @@ function tegn(){
             
 
             window.localStorage.setItem("poeng", JSON.stringify(score))
-            window.localStorage.setItem("name", navn)
-            
+                        
             //om scoren man fikk i spillet nå er større enn den som ligger inne som highscore så endres highscoren
             if(Number(window.localStorage.getItem("highscore")) < score){
                 window.localStorage.setItem("highscore", JSON.stringify(score))
