@@ -20,7 +20,7 @@ var highscoreEl = document.getElementById("highscore")
 var lastscoreEl = document.getElementById("lastScore")
 
 
-navn = window.localStorage.getItem("name")
+// navn = window.localStorage.getItem("name")
 //lager bilder og lyder
 var fugl = new Image()
 var bg = new Image()
