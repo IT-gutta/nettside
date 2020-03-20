@@ -1,3 +1,5 @@
+// I denne fila ligger alle classes som brukes til å lage bullets og ulike enemies
+// Jeg klarte ikke å finne en bedre måte å holde styr på hver enkelt kules tegnekonstanter uten alle disse parameterene, fordi ellers ble alle kulene på skjermen endret hvis man byttet våpen
 class Bullet{
     constructor(x, y, dx, dy, radius, fallOff, angle, mode, image, b, damage){
         this.pos = {x:x, y:y}
@@ -40,6 +42,7 @@ class Bullet{
     }
 }
 
+// De vanlige røde enemiesa
 class Hunter{
     constructor(speed, health){
         this.pos = {x: Math.random() < 0.5 ? 0 : canvas.width, y: randomInt(0, canvas.height)}
@@ -85,6 +88,7 @@ class Hunter{
     }
 }
 
+// Splinter som blir skjutt ut når en sploder dør
 class Splint{
     constructor(x, y, dx, dy, r, color){
         this.pos = {x: x, y: y}
@@ -93,16 +97,10 @@ class Splint{
         this.r = r
         this.color = color
         this.dead = false
-        // setTimeout(() => {
-        //     this.dead = true
-        // }, 200)
     }
     draw(){
         c.beginPath()
         c.drawImage(splintImg, 0, 0, 1200, 1200, this.pos.x, this.pos.y, 8, 8)
-        // c.fillStyle = this.color
-        // c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
-        // c.fill()
         c.closePath()
     }
     update(){
@@ -114,6 +112,7 @@ class Splint{
     }
 }
 
+//De gule eksploderende enemiesa
 class Sploder extends Hunter{
     constructor(speed, health){
         super(speed, health)
@@ -139,29 +138,5 @@ class Sploder extends Hunter{
         if(distance(player.pos, this.pos) < player.r + splodeRange){
             player.health -= splodeDamage
         }
-    }
-}
-
-
-
-class Pickup{
-    constructor(x, y, ID, color){
-        this.pos = {x:x, y:y}
-        this.r = 15
-        this.ID = ID
-        this.color = color
-    }
-    draw(){
-        c.beginPath()
-        c.fillStyle = this.color
-        c.arc(this.pos.x, this.pos.y, this.r, 0, 2*Math.PI)
-        c.fill()
-    }
-    update(){
-        if(!playerIsCarrying && distance(this, player) < this.r + player.r){
-            playerIsCarrying = true
-            player.carry = this
-        }
-        this.draw()
     }
 }

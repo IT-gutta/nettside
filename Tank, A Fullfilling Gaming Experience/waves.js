@@ -1,3 +1,6 @@
+// I denne fila ligger alt som har med wave-systemet å gjøre
+
+//funksjon som brukes i hver wave, der parameterene endrer seg
 function startNewWave(text, countDownTime, text2, foo){
     playAudio(winAudio)
     let rgbAlpha = 0
@@ -13,12 +16,14 @@ function startNewWave(text, countDownTime, text2, foo){
     }, 10)
 }
 
-
+// alle funksjonene som setter i gang de ulike wavesa
+// de er ganske like alle sammen, men det er mange små justeringer for hver runde
+// med tanke på health, spawninterval, speed osv
 let waves = [
     () => {
         readyToStartNewWave = false
         canvas.style.filter = "blur(3px)"
-        startNewWave("Wave 1 starting in", 4, "Move with the WASD keys <br> Aim and shoot with the mouse <br> Press ESC to pause/unpause the game at any time <br> Press H to use Health Potion <br> <br> Try to survive as long as possible",
+        startNewWave("Wave 1 starting in", 15, "Move with the WASD keys <br> Aim and shoot with the mouse <br> Press ESC to pause/unpause the game at any time <br> Press H to use Health Potion <br> <br> Try to survive as long as possible",
         function(){
             clearInterval(overlayInterval)
             overlay.innerHTML = ""
@@ -138,7 +143,7 @@ let waves = [
 () => {
     readyToStartNewWave = false
     canvas.style.filter = "blur(3px)"
-    startNewWave("Wave 6 starting in", 10, "Super tanky enemies (extra cash)",
+    startNewWave("Wave 6 starting in", 10, "Tanky enemies that explode upon death (extra cash)",
     function(){
         clearInterval(overlayInterval)
         moneyPerKill *= 2
@@ -172,9 +177,7 @@ let waves = [
     function(){
         clearInterval(overlayInterval)
         overlay.innerHTML = ""
-        // let tempSplodeRange = splodeRange
         let tempSplodeDamage = splodeDamage
-        // splodeRange += 150
         splodeDamage -= 25
         stop = false
         canvas.style.filter = "none"
@@ -185,7 +188,6 @@ let waves = [
                 if(deployedHunters == antallHunters){
                     clearInterval(hunterInterval)
                     readyToStartNewWave = true
-                    // splodeRange = tempSplodeRange
                     splodeDamage = tempSplodeDamage
                 }
                 deployedHunters += 1
@@ -248,9 +250,9 @@ let freemode = () => {
         canvas.style.filter = "none"                                                  
         hunterInterval = setInterval(() => {
             if(!stop){
-                hunterArr.push(new Hunter(2, 150))
+                hunterArr.push(new Hunter(2, 400))
             }
-        }, 700)
+        }, 300)
     }
 )
 }
