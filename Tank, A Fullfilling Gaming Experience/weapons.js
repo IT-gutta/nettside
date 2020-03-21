@@ -1,4 +1,7 @@
-
+// I denne fila ligger alle våpen og spesifikasjoner til hvert av de
+// de ligger som funksjoner som endrer variabler knyttet til våpen og sprites ogsånn
+// alt som har med det merkelig objektet som heter b er bare nøye justerte verdier som brukes
+// for å tegne inn bullets på riktig plass med offset osv og med riktige dimensjoner
 let weapons = {
     pistol: function(){
         mode = "pistol"
@@ -88,7 +91,7 @@ let weapons = {
         bulletRadius = 2.5
         basePierces = 0
         baseDmg = 150
-        fireRate = 2
+        fireRate = 1
         bloom = Math.PI/10
         speedMultiple = 1.2
         bulletImg = pistolBullet

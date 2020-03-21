@@ -1,3 +1,6 @@
+// I denne fila defineres alle objekter som holder på mange viktige funksjoner og variabler, 
+//for eksempel player, healthbar, moneybar, healthpots
+
 let player = {
     pos: {x: canvas.width/2, y: canvas.height/2},
     vel: {x:0, y:0},

@@ -529,5 +529,5 @@ form.addEventListener('submit', e=>{
       scoreEl.style = "display: block;"
       scoreBoardDiv.style = "display: block;"
       populate_scoreboard()
-      // animate()
+      
 })})
