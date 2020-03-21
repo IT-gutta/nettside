@@ -111,7 +111,7 @@ function tegn(){
         
         //sjekker kollisjon mellom fugl og de diverse stdene på pipene som fuglen kan treffe. gjør så fuglen kun kan fly imellom gapet. den siste er mellom bakken og fuglen.
         //om en kollisjon oppdages er spillet over, nettsiden oppdateres, score lagres og man er på start igjen 
-        if(fX+fugl.width >= pipe[i].x && fX <= pipe[i].x+pipeBredde && (fY<=pipe[i].y+pipeHoyde || fY+fuglHoyde >= pipe[i].y + gap) || fY+fuglHoyde >= canvas.height-fgHoyde){
+        if(fX+fugl.width >= pipe[i].x && fX <= pipe[i].x+pipeBredde && (fY<=pipe[i].y+pipeHoyde || fY+fuglHoyde >= pipe[i].y + gap) || fY+fuglHoyde > canvas.height-fgHoyde){
             
 
             window.localStorage.setItem("poeng", JSON.stringify(score))
