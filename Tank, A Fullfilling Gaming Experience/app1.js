@@ -16,6 +16,10 @@ function loop(){
     //sjekker om banen er tom for enemies og at jeg har satt variabelen slik at ny wave skal starte lik true 
     if(hunterArr.length == 0 && readyToStartNewWave){
         wave += 1
+        if(wave > record) {
+            record = wave
+            localStorage.setItem("record", record)
+        }
 
         //caller funksjon for å starte waven
         waves[wave-1]()
@@ -139,7 +143,7 @@ function loop(){
 
         //displayer wavenummer og våpen og kills osv
         c.font = "19px monospace"
-        c.fillText(`Weapon: ${mode.toUpperCase()}  ::  Wave: ${wave}`, 20, 25)
+        c.fillText(`Weapon: ${mode.toUpperCase()}  ::  Wave: ${wave}, Record: ${record}`, 20, 25)
 
         //regner ut antall minutter og sekunder basert på antall sekunder som har gått
         c.fillText(`${Math.floor(tid/60)} min, ${Math.floor(tid)%60} sek  ::  Kills: ${killCount}`, 20, 75)

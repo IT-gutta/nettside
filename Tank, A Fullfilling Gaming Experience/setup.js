@@ -112,6 +112,10 @@ let hunterArr = []
 
 let blur = false
 
+let record = 1
+
+if(localStorage.getItem("record") == null) localStorage.setItem("record", 1)
+else record = localStorage.getItem("record")
 
 
 //adder eventlisteners til de ulike nødvendige eventsa

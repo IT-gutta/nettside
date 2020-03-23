@@ -205,6 +205,9 @@ function restart(){
 function youLose(){
     playAudio(loseAudio)
     stop = true
+    if(wave > record) record = wave
+    localStorage.setItem("record", record)
+    
     overlay.style.cursor = "auto"
     backgroundMusic.pause()
     overlay.innerHTML = `You lose <input type="button" class="restart" value="Restart?">`
