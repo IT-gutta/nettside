@@ -15,16 +15,9 @@ class Bullet{
         this.angle = angle
         this.mode = mode
         this.image = image
-        this.b = {
-            SX: b.SX,
-            SY: b.SY,
-            SW: b.SW,
-            SH: b.SH,
-            OX: b.OX,
-            OY: b.OY,
-            W: b.W,
-            H: b.H
-        }
+
+        // inneholder masse verdier for hvor bildet skal tegnes inn
+        this.b = b
     }
     update(){
         this.pos.x+=this.vel.x
@@ -34,9 +27,12 @@ class Bullet{
     draw(){
         c.beginPath()
         c.save()
+
+        //sørger for at bildet er rotert slik at bulleten ser ut som den beveger seg i riktig retning
         c.translate(this.pos.x, this.pos.y)
         c.rotate(this.angle + Math.PI/2)
         c.translate(-this.pos.x, -this.pos.y)
+
         c.drawImage(this.image, this.b.SX, this.b.SY, this.b.SW, this.b.SH, this.pos.x + this.b.OX, this.pos.y + this.b.OY, this.b.W, this.b.H)
         c.restore()
     }
@@ -54,6 +50,7 @@ class Hunter{
         this.speed = speed
         this.color = this.constructor.name == "Sploder" ? "yellow" : "red"
     }
+
     draw(){
         c.beginPath()
         c.fillStyle = this.color
@@ -61,6 +58,8 @@ class Hunter{
         c.fill()
         c.closePath()
         c.beginPath()
+
+        //tegner inn mini-healthbar over enemies
         c.strokeStyle = "green"
         c.moveTo(this.pos.x - 10, this.pos.y + 15)
         c.lineTo(this.pos.x - 10 + (this.health/this.startHealth)*20, this.pos.y + 15)
@@ -68,7 +67,11 @@ class Hunter{
         c.stroke()
         c.closePath()
     }
+
     update(){
+
+        //finner retningen den skal bevege seg i utifra den forrige posisjonen til spilleren
+        //beveger seg dermed mot "halen" til spilleren
         let deltaX = prevPos.x-this.pos.x
         let deltaY = prevPos.y-this.pos.y
         let phi = Math.atan2(deltaY, deltaX)
@@ -88,7 +91,7 @@ class Hunter{
     }
 }
 
-// Splinter som blir skjutt ut når en sploder dør
+// Splinter som blir skutt ut når en sploder dør
 class Splint{
     constructor(x, y, dx, dy, r, color){
         this.pos = {x: x, y: y}
@@ -97,6 +100,7 @@ class Splint{
         this.r = r
         this.color = color
         this.dead = false
+        this.randomOffsetRange = randomInt(-30, 30)
     }
     draw(){
         c.beginPath()
@@ -104,8 +108,7 @@ class Splint{
         c.closePath()
     }
     update(){
-        let randomOffsetRange = randomInt(-15, 15)
-        if(distance(this.pos, this.startPos) > splodeRange + randomOffsetRange) this.dead = true
+        if(distance(this.pos, this.startPos) > splodeRange + this.randomOffsetRange) this.dead = true
         this.pos.x += this.vel.x
         this.pos.y += this.vel.y
         if(!this.dead) this.draw()

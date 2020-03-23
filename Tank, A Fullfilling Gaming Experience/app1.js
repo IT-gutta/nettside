@@ -16,7 +16,10 @@ function loop(){
     //sjekker om banen er tom for enemies og at jeg har satt variabelen slik at ny wave skal starte lik true 
     if(hunterArr.length == 0 && readyToStartNewWave){
         wave += 1
-        if(wave > record) record = wave
+        if(wave > record) {
+            record = wave
+            localStorage.setItem("record", record)
+        }
 
         //caller funksjon for å starte waven
         waves[wave-1]()

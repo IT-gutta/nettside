@@ -114,15 +114,8 @@ let blur = false
 
 let record = 1
 
-//hvis localStorage er tom, så har ikke brukeren spilt spillet før, dermed settes rekord til 1
-if(localStorage.length == 0){
-    localStorage.setItem("record", 1)
-}
-
-//ellers hentes inn den rekorden som ligger i localStorage
-else{
-    record = Number(localStorage.getItem("record"))
-}
+if(localStorage.getItem("record") == null) localStorage.setItem("record", 1)
+else record = Number(localStorage.getItem("record"))
 
 
 //adder eventlisteners til de ulike nødvendige eventsa
