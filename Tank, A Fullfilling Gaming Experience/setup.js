@@ -112,6 +112,17 @@ let hunterArr = []
 
 let blur = false
 
+let record = 1
+
+//hvis localStorage er tom, så har ikke brukeren spilt spillet før, dermed settes rekord til 1
+if(localStorage.length == 0){
+    localStorage.setItem("record", 1)
+}
+
+//ellers hentes inn den rekorden som ligger i localStorage
+else{
+    record = Number(localStorage.getItem("record"))
+}
 
 
 //adder eventlisteners til de ulike nødvendige eventsa
@@ -120,6 +131,6 @@ document.querySelector("#smallTank").addEventListener("click", startGame)
 document.querySelector("#bigTank").addEventListener("click", startGame)
 window.addEventListener("mousemove", moveMouse)
 overlay.addEventListener("mousedown", shoot)
-window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false})
+window.addEventListener("mouseup", function(){ mouseIsPressed = false; startSpraying = false })
 window.addEventListener("keyup", releaseKey)
 window.addEventListener("keydown", pressDown)
