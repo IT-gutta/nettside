@@ -6,7 +6,7 @@ const login_div = document.getElementById('login')
 const scoreBoardDiv = document.getElementById('scoreBoardDiv')
 const sb = document.getElementById("scoreBoard")
 
-const URL = "https://nettside-api-v2.herokuapp.com"
+const baseURL = "https://nettside-api-v2.herokuapp.com"
 
 // Tre endpoints: 
 // Bruker js fetch for å snakke med API-et
@@ -14,7 +14,7 @@ const URL = "https://nettside-api-v2.herokuapp.com"
 // "/ratings" har method GET, og gir ut alle users med sine ratings
 
 function populate_scoreboard() {
-    fetch(URL + '/highscore')
+    fetch(baseURL + '/highscore')
     .then(res => res.json())
     .then(data => {
     
@@ -33,7 +33,7 @@ function populate_scoreboard() {
 
 // "/new_user" har method POST, og brukes for å legge til ny bruker
 function new_user(currNavn) {
-  fetch(URL + "/new_user", {
+  fetch(baseURL + "/new_user", {
     method: 'post',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -46,7 +46,7 @@ function new_user(currNavn) {
 
 // "/new_rating" har method POST, og brukes for å legge til ny rating. Trenger id-en til brukeren for å legge til score til brukeren, så må querye to ganger
 function new_rating(curr_name, curr_score) {
-  fetch(URL + "/new_rating", {
+  fetch(baseURL + "/new_rating", {
     method: 'post',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -81,7 +81,7 @@ body.removeChild(login_div)
 scoreEl.style = "display: block;"
 scoreBoardDiv.style = "display: block;"
   
-  fetch(URL + '/ratings')
+  fetch(baseURL + '/ratings')
     .then(res => res.json())
     .then(data => {
       let name_available = true
