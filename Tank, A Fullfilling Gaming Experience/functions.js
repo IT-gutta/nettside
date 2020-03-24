@@ -205,6 +205,8 @@ function restart(){
 function youLose(){
     playAudio(loseAudio)
     stop = true
+
+    //lagrer recorden i localStorage
     if(wave > record) record = wave
     localStorage.setItem("record", record)
     
