@@ -30,7 +30,7 @@ var bResign = document.getElementById("bResign")
 var wDraw = document.getElementById("wDraw")
 var bDraw = document.getElementById("bDraw")
 var moves = document.getElementById("moves")
-var b = background.getContext("2d")
+var ba = background.getContext("2d")
 var c = canvas.getContext("2d")
 var bC = bCap.getContext("2d")
 var wC = wCap.getContext("2d")
@@ -122,20 +122,24 @@ for(i=0; i<6;i++){
 [bImgs[0].src, bImgs[1].src,bImgs[2].src,bImgs[3].src,bImgs[4].src,bImgs[5].src] = ["bp.png", "br.png", "bkn.png", "bb.png", "bq.png", "bk.png"]
 
 //tracker museposisjonen
+var pX = 0
+var pY = 0
 window.onmousemove = function(e){
     px = Math.floor((e.clientX - w*0.1 - w*0.8*0.1 - (w*0.8*0.8-canvas.width)/2 - canvas.width*0.034)/(canvas.width-canvas.width*0.068)*8)
     py = Math.floor((e.clientY - h*0.05 - canvas.height*0.034)/(canvas.height-canvas.height*0.068)*8)
+    pX = e.clientX - w*0.1 - w*0.8*0.1 - (w*0.8*0.8-canvas.width)/2 - canvas.width*0.034
+    pY = e.clientY - h*0.05 - canvas.height*0.034
 }
 
 //tegner brettet
-function animate(){
+function animate(position=board){
     for(i=0;i<board.length;i++){
         for(j=0;j<board.length;j++){
-            if(board[i][j]>0){
-                c.drawImage(wImgs[wPieces[board[i][j]-1].img],0.034*canvas.width+j*(canvas.width-canvas.width*0.068)/8,0.034*canvas.width+i*(canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8)
+            if(position[i][j]>0){
+                c.drawImage(wImgs[wPieces[position[i][j]-1].img],0.034*canvas.width+j*(canvas.width-canvas.width*0.068)/8,0.034*canvas.width+i*(canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8)
             }
-            if(board[i][j]<0){
-                c.drawImage(bImgs[bPieces[-board[i][j]-1].img],0.034*canvas.width+j*(canvas.width-canvas.width*0.068)/8,0.034*canvas.width+i*(canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8)
+            if(position[i][j]<0){
+                c.drawImage(bImgs[bPieces[-position[i][j]-1].img],0.034*canvas.width+j*(canvas.width-canvas.width*0.068)/8,0.034*canvas.width+i*(canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8)
             }
         }
     }
@@ -161,7 +165,7 @@ var bGround = new Image()
 bGround.src="background2.jpg"
 window.onload = function(){
     c.drawImage(boardImg,0,0,canvas.width,canvas.height)
-    b.drawImage(bGround,0,0,0.64*w,0.9*h)
+    ba.drawImage(bGround,0,0,0.64*w,0.9*h)
     animate()
 }
 
@@ -395,6 +399,10 @@ newGame.onclick = function(){
     draw = [false, false]
     wDraw.innerHTML = "Offer Draw"
     bDraw.innerHTML = "Offer Draw"
+    blackMaterial = 39
+    whiteMaterial = 39
+    calcDifference()
+    filterPossible()
     setTimeout(clock, 1000)
 }
 
@@ -1174,7 +1182,124 @@ function getPossible(selectedTile, t, position){
             }
             return p
 }
-
+function filterPossible(){
+    var legalPick = false
+    var ksc = false
+    var qsc = false
+    if(turn=="white"){
+        var totalMoves = 0
+        for(a=0; a<8; a++){
+            for(b=0; b<8; b++){
+                if(board[b][a]>0){
+                    legalPick = true
+                    getPossible([a, b], turn, board)
+                    var legalMoves = JSON.parse(JSON.stringify(wPieces[Math.abs(board[b][a])-1].moves))
+                    for(i=0; i<wPieces[board[b][a]-1].moves.length; i++){
+                        wKing = lastWKing
+                        if(wPieces[Math.abs(board[b][a])-1].type=="k"){
+                            wKing = wPieces[Math.abs(board[b][a])-1].moves[i]
+                            if(!wPieces[12].moved){
+                                if(wPieces[12].moves[i]==58){
+                                    qsc = true
+                                }
+                                if(wPieces[12].moves[i]==62){
+                                    ksc = true
+                                }
+                            }
+                        }
+                        var boardCopy = copyBoard(a, b, board[b][a], wPieces[board[b][a]-1].moves[i])
+                        var allPossible = []
+                        for(j=0;j<board.length; j++){
+                            for(k=0; k<board.length; k++){
+                                if(board[j][k]<0){
+                                    allPossible = allPossible.concat(getPossible([k,j], "black", boardCopy))
+                                }
+                            }
+                        }
+                        for(j=0; j<allPossible.length; j++){
+                            if(allPossible[j]==wKing){
+                                legalMoves.splice(legalMoves.indexOf(wPieces[Math.abs(board[b][a])-1].moves[i]), 1)
+                                break
+                            }
+                            if(qsc){
+                                if(allPossible[j]==wqsc[0] || allPossible[j]==wqsc[1] || allPossible[j]==wqsc[2]){
+                                    legalMoves.splice(legalMoves.indexOf(wPieces[Math.abs(board[b][a])-1].moves[i]), 1)
+                                }
+                            }
+                            if(ksc){
+                                if(allPossible[j]==wksc[0] || allPossible[j]==wksc[1] || allPossible[j]==wksc[2]){
+                                    legalMoves.splice(legalMoves.indexOf(wPieces[Math.abs(board[b][a])-1].moves[i]), 1)
+                                }
+                            }
+                        }
+                    }
+                    wPieces[Math.abs(board[b][a])-1].moves = legalMoves
+                    totalMoves+=legalMoves.length
+                }
+            }
+        }
+        if(totalMoves==0){
+            staleOrMate()
+        }
+    }
+    if(turn=="black"){
+        var totalMoves = 0
+        for(a=0; a<8; a++){
+            for(b=0; b<8; b++){
+                if(board[b][a]<0){
+                    legalPick = true
+                    getPossible([a,b], turn, board)
+                    var legalMoves = JSON.parse(JSON.stringify(bPieces[Math.abs(board[b][a])-1].moves))
+                    for(i=0; i<bPieces[Math.abs(board[b][a])-1].moves.length; i++){
+                        bKing = lastBKing
+                        if(bPieces[Math.abs(board[b][a])-1].type=="k"){
+                            bKing = bPieces[Math.abs(board[b][a])-1].moves[i]
+                            if(!bPieces[12].moved){
+                                if(bPieces[12].moves[i]==2){
+                                    qsc = true
+                                }
+                                if(bPieces[12].moves[i]==6){
+                                    ksc = true
+                                }
+                            }
+                        }
+                        var boardCopy = copyBoard(a, b, board[b][a], bPieces[Math.abs(board[b][a])-1].moves[i])
+                        var allPossible = []
+                        for(j=0;j<board.length; j++){
+                            for(k=0; k<board.length; k++){
+                                if(board[j][k]>0){
+                                    allPossible = allPossible.concat(getPossible([k,j], turns[(turncount+1)%2], boardCopy))
+                                }
+                            }
+                        }
+                        for(j=0; j<allPossible.length; j++){
+                            if(allPossible[j]==bKing){
+                                legalMoves.splice(legalMoves.indexOf(bPieces[Math.abs(board[b][a])-1].moves[i]), 1)
+                                break
+                            }
+                            if(qsc){
+                                if(allPossible[j]==bqsc[0] || allPossible[j]==bqsc[1] || allPossible[j]==bqsc[2]){
+                                    legalMoves.splice(legalMoves.indexOf(bPieces[Math.abs(board[b][a])-1].moves[i]), 1)
+                                }
+                            }
+                            if(ksc){
+                                if(allPossible[j]==bksc[0] || allPossible[j]==bksc[1] || allPossible[j]==bksc[2]){
+                                    legalMoves.splice(legalMoves.indexOf(bPieces[Math.abs(board[b][a])-1].moves[i]), 1)
+                                }
+                            }
+                        }
+                    }
+                    bPieces[Math.abs(board[b][a])-1].moves = legalMoves
+                    totalMoves+=legalMoves.length
+                }
+            }
+        }
+        if(totalMoves==0){
+            staleOrMate()
+        }
+    }
+}
+filterPossible()
 //lager et todimansjonalt array som inneholder alle de lovlige trekkene (brukes til å animere muligheter)
 var movesMap = []
 function newMovesMap(id){
@@ -1217,137 +1342,46 @@ var wksc = [60,61,62]
 var wqsc = [58,59,60]
 var bksc = [4,5,6]
 var bqsc = [2,3,4]
+var PX = 0
+var PY = 0
+var boardCopy = []
 function pickPiece(){
+    console.log("pick")
     console.log(wKing, bKing)
-    var legalPick = false
-    var ksc = false
-    var qsc = false
-    if(turn=="white"){
-        if(board[py][px]>0){
-            var totalMoves = 0
-            for(a=0; a<8; a++){
-                for(b=0; b<8; b++){
-                    if(board[b][a]>0){
-                        tileSelected = true
-                        legalPick = true
-                        getPossible([a, b], turn, board)
-                        var legalMoves = JSON.parse(JSON.stringify(wPieces[Math.abs(board[b][a])-1].moves))
-                        for(i=0; i<wPieces[board[b][a]-1].moves.length; i++){
-                            wKing = lastWKing
-                            if(wPieces[Math.abs(board[b][a])-1].type=="k"){
-                                wKing = wPieces[Math.abs(board[b][a])-1].moves[i]
-                                if(!wPieces[12].moved){
-                                    if(wPieces[12].moves[i]==58){
-                                        qsc = true
-                                    }
-                                    if(wPieces[12].moves[i]==62){
-                                        ksc = true
-                                    }
-                                }
-                            }
-                            var boardCopy = copyBoard(a, b, board[b][a], wPieces[board[b][a]-1].moves[i])
-                            var allPossible = []
-                            for(j=0;j<board.length; j++){
-                                for(k=0; k<board.length; k++){
-                                    if(board[j][k]<0){
-                                        allPossible = allPossible.concat(getPossible([k,j], "black", boardCopy))
-                                    }
-                                }
-                            }
-                            for(j=0; j<allPossible.length; j++){
-                                if(allPossible[j]==wKing){
-                                    legalMoves.splice(legalMoves.indexOf(wPieces[Math.abs(board[b][a])-1].moves[i]), 1)
-                                    break
-                                }
-                                if(qsc){
-                                    if(allPossible[j]==wqsc[0] || allPossible[j]==wqsc[1] || allPossible[j]==wqsc[2]){
-                                        legalMoves.splice(legalMoves.indexOf(wPieces[Math.abs(board[b][a])-1].moves[i]), 1)
-                                    }
-                                }
-                                if(ksc){
-                                    if(allPossible[j]==wksc[0] || allPossible[j]==wksc[1] || allPossible[j]==wksc[2]){
-                                        legalMoves.splice(legalMoves.indexOf(wPieces[Math.abs(board[b][a])-1].moves[i]), 1)
-                                    }
-                                }
-                            }
-                        }
-                        wPieces[Math.abs(board[b][a])-1].moves = legalMoves
-                        totalMoves+=legalMoves.length
-                    }
-                }
-            }
-            if(totalMoves==0){
-                staleOrMate()
-            }
-        }
-    }
-    if(turn=="black"){
-        if(board[py][px]<0){
-            var totalMoves = 0
-            for(a=0; a<8; a++){
-                for(b=0; b<8; b++){
-                    if(board[b][a]<0){
-                        tileSelected = true
-                        legalPick = true
-                        getPossible([a,b], turn, board)
-                        var legalMoves = JSON.parse(JSON.stringify(bPieces[Math.abs(board[b][a])-1].moves))
-                        for(i=0; i<bPieces[Math.abs(board[b][a])-1].moves.length; i++){
-                            bKing = lastBKing
-                            if(bPieces[Math.abs(board[b][a])-1].type=="k"){
-                                bKing = bPieces[Math.abs(board[b][a])-1].moves[i]
-                                if(!bPieces[12].moved){
-                                    if(bPieces[12].moves[i]==2){
-                                        qsc = true
-                                    }
-                                    if(bPieces[12].moves[i]==6){
-                                        ksc = true
-                                    }
-                                }
-                            }
-                            var boardCopy = copyBoard(a, b, board[b][a], bPieces[Math.abs(board[b][a])-1].moves[i])
-                            var allPossible = []
-                            for(j=0;j<board.length; j++){
-                                for(k=0; k<board.length; k++){
-                                    if(board[j][k]>0){
-                                        allPossible = allPossible.concat(getPossible([k,j], turns[(turncount+1)%2], boardCopy))
-                                    }
-                                }
-                            }
-                            for(j=0; j<allPossible.length; j++){
-                                if(allPossible[j]==bKing){
-                                    legalMoves.splice(legalMoves.indexOf(bPieces[Math.abs(board[b][a])-1].moves[i]), 1)
-                                    break
-                                }
-                                if(qsc){
-                                    if(allPossible[j]==bqsc[0] || allPossible[j]==bqsc[1] || allPossible[j]==bqsc[2]){
-                                        legalMoves.splice(legalMoves.indexOf(bPieces[Math.abs(board[b][a])-1].moves[i]), 1)
-                                    }
-                                }
-                                if(ksc){
-                                    if(allPossible[j]==bksc[0] || allPossible[j]==bksc[1] || allPossible[j]==bksc[2]){
-                                        legalMoves.splice(legalMoves.indexOf(bPieces[Math.abs(board[b][a])-1].moves[i]), 1)
-                                    }
-                                }
-                            }
-                        }
-                        bPieces[Math.abs(board[b][a])-1].moves = legalMoves
-                        totalMoves+=legalMoves.length
-                    }
-                }
-            }
-            if(totalMoves==0){
-                staleOrMate()
-            }
-        }
-    }
-    if(legalPick){
+    if((turn=="white" && board[py][px]>0) || (turn=="black" && board[py][px]<0)){
         selectedPiece = [board[py][px], py*8+px]
         newMovesMap(Math.abs(board[py][px])-1)
         c.clearRect(0,0,w,h)
         animateOptions()
-        animate()
+        boardCopy = JSON.parse(JSON.stringify(board))
+        boardCopy[py][px] = 0
+        animate(boardCopy)
+        PX = px
+        PY = py
+        tileSelected = true
+        dragPiece()
         window.addEventListener("keydown", cancelChoise)
     }
+}
+function dragPiece(){
+    // console.log(PX, PY)
+    c.clearRect(0,0,w,h)
+    c.drawImage(boardImg,0,0,canvas.width,canvas.height)
+    drawMoves()
+    if(!tileSelected){
+        animate()
+        return
+    }
+    animateOptions()
+    animate(boardCopy)
+    if(turn=="white"){
+        c.drawImage(wImgs[wPieces[board[PY][PX]-1].img], pX, pY, (canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8)
+    }
+    if(turn=="black"){
+        console.log(PX,PY, tileSelected, turn)
+        c.drawImage(bImgs[bPieces[Math.abs(board[PY][PX])-1].img], pX, pY, (canvas.width-canvas.width*0.068)/8, (canvas.width-canvas.width*0.068)/8)
+    }
+    window.requestAnimationFrame(dragPiece)
 }
 
 function staleOrMate(){
@@ -1413,6 +1447,7 @@ function cancelChoise(e){
 
 //sjekker om det valgte trekket er blant de lovlige
 function pickMove(){
+    window.cancelAnimationFrame(dragPiece)
     if(turn=="white"){
         for(i=0; i<wPieces[selectedPiece[0]-1].moves.length; i++){
             if(py*8+px==wPieces[selectedPiece[0]-1].moves[i]){
@@ -1585,6 +1620,7 @@ function movePiece(){
     turncount++
     turn = turns[turncount%2]
     moves.innerHTML = moveList.join(", ")
+    filterPossible()
 }
 
 function calcDifference(){
