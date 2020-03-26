@@ -8,7 +8,8 @@ window.addEventListener("keydown", start)
 function start(e){
     if (e.keyCode === 32){
         e.preventDefault()
-        setTimeout(tegn, 0.1)
+        // setTimeout(tegn, 0.1)
+        tegn()
         //denne linjen gjør så startfunksjonen ikke kjører hver gang man trykker på spacebar
         window.removeEventListener("keydown", start)
     }
