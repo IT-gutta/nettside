@@ -57,7 +57,7 @@ var fX = 10
 var fY = 150
 
 //tyngdeakselerasjonen gitt ved lille g
-var g=0.4
+var g=0.1
 //farten i y-retning er satt til 0 ved start og øker desto lenger spilleren ikke trykker på mellomromstasten
 var fart=0
 
@@ -73,7 +73,7 @@ pipe[0]={
 window.onkeydown = fly
 function fly(e){
     if(e.keyCode === 32){
-        fart=-6
+        fart=-3
         fugleLyd.play()
     }
 }
@@ -100,10 +100,10 @@ function tegn(){
         //her tegnes og flyttes pipene mot venstre
         c.drawImage(pipeNorth, pipe[i].x, pipe[i].y)
         c.drawImage(pipeSouth, pipe[i].x, pipe[i].y+gap)
-        pipe[i].x-=2.5
+        pipe[i].x--
         
         //når pipen har kommet langt nok til venstre på skjermen lages en ny pipe ved å pushe inn en ny i arrayet
-        if(pipe[i].x==100.5){
+        if(pipe[i].x==100){
             pipe.push({
                 x: canvas.width, 
                 y: Math.floor(Math.random()*pipeHoyde)-pipeHoyde
@@ -127,7 +127,7 @@ function tegn(){
         }
             
             //legger til et poeng på score dersom man kommer seg gjennom en pipe
-            if(pipe[i].x==0.5){
+            if(pipe[i].x==5){
                 score++
                 scoreLyd.play()
                 console.log(window.localStorage.getItem("highscore"))
