@@ -1,4 +1,3 @@
-const body = document.querySelector('body')
 const form = document.getElementById('login-form')
 const login_text = document.getElementById('login-text')
 const errors = document.querySelector(".errors")
@@ -77,7 +76,7 @@ form.addEventListener('submit', e=>{
     login_text.value = ""
     return false
 }
-body.removeChild(login_div)
+login_div.parentElement.removeChild(login_div)
 scoreEl.style = "display: block;"
 scoreBoardDiv.style = "display: block;"
   
