@@ -2,12 +2,15 @@ var knappEl = document.getElementById("knapp")
 var inputEl = document.getElementById("navn")
 var p = document.getElementById("p")
 
-knappEl.onclick = function(){
-    //om siden ikke finner et lagret navn må du skrive inn navnet ditt, hvis ikke blir du sendt til spillet
+
+window.onload = function(){//om siden ikke finner et lagret navn må du skrive inn navnet ditt, hvis ikke blir du sendt til spillet
     if(window.localStorage.getItem("name") != null){
         location.href = "index.html"
     }
-    else{
+}
+
+knappEl.onclick = function(){
+    
         if(inputEl.value == ""){
             p.innerHTML = "Du må skrive inn navnet ditt for å spille"
         }
@@ -17,4 +20,3 @@ knappEl.onclick = function(){
             location.href = "index.html"
         }
     }
-}
