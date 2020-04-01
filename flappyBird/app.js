@@ -130,7 +130,6 @@ function tegn(){
             if(pipe[i].x==5){
                 score++
                 scoreLyd.play()
-                console.log(window.localStorage.getItem("highscore"))
             }
             
         }
