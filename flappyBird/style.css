@@ -6,7 +6,7 @@
 }
 
 #container{
-    display:flex;
+    display:none;
     flex-direction: column;
     align-items: center;
 }
@@ -65,4 +65,12 @@ body{
     100%{
         transform: scale(1);
     }
+}
+
+#intro{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 20%;
 }
