@@ -9,7 +9,7 @@ function start(e){
     if (e.keyCode === 32){
         e.preventDefault()
         // setTimeout(tegn, 0.1)
-        requestAnimationFrame(tegn)
+        tegn()
         //denne linjen gjør så startfunksjonen ikke kjører hver gang man trykker på spacebar
         window.removeEventListener("keydown", start)
     }
@@ -94,7 +94,6 @@ highscoreEl.innerHTML += "<br>"+ window.localStorage.getItem("name") + ": "+ win
 
 //hovedfunksjonen i koden
 function tegn(){
-    requestAnimationFrame(tegn)
     c.drawImage(bg,0,0)
     
     for(var i=0;i<pipe.length;i++){
@@ -148,6 +147,7 @@ function tegn(){
     c.fillStyle = "#000"
     c.font = "20px Helvetica"
     c.fillText("Score: "+score, 15,canvas.height-20)
+    requestAnimationFrame(tegn)
 }
 
 
