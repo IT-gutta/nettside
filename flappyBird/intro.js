@@ -4,7 +4,7 @@ var p = document.getElementById("p")
 var form = document.querySelector("form")
 
 form.onsubmit = function(){
-    location.href = "index.html"
+    // location.href = "index.html"
     //om siden ikke finner et lagret navn må du skrive inn navnet ditt, hvis ikke blir du sendt til spillet
     if(window.localStorage.getItem("name") != null){
         location.href = "index.html"
