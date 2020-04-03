@@ -8,7 +8,6 @@ window.addEventListener("keydown", start)
 function start(e){
     if (e.keyCode === 32){
         e.preventDefault()
-        // setTimeout(tegn, 0.1)
         tegn()
         //denne linjen gjør så startfunksjonen ikke kjører hver gang man trykker på spacebar
         window.removeEventListener("keydown", start)
@@ -94,6 +93,8 @@ highscoreEl.innerHTML += "<br>"+ window.localStorage.getItem("name") + ": "+ win
 
 //hovedfunksjonen i koden
 function tegn(){
+    //setter hele funksjonen inni en setTimeout for å animere.
+    setTimeout(function(){
     c.drawImage(bg,0,0)
     
     for(var i=0;i<pipe.length;i++){
@@ -147,7 +148,9 @@ function tegn(){
     c.fillStyle = "#000"
     c.font = "20px Helvetica"
     c.fillText("Score: "+score, 15,canvas.height-20)
-    requestAnimationFrame(tegn)
+    tegn()
+}
+,1000/200) //her er slutten på setTimeout. 1000/200 betyr at jeg vil at den skal oppdatere seg 200 ganger per 1000 millisekunder altså 200 ganger i sekundet
 }
 
 
