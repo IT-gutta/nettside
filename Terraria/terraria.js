@@ -31,6 +31,7 @@ player_left.src="player_left.png"
 var player_right = new Image()
 player_right.src="player_right.png"
 var player = {x:28, y:8, direction:"left", moving:false, falling:false, vx:0, vy:0, img:player_left, imgCount:0}
+var controller = {left:false, right:false }
 var grass = new Image()
 grass.src="grass.png"
 var dirt = new Image()
@@ -72,16 +73,14 @@ function keysD(e){
     if(e.keyCode==37){
         player.direction = "left"
         player.img = player_left
-        // if(!player.falling){
-            player.moving = true
-        // }
+        player.moving = true
+        controller.left = true
     }
     if(e.keyCode==39){
         player.direction = "right"
         player.img = player_right
-        // if(!player.falling){
-            player.moving = true
-        // }
+        player.moving = true
+        controller.right = true
     }
     if(e.keyCode==32){
         if(!player.falling){
@@ -93,10 +92,16 @@ function keysD(e){
 window.addEventListener("keyup", keysU)
 function keysU(e){
     if(e.keyCode==37){
-        player.moving = false
+        if(!controller.right){
+            player.moving = false
+        }
+        controller.left = false
     }
     if(e.keyCode==39){
-        player.moving = false
+        if(!controller.left){
+            player.moving = false
+        }
+        controller.right = false
     }
 }
 
