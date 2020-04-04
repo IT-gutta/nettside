@@ -30,27 +30,35 @@ var player_left = new Image()
 player_left.src="player_left.png"
 var player_right = new Image()
 player_right.src="player_right.png"
-var player = {x:28, y:8, direction:"left", moving:false, falling:false, vx:0, vy:0, img:player_left, imgCount:0}
 var controller = {left:false, right:false }
-var grass = new Image()
-grass.src="grass.png"
-var dirt = new Image()
-dirt.src="dirt.png"
-var log = new Image()
-log.src="log.png"
-var leaves = new Image()
-leaves.src="leaves.png"
-var stone = new Image()
-stone.src="stone.png"
-var coal_ore = new Image()
-coal_ore.src="coal_ore.png"
-var iron_ore = new Image()
-iron_ore.src="iron_ore.png"
+var grassImg = new Image()
+grassImg.src="grass.png"
+var dirtImg = new Image()
+dirtImg.src="dirt.png"
+var logImg = new Image()
+logImg.src="log.png"
+var leavesImg = new Image()
+leavesImg.src="leaves.png"
+var stoneImg = new Image()
+stoneImg.src="stone.png"
+var coal_oreImg = new Image()
+coal_oreImg.src="coal_ore.png"
+var iron_oreImg = new Image()
+iron_oreImg.src="iron_ore.png"
 var sky = new Image()
 sky.src="sky.png"
-var imgs = [stone, log, leaves, coal_ore, grass, iron_ore, dirt]
+var imgs = [stoneImg, logImg, leavesImg, coal_oreImg, grassImg, iron_oreImg, dirtImg]
+class Block{
+    constructor(value, tool, img){
+        this.value = value
+        this.tool = tool
+        this.img = img
+    }
+}
+var stone = new Block(0, "pickaxe", stoneImg)
 
-
+var player = {x:28, y:8, direction:"left", moving:false, falling:false, vx:0, vy:0, img:player_left, imgCount:0, inventory:[0,0,0,0,0]}
+player.inventory[0] = [5, stone]
 window.onload = function(){
    draw()
 }
@@ -66,6 +74,13 @@ function draw(){
         }
     }
     c.drawImage(player.img, player.x*32, player.y*32, 32, 64)
+}
+
+var px = 0
+var py = 0
+window.onmousemove = function(e){
+    px = e.clientX - (w-canvas.width)/2
+    py = e.clientY - (h-canvas.width)/2
 }
 
 window.addEventListener("keydown", keysD)
@@ -104,10 +119,20 @@ function keysU(e){
         controller.right = false
     }
 }
+var selectedInventoryIndex = 0
+window.addEventListener("mousedown", click)
+function click(e){
+    console.log(e.button)
+    if(e.button.value==2){
+        if(player.inventory[selectedInventoryIndex]!=0){
+        }
+    }
+}
 
 const collisionPrec = 10
 const g = 0.00004
 function update(){
+    //movement og collision
     if(player.moving){
         if(player.direction=="left"){
             player.vx = -0.005
@@ -118,13 +143,31 @@ function update(){
     }
     else{
         if(player.falling){
-            player.vx-=player.vx/1000
+            player.vx-=player.vx/200
         }
         else{
             player.vx = 0
         }
     }
+    if(player.vx>0){
+        if(map[Math.floor(player.y+20/64)][Math.floor(player.x+1-7/32)]!=9 || map[Math.floor(player.y+1+20/64)][Math.floor(player.x+1-7/32)]!=9 || map[Math.floor(player.y+1.99)][Math.floor(player.x+1-7/32)]!=9){
+            player.vx = 0
+        }
+    }
+    if(player.vx<0){
+        if(map[Math.floor(player.y+20/64)][Math.floor(player.x+7/32)]!=9 || map[Math.floor(player.y+1+20/64)][Math.floor(player.x+7/32)]!=9 || map[Math.floor(player.y+1.99)][Math.floor(player.x+7/32)]!=9){
+            player.vx = 0
+        }
+    }
+    if(player.vy<0){
+        if(map[Math.floor(player.y+20/64)][Math.floor(player.x+7/32)]!=9 || map[Math.floor(player.y+20/64)][Math.floor(player.x+1-7/32)]!=9){
+            player.vy = 0
+        }
+    }
     player.x+=player.vx
+    if(map[Math.round(player.y+2)][Math.floor(player.x+9/32)]==9 && map[Math.round(player.y+2)][Math.floor(player.x+1-9/32)]==9){
+        player.falling = true
+    }
     if(player.falling){
         if(map[Math.floor(player.y+2)][Math.round(player.x)]!=9 && player.vy>0){
             player.falling = false
@@ -135,6 +178,7 @@ function update(){
             player.vy+=g
         }
     }
+
 }
 function loop(){
     for(i=0; i<collisionPrec; i++){
