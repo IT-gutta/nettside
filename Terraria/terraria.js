@@ -72,16 +72,16 @@ function keysD(e){
     if(e.keyCode==37){
         player.direction = "left"
         player.img = player_left
-        if(!player.falling){
+        // if(!player.falling){
             player.moving = true
-        }
+        // }
     }
     if(e.keyCode==39){
         player.direction = "right"
         player.img = player_right
-        if(!player.falling){
+        // if(!player.falling){
             player.moving = true
-        }
+        // }
     }
     if(e.keyCode==32){
         if(!player.falling){
@@ -116,7 +116,7 @@ function update(){
             player.vx-=player.vx/1000
         }
         else{
-            player.vx = 0/10
+            player.vx = 0
         }
     }
     player.x+=player.vx
