@@ -48,7 +48,8 @@ var map = [
     [0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
 ]
 var player_left = new Image()
 player_left.src="player_left.png"
@@ -77,9 +78,11 @@ var coal_oreImg = new Image()
 coal_oreImg.src="coal_ore.png"
 var iron_oreImg = new Image()
 iron_oreImg.src="iron_ore.png"
+var bedrockImg = new Image()
+bedrockImg.src="bedrock.png"
 var sky = new Image()
 sky.src="sky.png"
-var imgs = [stoneImg, logImg, leavesImg, coal_oreImg, grassImg, iron_oreImg, dirtImg]
+var imgs = [stoneImg, logImg, leavesImg, coal_oreImg, grassImg, iron_oreImg, dirtImg, bedrockImg]
 class Block{
     constructor(value, tool, img){
         this.value = value
@@ -88,6 +91,16 @@ class Block{
     }
 }
 var stone = new Block(0, "pickaxe", stoneImg)
+var log = new Block(1, "axe", logImg)
+var leaves = new Block(2, "axe", leavesImg)
+var coal_ore = new Block(3, "pickaxe", coal_oreImg)
+var grass = new Block(4, "shovel", grassImg)
+var iron_ore = new Block(5, "pickaxe", iron_oreImg)
+var dirt = new Block(6, "pickaxe", dirtImg)
+var bedrock = new Block(7, "none", bedrockImg)
+
+var blocks = [stone, log, leaves, coal_ore, grass, iron_ore, dirt, bedrock]
+
 var movingLeftImgs = [player_left, player_left_walking_1, player_left, player_left_walking_2]
 var movingRightImgs = [player_right, player_right_walking_1, player_right, player_right_walking_2]
 var player = {x:15, y:0, direction:"left", moving:false, falling:false, vx:0, vy:0, img:player_left, imgCount:0, inventory:[[0, undefined]]}
@@ -106,7 +119,7 @@ function draw(){
             if(j<0) continue
             if(j>=map[i].length) break
             if(map[i][j]!=9){
-                c.drawImage(imgs[map[i][j]], canvas.width/2 + 32*(j-player.x-7/32), canvas.height/2 + 32*(i-player.y-32/64), 32, 32)
+                c.drawImage(blocks[map[i][j]].img, canvas.width/2 + 32*(j-player.x-7/32), canvas.height/2 + 32*(i-player.y-32/64), 32, 32)
             }
         }
     }
@@ -119,6 +132,8 @@ var py = 0
 window.onmousemove = function(e){
     px = Math.round(player.x + (e.clientX - canvas.width/2)/32)
     py = Math.round(player.y + (e.clientY - canvas.height/2)/32)
+    PX = player.x + (e.clientX - canvas.width/2)/32
+    PY = player.y + (e.clientY - canvas.height/2)/32
 }
 
 window.addEventListener("keydown", keysD)
@@ -160,16 +175,43 @@ function keysU(e){
 var selectedInventoryIndex = 0
 window.addEventListener("mousedown", click)
 function click(e){
-    console.log(e.button)
     if(e.button==2){
-        console.log(px, py)
         if(player.inventory[selectedInventoryIndex][0]!=0){
-            map[py][px] = player.inventory[selectedInventoryIndex][1].value
+            if(map[py][px]==9){
+                if(map[py+1][px]!=9 || map[py-1][px]!=9 || map[py][px+1]!=9 || map[py][px-1]!=9){
+                    if(Math.sqrt(Math.pow(player.x+1-7/32 - PX, 2) + Math.pow(player.y+16/32 - PY, 2))<=5){
+                        if(sight(map, [player.x+0.5, player.y+1], [PX, PY])){
+                            map[py][px] = player.inventory[selectedInventoryIndex][1].value
+                        }
+                    }
+                }
+            }           
         }
     }
     if(e.button==0){
         map[py][px] = 9
     }
+}
+
+function sight(map, pPos, mPos){
+    var a = (mPos[1]-pPos[1])/(mPos[0]-pPos[0])
+    for(x=pPos[0]; x<mPos[0]; x+=0.01){
+        if(Math.floor(pPos[1]+(x-pPos[0])*a)==py && Math.floor(x)==px){
+            return true
+        }
+        if(map[Math.floor(pPos[1]+(x-pPos[0])*a)][Math.floor(x)]!=9){
+            return false
+        }
+    }
+    for(x=pPos[0]; x>mPos[0]; x-=0.01){
+        if(Math.floor(pPos[1]+(x-pPos[0])*a)==py && Math.floor(x)==px){
+            return true
+        }
+        if(map[Math.floor(pPos[1]+(x-pPos[0])*a)][Math.floor(x)]!=9){
+            return false
+        }
+    }
+    return true
 }
 
 const collisionPrec = 10
