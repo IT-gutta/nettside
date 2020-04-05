@@ -133,7 +133,7 @@ var px = 0
 var py = 0
 window.onmousemove = function(e){
     px = Math.round(player.x - 7/32 + (e.clientX - canvas.width/2)/32)
-    py = Math.round(player.y - 7/32 + (e.clientY - canvas.height/2)/32)
+    py = Math.round(player.y + (e.clientY - canvas.height/2)/32)
     //adda nøyaktig posisjon til musa
     PX = player.x + (e.clientX - canvas.width/2)/32
     PY = player.y + (e.clientY - canvas.height/2)/32
