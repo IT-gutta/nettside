@@ -1,5 +1,6 @@
 var canvas = document.querySelector("canvas")
 var c = canvas.getContext("2d")
+//ednra til fullscreen
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 var w = window.innerWidth
@@ -51,6 +52,7 @@ var map = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7]
 ]
+//adda walking-animations
 var player_left = new Image()
 player_left.src="player_left.png"
 var player_left_walking_1 = new Image()
@@ -82,6 +84,7 @@ var bedrockImg = new Image()
 bedrockImg.src="bedrock.png"
 var sky = new Image()
 sky.src="sky.png"
+//lagt inn flere blokker og adda img for bedrock
 var imgs = [stoneImg, logImg, leavesImg, coal_oreImg, grassImg, iron_oreImg, dirtImg, bedrockImg]
 class Block{
     constructor(value, tool, img){
@@ -100,7 +103,7 @@ var dirt = new Block(6, "pickaxe", dirtImg)
 var bedrock = new Block(7, "none", bedrockImg)
 
 var blocks = [stone, log, leaves, coal_ore, grass, iron_ore, dirt, bedrock]
-
+//walking
 var movingLeftImgs = [player_left, player_left_walking_1, player_left, player_left_walking_2]
 var movingRightImgs = [player_right, player_right_walking_1, player_right, player_right_walking_2]
 var player = {x:15, y:0, direction:"left", moving:false, falling:false, vx:0, vy:0, img:player_left, imgCount:0, inventory:[[0, undefined]]}
@@ -108,7 +111,7 @@ player.inventory[0] = [5, stone]
 window.onload = function(){
    draw()
 }
-
+//endra draw for å få spilleren i midten av canvaset
 function draw(){
     c.clearRect(0,0,w,h)
     c.drawImage(sky, 0, 0, w, h)
@@ -123,7 +126,6 @@ function draw(){
             }
         }
     }
-    // c.drawImage(player.img, player.x*32, player.y*32, 32, 64)
     c.drawImage(player.img, (canvas.width-16)/2, (canvas.height-32)/2, 32, 64)
 }
 
@@ -132,6 +134,7 @@ var py = 0
 window.onmousemove = function(e){
     px = Math.round(player.x + (e.clientX - canvas.width/2)/32)
     py = Math.round(player.y + (e.clientY - canvas.height/2)/32)
+    //adda nøyaktig posisjon til musa
     PX = player.x + (e.clientX - canvas.width/2)/32
     PY = player.y + (e.clientY - canvas.height/2)/32
 }
@@ -175,13 +178,16 @@ function keysU(e){
 var selectedInventoryIndex = 0
 window.addEventListener("mousedown", click)
 function click(e){
+    //høyreklikk, sjekker om man kan sette ut blokk
     if(e.button==2){
         if(player.inventory[selectedInventoryIndex][0]!=0){
             if(map[py][px]==9){
-                if(map[py+1][px]!=9 || map[py-1][px]!=9 || map[py][px+1]!=9 || map[py][px-1]!=9){
-                    if(Math.sqrt(Math.pow(player.x+1-7/32 - PX, 2) + Math.pow(player.y+16/32 - PY, 2))<=5){
-                        if(sight(map, [player.x+0.5, player.y+1], [PX, PY])){
-                            map[py][px] = player.inventory[selectedInventoryIndex][1].value
+                if(px!=player.x || (py!=player.y && py!=player.y+1)){
+                    if(map[py+1][px]!=9 || map[py-1][px]!=9 || map[py][px+1]!=9 || map[py][px-1]!=9){
+                        if(Math.sqrt(Math.pow(player.x+1-7/32 - PX, 2) + Math.pow(player.y+16/32 - PY, 2))<=5){
+                            if(sight(map, [player.x+0.5, player.y+1], [PX, PY])){
+                                map[py][px] = player.inventory[selectedInventoryIndex][1].value
+                            }
                         }
                     }
                 }
@@ -193,6 +199,7 @@ function click(e){
     }
 }
 
+//sjekker om man kan se en blokk
 function sight(map, pPos, mPos){
     var a = (mPos[1]-pPos[1])/(mPos[0]-pPos[0])
     for(x=pPos[0]; x<mPos[0]; x+=0.01){
@@ -259,6 +266,7 @@ function update(){
     if(player.falling){
         if(map[Math.floor(player.y+2)][Math.round(player.x)]!=9 && player.vy>0){
             player.falling = false
+            //fikser at man setter seg fast i bakken
             player.y = Math.round(player.y)
             player.vy = 0
         }
