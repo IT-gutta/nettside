@@ -1,7 +1,7 @@
 var canvas = document.querySelector("canvas")
 var c = canvas.getContext("2d")
-canvas.width = 1280
-canvas.height = 640
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 var w = window.innerWidth
 var h = window.innerHeight
 var map = [
@@ -90,7 +90,7 @@ class Block{
 var stone = new Block(0, "pickaxe", stoneImg)
 var movingLeftImgs = [player_left, player_left_walking_1, player_left, player_left_walking_2]
 var movingRightImgs = [player_right, player_right_walking_1, player_right, player_right_walking_2]
-var player = {x:15, y:0, direction:"left", moving:false, falling:false, vx:0, vy:0, img:player_left, imgCount:0, inventory:[0,0,0,0,0]}
+var player = {x:15, y:0, direction:"left", moving:false, falling:false, vx:0, vy:0, img:player_left, imgCount:0, inventory:[[0, undefined]]}
 player.inventory[0] = [5, stone]
 window.onload = function(){
    draw()
@@ -98,7 +98,7 @@ window.onload = function(){
 
 function draw(){
     c.clearRect(0,0,w,h)
-    c.drawImage(sky, 0, 0)
+    c.drawImage(sky, 0, 0, w, h)
     for(i=Math.floor(player.y - 32/64 - canvas.height/64)-1; i<Math.ceil(player.y - 32/64 + canvas.height/64)+1; i++){
         if(i<0) continue
         if(i>=map.length) break
@@ -117,8 +117,8 @@ function draw(){
 var px = 0
 var py = 0
 window.onmousemove = function(e){
-    px = e.clientX - (w-canvas.width)/2
-    py = e.clientY - (h-canvas.width)/2
+    px = Math.round(player.x + (e.clientX - canvas.width/2)/32)
+    py = Math.round(player.y + (e.clientY - canvas.height/2)/32)
 }
 
 window.addEventListener("keydown", keysD)
@@ -161,9 +161,14 @@ var selectedInventoryIndex = 0
 window.addEventListener("mousedown", click)
 function click(e){
     console.log(e.button)
-    if(e.button.value==2){
-        if(player.inventory[selectedInventoryIndex]!=0){
+    if(e.button==2){
+        console.log(px, py)
+        if(player.inventory[selectedInventoryIndex][0]!=0){
+            map[py][px] = player.inventory[selectedInventoryIndex][1].value
         }
+    }
+    if(e.button==0){
+        map[py][px] = 9
     }
 }
 
