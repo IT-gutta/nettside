@@ -239,15 +239,6 @@ function draw() {
  for(var i = 0; i<tileArr.length; i++){
     tileArr[i].draw()
 
-// if(isCollidingRect(player, tileArr[i])){
-//   switch (tileArr[i].num){
-//     case 2: if(player.beforeBottom < player.sides.bottom && player.beforeBottom<tileArr[i].sides.top+0.5 && !keyIsDown(16)) { player.pos.y = tileArr[i].sides.top - player.h-0.1;  player.vel.y=0; player.jumping = false; }
-//     case 1: if(!keyIsDown(16) && player.vel.y>-5){player.vel.y-=2}; console.log("VANN")
-//     case 8: player.sprite = playerGul; console.log("TREFFER GUL")
-//     case 9: if(player.sprite == playerGul){nextMap(); console.log("NESTE BANE")}
-//
-//   }
-// }
 
 
  if(isCollidingRect(player, tileArr[i])){
