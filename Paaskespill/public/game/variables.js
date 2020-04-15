@@ -2,7 +2,7 @@ const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
 const form = document.querySelector('form')
 const textField = document.getElementById('textField')
-const socket = io.connect('172.105.65.55')
+const socket = io.connect('172.105.65.55:3000')
 let playerID
 
 
