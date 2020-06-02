@@ -46,7 +46,7 @@ var pipeBredde = 52
 var fuglHoyde = 26
 var fuglBredde = 38
 var fgHoyde = 118
-var gapConst = 90
+var gapConst = 110
 var gap = pipeHoyde + gapConst
 
 var score = 0
