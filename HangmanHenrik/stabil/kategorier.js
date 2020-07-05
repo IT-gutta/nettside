@@ -14,11 +14,11 @@ var score = 0;
 
 
 var løsningsord = {
-  musikkArr: [
-  ["Tuba", "Gitar", "Piano", "Note", "Tromme"],
-  ["Fløyte", "Blokkfløyte", "Klarinett", "Bassgitar", "Toneart"],
-  ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton", "Bongotromme", "Lutt"]
-],
+//   musikkArr: [
+//   ["Tuba", "Gitar", "Piano", "Note", "Tromme"],
+//   ["Fløyte", "Blokkfløyte", "Klarinett", "Bassgitar", "Toneart"],
+//   ["Valthorn", "Tverrfløyte", "Trekkbasun", "Bariton", "Bongotromme", "Lutt"]
+// ],
 
   sportArr: [
   ["Fotball", "Håndball", "Tennis", "Friidrett", "håndball"],
@@ -351,7 +351,7 @@ function vanskF(grad, nummer) {
   })
 }
 
-katF(musikk, løsningsord.musikkArr)
+// katF(musikk, løsningsord.musikkArr)
 katF(sport, løsningsord.sportArr)
 katF(artist, løsningsord.artistArr)
 katF(blandet, løsningsord.blandetArr)
