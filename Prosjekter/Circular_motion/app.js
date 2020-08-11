@@ -1,7 +1,7 @@
 var canvas= document.getElementById('canvas');
 var c= canvas.getContext("2d");
-canvas.width= window.innerWidth-40;
-canvas.height= window.innerHeight-40;
+canvas.width= window.innerWidth;
+canvas.height= window.innerHeight;
 
 function Circle(x, y, r, r2, radians, f){
   this.x = x,
